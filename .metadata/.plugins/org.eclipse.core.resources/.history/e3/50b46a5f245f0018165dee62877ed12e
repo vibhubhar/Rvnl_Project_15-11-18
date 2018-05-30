@@ -1,0 +1,1158 @@
+var xmlHttp;
+
+var doc;
+
+function approved(docid,added_by1,clevel) {	
+	//alert("hello");
+	var added_by = encodeURIComponent(added_by1);
+	//var level=document.getElementById("C_Level").value ; 
+	//alert("level:"+level);
+	//var txtid=docid+'txt';
+	//var remarks=document.getElementById("txtid");	
+	//alert("hello");
+//		document.Apprwfl.Action.value = "approved";
+//		document.Apprwfl.Doc_Id.value = docid;
+//		document.Apprwfl.AddedBy.value = added_by;
+//		document.Apprwfl.Stage.value = "actioned";
+//		document.getElementById("Apprwfl").submit();
+	var url="ApprovePopup.jsp?doc_id="+docid+"&added_by="+added_by+"&C_Level="+clevel;
+	window.open(url,this.target, 
+		       'width=500,height=500,scrollbars=no,top=500px,left=500px');
+	}
+	
+function approvedpopup(docid,added_by,clevel) {	
+	//alert("hello");
+
+	//var level=document.getElementById("C_Level").value ; 
+	//alert("level:"+level);
+	//var txtid=docid+'txt';
+	//var remarks=document.getElementById("txtid");	
+	//alert("hello");
+		document.approve_pop.Action.value = "approved";
+		document.approve_pop.Doc_Id.value = docid;
+		document.approve_pop.AddedBy.value = added_by;
+		document.approve_pop.C_Level.value = clevel;
+		
+		
+		var rates = document.getElementsByName('Approval');
+		var rate_value;
+		for(var i = 0; i < rates.length; i++){
+		    if(rates[i].checked){
+		        rate_value = rates[i].value;
+		    }
+		}
+		var remarks;
+		
+
+		
+		//var check,remarks;
+		//if (document.getElementById('Approval').checked) {
+			//check = document.getElementById('Approval').value;
+			//alert(check);
+			//if(check=='1'){
+				
+				//remarks=document.getElementById('remark').value
+			//}
+			//}
+		document.approve_pop.remarks.value =remarks;
+		document.approve_pop.checkedval.value =rate_value;
+		document.getElementById("approve_pop").submit();
+	
+	}
+	
+function returnedpopup(docid,requested_by,clevel) {	
+	//alert("hello");
+
+	//var level=document.getElementById("C_Level").value ; 
+	//alert("level:"+level);
+	//var txtid=docid+'txt';
+	//var remarks=document.getElementById("txtid");	
+	//alert("hello");
+		document.return_pop.Action.value = "returned";
+		document.return_pop.Doc_Id.value = docid;
+		document.return_pop.requested_by.value = requested_by;
+		//document.return_pop.C_Level.value = clevel;
+		
+		
+		var rates = document.getElementsByName('Returns');
+		var rate_value;
+		for(var i = 0; i < rates.length; i++){
+		    if(rates[i].checked){
+		        rate_value = rates[i].value;
+		    }
+		}
+		var remarks;
+		
+
+		
+		//var check,remarks;
+		//if (document.getElementById('Approval').checked) {
+			//check = document.getElementById('Approval').value;
+			//alert(check);
+			//if(check=='1'){
+				
+				//remarks=document.getElementById('remark').value
+			//}
+			//}
+		document.return_pop.remarks.value =remarks;
+		document.return_pop.checkedval.value =rate_value;
+		document.getElementById("return_pop").submit();
+	
+	}
+
+function info(docid,requested_by,doc_no) {
+	
+	document.Apprwfl.Action.value = "moreInfo";
+	document.Apprwfl.Doc_Id.value = docid;
+	document.Apprwfl.Doc_no.value = doc_no;
+	document.Apprwfl.RequestedBy.value = requested_by;
+	document.Apprwfl.Stage.value = "actioned";
+	document.getElementById("Apprwfl").submit();
+	
+	
+}
+function rejected(docid) {
+	
+	document.Apprwfl.Action.value = "rejected";
+	document.Apprwfl.Doc_Id.value = docid;
+	document.Apprwfl.Stage.value = "actioned";
+	document.getElementById("Apprwfl").submit();
+		
+}
+
+function info(docid,requested_by,doc_no) {
+	
+	document.Apprwfl.Action.value = "moreInfo";
+	document.Apprwfl.Doc_Id.value = docid;
+	document.Apprwfl.Doc_no.value = doc_no;
+	document.Apprwfl.RequestedBy.value = requested_by;
+	document.Apprwfl.Stage.value = "actioned";
+	document.getElementById("Apprwfl").submit();
+	
+	
+}
+
+function lforward(docid,requested_by,doc_no,user,division,action) {
+
+		var dateid="ApprovalDate"+docid;
+		 var Approvaldate = document.getElementById(dateid).value;
+		 jQuery.noConflict();
+		 if(action=="Forward With Approval"){
+			 var dialogid="#dialog"+docid;
+			 
+			 $(dialogid).dialog({
+	             modal: true,
+	             autoOpen: false,
+	             title: "Document Confirmation",
+	             width: 400,
+	             height: 200
+	         });
+			 
+			  $(dialogid).dialog('open');
+			 
+		 }else{
+			 
+			 var dialogid="#dialognt"+docid;
+			 
+			 $(dialogid).dialog({
+	             modal: true,
+	             autoOpen: false,
+	             title: "Document Confirmation",
+	             width: 400,
+	             height: 200
+	         });
+			 $(dialogid).dialog('open');
+			 
+		 }
+		
+
+	} 
+
+
+function lforward2nd(docid,requested_by1,doc_no1,user1,division1,action){
+	var requested_by = encodeURIComponent(requested_by1);
+	var doc_no = encodeURIComponent(doc_no1);
+	var user = encodeURIComponent(user1);
+	var division = encodeURIComponent(division1);
+	var dateid="ApprovalDate"+docid;
+	 var Approvaldate = document.getElementById(dateid).value;
+	 var dialogid="#dialog"+docid;
+	 var dialogidd="#dialognt"+docid;
+	 //alert("1991pkk"+docid+dialogid+dialogidd+requested_by+doc_no+user+division+action+$(dialogid).is(':visible')+$(dialogidd).is(':visible'));
+	 
+	 if ($(dialogid).is(':visible') === true) {
+	 $(dialogid).dialog('close');
+	 } 
+	 if ($(dialogidd).is(':visible') === true) {
+		 
+	 $(dialogidd).dialog('close');
+	 }
+	// alert("22"+docid+dialogid+dialogidd+requested_by+doc_no+user+division+action);
+
+	 if (isEmpty(Approvaldate)) {
+		  $(function () {
+	        	jQuery.noConflict();
+	            $("#dapprovaldate").dialog({
+	                modal: true,
+	                autoOpen: false,
+	                title: "Document Confirmation",
+	                width: 400,
+	                height: 200
+	            });
+	            $("#appok").click(function () {
+	                
+	            });
+	        });
+		  $('#dapprovaldate').dialog('open');
+			return false;
+		} else{
+			
+//alert("33pk1"+docid+requested_by+doc_no+user+division);
+if(action=="Forward With Approval"){
+	 $("#Apprwfl :input").prop('disabled', true);
+	var url="Forward_MOR_Approval.jsp?Doc_Id="+docid+"&RequestedBy="+requested_by+"&Doc_no="+doc_no+"&usern="+user+"&division="+division+"&action="+action+"&approvalDate="+Approvaldate+"&winid="+window.id;
+	var win=window.open(url,"pk100", 'width=500,height=500,scrollbars=1,top=500px,left=500px');
+}else{
+	// alert("444"+docid+dialogid+dialogidd+requested_by+doc_no+user+division+action);
+	 $("#Apprwfl :input").prop('disabled', true);
+    var url="Forward_MOR_Approval.jsp?Doc_Id="+docid+"&RequestedBy="+requested_by+"&Doc_no="+doc_no+"&usern="+user+"&division="+division+"&action="+action+"&approvalDate="+Approvaldate+"&winid="+window.id;
+  var win =window.open(url,"pk100",'width=500,height=500,scrollbars=1,top=500px,left=500px');
+}
+		}
+}
+	
+//}
+function Zforward(docid,requested_by1,doc_no1,user1) {
+	var requested_by = encodeURIComponent(requested_by1);
+	var doc_no = encodeURIComponent(doc_no1);
+	var user = encodeURIComponent(user1);
+	//	document.Apprwfl.Doc_Id.value = docid;
+//	document.Apprwfl.Doc_no.value = doc_no;
+//	document.Apprwfl.RequestedBy.value = requested_by;
+//	document.Apprwfl.Stage.value = "forwardto";
+//	document.Apprwfl.usern.value=user;
+//	document.getElementById("Apprwfl").submit();
+	var url="Forward_MOR.jsp?Doc_Id="+docid+"&RequestedBy="+requested_by+"&Doc_no="+doc_no+"&usern="+user;
+	window.open(url,this.target, 
+		       'width=500,height=500,scrollbars=no,top=500px,left=500px');
+	
+}
+
+function sendDocument(doc_id) {
+	document.MoreInfo.Document_id.value = doc_id;
+	document.MoreInfo.Stage.value = "first";
+	document.getElementById("MoreInfo").submit();
+} 
+
+function moreinfosub(info){
+			
+		document.getElementById("moresubmit").submit();
+		return true;
+		}	
+
+function Submit(doc_id,usern,indx,action,approvalDate){
+
+	var name="projectinCharge"+indx;
+	jQuery.noConflict();
+	var Fuser1="";
+	var Fuser="0";
+	var radios = document.getElementsByName('userid');
+
+	for (var i = 0, length = radios.length; i < length; i++) {
+	    if (radios[i].checked) {
+	        
+	    	Fuser=radios[i].value;
+
+	        break;     
+	    }
+	}
+	 	
+    	var userid = document.getElementById("usrids");
+    	
+    	Fuser1 = userid.options[ userid.selectedIndex ].value;	
+    	//alert(Fuser1);
+    //alert("fuser='"+Fuser+"'");
+	 //alert("fuser1="+Fuser1);
+	 if(Fuser=="0" && Fuser1=="abc") {
+    	
+    
+    		//alert("sadj");
+		 var dialogid="#dialogid";
+		 
+		 $(dialogid).dialog({
+             modal: true,
+             autoOpen: false,
+             title: "Alert",
+             width: 400,
+             height: 200
+         });
+		 
+		  $(dialogid).dialog('open');
+    } 
+	 if(Fuser1 !="abc" )
+	 {
+		// alert("fuser 1 value----"+Fuser1);
+		 document.Forward.usern.value = usern;
+	    	document.Forward.docid.value = doc_id;
+	    	document.Forward.touser.value = Fuser1;
+	    	document.Forward.action.value = action;
+	    	document.Forward.approvalDate.value=approvalDate;
+	    	document.Forward.finalsubmited.value = "abc";
+	    	document.Forward.submited.value = "true";
+	    	document.getElementById("Forward").submit();
+	   
+		 
+	 }
+	 else if(Fuser!="0" && Fuser1=="abc"){
+		 //alert("printing both the values---"+Fuser+"second fuser1 ---"+Fuser1);
+    	//alert(Fuser);
+	document.Forward.usern.value = usern;
+	document.Forward.docid.value = doc_id;
+	document.Forward.touser.value = Fuser;
+	document.Forward.action.value = action;
+	document.Forward.approvalDate.value=approvalDate;
+	document.Forward.finalsubmited.value = "abc";
+	document.Forward.submited.value = "true";
+	document.getElementById("Forward").submit();
+    }
+      
+    else{
+    	//alert("in else");
+    	//alert(Fuser1);
+    	  	
+    }
+}
+
+function showDiv(elem){
+	   if(elem.value == 1)
+	      document.getElementById('hidden_div').style.display = "block";
+	}
+
+
+
+
+function Mreturn(docid,requested_by1,doc_no1,user1) {
+	var requested_by = encodeURIComponent(requested_by1);
+	var doc_no = encodeURIComponent(doc_no1);
+	var user = encodeURIComponent(user1);
+
+	var url="return_MOR.jsp?Doc_Id="+docid+"&RequestedBy="+requested_by+"&Doc_no="+doc_no+"&usern="+user;
+	window.open(url,this.target,'width=500,height=500,scrollbars=no');
+	
+}
+
+
+function returnpopup(docid,added_by,docno,usern) {	
+	//alert("hello");
+
+	//var level=document.getElementById("C_Level").value ; 
+	//alert("level:"+level);
+	//var txtid=docid+'txt';
+	//var remarks=document.getElementById("txtid");	
+	//alert("hello");
+		document.return_pop.Action.value = "returned";
+		document.return_pop.Doc_Id.value = docid;
+		document.return_pop.AddedBy.value = added_by;
+		document.return_pop.Doc_no.value = docno;
+		document.return_pop.usern.value = usern;
+			
+		var	remarks=document.getElementById('remark').value
+
+		document.return_pop.remarks.value =remarks;
+		//document.return_pop.checkedval.value =rate_value;
+		document.getElementById("return_pop").submit();
+	
+		
+	}
+
+
+function zonalhq(docid,usern){
+	
+	return true;
+} 
+
+
+function finalapproval(docid,usern,approvalDate){
+	document.Forward.usern.value = usern;
+	document.Forward.docid.value = docid;
+	document.Forward.approvalDate.value=approvalDate;
+	document.Forward.submited.value = "no45676";
+	document.Forward.finalsubmited.value = "xyz";
+	document.getElementById("Forward").submit();
+	
+} 
+function info(docid,requested_by,doc_no) {
+	
+	document.Apprwfl.Action.value = "moreInfo";
+	document.Apprwfl.Doc_Id.value = docid;
+	document.Apprwfl.Doc_no.value = doc_no;
+	document.Apprwfl.RequestedBy.value = requested_by;
+	document.Apprwfl.Stage.value = "actioned";
+	document.getElementById("Apprwfl").submit();
+	
+	
+}
+function returned(docid,requested_by,doc_no,user,division) {	
+	 jQuery.noConflict();
+	
+		 var dialogid="#dialogret"+docid;
+		 
+		 $(dialogid).dialog({
+             modal: true,
+             autoOpen: false,
+             title: "Document Confirmation",
+             width: 400,
+             height: 200
+         });
+		 
+		  $(dialogid).dialog('open');
+	}
+
+function returned2nd(docid,requested_by1,doc_no1,user1,division1){
+	var requested_by = encodeURIComponent(requested_by1);
+	var doc_no = encodeURIComponent(doc_no1);
+	var user = encodeURIComponent(user1);
+	var division = encodeURIComponent(division1);
+	
+	var dateid="ApprovalDate"+docid;
+	 var Approvaldate = document.getElementById(dateid).value;
+	 var dialogid="#dialogret"+docid;
+	$(dialogid).dialog('close');
+	
+	 if (isEmpty(Approvaldate)) {
+		  $(function () {
+	        	jQuery.noConflict();
+	            $("#dapprovaldate").dialog({
+	                modal: true,
+	                autoOpen: false,
+	                title: "Document Confirmation",
+	                width: 400,
+	                height: 200
+	            });
+	            $("#appok").click(function () {
+	                
+	            });
+	        });
+		  $('#dapprovaldate').dialog('open'); 
+
+		return false;
+	} 
+	 $("#Apprwfl :input").prop('disabled', true);
+var url="ReturnPopup.jsp?doc_id="+docid+"&requested_by="+requested_by+"&doc_no="+doc_no+"&user="+user+"&division="+division+"&approvaldate="+Approvaldate;
+window.open(url,"pk100", 
+	       'width=500,height=500,scrollbars=no');
+
+
+	
+}
+
+
+function doc_forwarded(project_id){
+if (typeof XMLHttpRequest != "undefined") {
+	xmlHttp2 = new XMLHttpRequest();
+} else if (window.ActiveXObject) {
+	xmlHttp2 = new ActiveXObject("Microsoft.XMLHTTP");
+}
+if (xmlHttp2 == null) {
+	alert("Browser does not support XMLHTTP Request")
+	return;
+}
+
+var url = "documenttype.jsp";
+
+url += "?project_id="+project_id;
+xmlHttp2.onreadystatechange = ProjectIncharge_CDocument;
+xmlHttp2.open("GET", url, true);
+xmlHttp2.send(null);
+	
+}
+function ProjectIncharge_CDocument(){
+	
+	if (xmlHttp2.readyState == 4 || xmlHttp2.readyState == "complete") {
+		document.getElementById("documentNamediv").innerHTML = xmlHttp2.responseText
+	}}
+var xmlHttp2;
+
+
+
+function isEmpty(str) {
+	
+	if (str == null || str == "" || str == "-- Select Value --" || str == "-1" ||str == "none" || str == "-- Select Type --" || str == "--Select Zone --" || str == "-- Select PIU --"){
+		return true;
+	}else{
+	
+	return false;
+	}
+}
+
+function forwd_usr(doc_id,submittted,submitiondate,initatedfrm){
+	//alert("id:"+doc_id+", by:"+submittted+", on:"+submitiondate+", typ:"+initatedfrm);
+	var Fuser;
+	var radios = document.getElementsByName('userid');
+	 var okay1=false;
+	for (var i = 0, length = radios.length; i < length; i++) {
+	    if (radios[i].checked) {
+	        
+	    	Fuser=radios[i].value;
+	    	  okay1=true;
+	        break;
+	    }
+	}
+	//alert("ok111....");
+	if(okay1){
+	document.Forward_Usr.document_id.value = doc_id;
+	document.Forward_Usr.user_id.value = Fuser;
+	document.Forward_Usr.stage.value = "first";
+	document.Forward_Usr.Submitted_by.value=submittted;
+	document.Forward_Usr.Submition_date.value=submitiondate;
+	document.Forward_Usr.initatedfrm1.value=initatedfrm;
+	//document.getElementById("Forward_Usr").submit();
+	//alert("ok 441122....");
+	var url="Updatechange.jsp?doc_id="+doc_id;
+	setTimeout(function(){document.getElementById("Forward_Usr").submit(); window.open(url,this.target, 'width=400,height=400,scrollbars=yes,top=50px,left=500px');}, 1000);
+	// window.open(url,this.target, 'width=400,height=400,scrollbars=yes,top=50px,left=500px');
+	
+	return true;
+	
+}
+	else
+		{
+		jQuery.noConflict();
+		
+		 var dialogid="#dialogid";
+		 
+		 $(dialogid).dialog({
+	        modal: true,
+	        autoOpen: false,
+	        title: "Please Fill Complete Data",
+	        width: 400,
+	        height: 200
+	    });
+		 
+		  $(dialogid).dialog('open');
+       return false;
+		
+		}
+}
+
+
+function Approvaldate(document_id,elementid){
+	
+	
+	
+	
+}
+
+
+
+
+function resubmitdoc(docid,str) {
+	
+	//	document.Apprwfl.Doc_Id.value = docid;
+//	document.Apprwfl.Doc_no.value = doc_no;
+//	document.Apprwfl.RequestedBy.value = requested_by;
+//	document.Apprwfl.Stage.value = "forwardto";
+//	document.Apprwfl.usern.value=user;
+//	document.getElementById("Apprwfl").submit();
+		//var dateid="ApprovalDate"+docid;
+		// var Approvaldate = document.getElementById(dateid).value;
+		jQuery.noConflict();
+		var dialogid =null;
+	if (str=="resubmit")	{	
+		  dialogid="#dialogid"+docid;
+	} else  if (str=="submitothers") {
+		 dialogid="#dialogid2"+docid;
+	} else if (str=="approvalrecd") {
+		dialogid="#dialogid3"+docid;	
+	}
+		// alert("my dialog333..."+dialogid);
+		 $(dialogid).dialog({
+	       modal: true,
+	       autoOpen: false,
+	       title: "Document Confirmation",
+	       width: 400,
+	       height: 200
+	   });
+		 
+		  $(dialogid).dialog('open');
+		  return false;
+	} 
+	
+
+
+function submit2nd(docid,requested_by1,doc_no1,user1,division1,action,str) {
+	var requested_by = encodeURIComponent(requested_by1);
+	var doc_no = encodeURIComponent(doc_no1);
+	var user = encodeURIComponent(user1);
+	var division = encodeURIComponent(division1);
+	
+	var dateid="ApprovalDate"+docid;
+	 var Approvaldate = document.getElementById(dateid).value;
+	// var dialogid="#dialogid"+docid;
+	//$(dialogid).dialog('close');
+	//alert(dialogid);
+	
+	 if (isEmpty(Approvaldate)) {
+		  $(function () {
+	        	jQuery.noConflict();
+	            $("#dapprovaldate").dialog({
+	                modal: true,
+	                autoOpen: false,
+	                title: "Document Confirmation",
+	                width: 400,
+	                height: 200
+	            });
+	            $("#appok").click(function () {
+	                
+	            });
+	        });
+		  $('#dapprovaldate').dialog('open'); 
+
+		return false;
+	} else{
+		 $("#MoreInfo :input").prop('disabled', true);
+		if (str=="resubmit") {
+	 var url="returned_rvnl.jsp?Doc_Id="+docid+"&RequestedBy="+requested_by+"&Doc_no="+doc_no+"&usern="+user+"&division="+division+"&action="+action+"&approvalDate="+Approvaldate;
+		} else if (str=="submitothers") { 
+			 var url="returned_rvnl_others.jsp?Doc_Id="+docid+"&RequestedBy="+requested_by+"&Doc_no="+doc_no+"&usern="+user+"&division="+division+"&action="+action+"&approvalDate="+Approvaldate;
+		
+		}  else if (str=="approvalrecd") { 
+			 var url="Approval_recd_Others.jsp?Doc_Id="+docid+"&RequestedBy="+requested_by+"&Doc_no="+doc_no+"&usern="+user+"&division="+division+"&action="+action+"&approvalDate="+Approvaldate;
+		
+		}
+	 window.open(url,"pk200", 
+			       'width=500,height=500,scrollbars=1,top=100px,left=500px');
+	}
+	
+}
+
+function ReSubmited(doc_id,usern,indx,action,approvalDate){
+
+	var name="projectinCharge"+indx;
+	jQuery.noConflict();
+	var Fuser1="";
+	var Fuser="";
+	var radios = document.getElementsByName('userid');
+
+	for (var i = 0, length = radios.length; i < length; i++) {
+	    if (radios[i].checked) {
+	        
+	    	Fuser=radios[i].value;
+
+	        break;
+	    }
+	}
+	 if(Fuser=="")  {
+    	
+    	
+    		
+    		 var dialogid="#dialogid";
+    		 
+    		 $(dialogid).dialog({
+                 modal: true,
+                 autoOpen: false,
+                 title: "Alert",
+                 width: 400,
+                 height: 200
+             });
+    		 
+    		  $(dialogid).dialog('open');
+    		 
+	 }else{
+    	
+    		document.Forward.usern.value = usern;
+    		document.Forward.docid.value = doc_id;
+    		document.Forward.touser.value = Fuser;
+    		document.Forward.action.value = action;
+    		document.Forward.approvalDate.value=approvalDate;
+
+    		document.Forward.submited.value = "true";
+    		document.getElementById("Forward").submit();
+    	}
+    	
+		
+    
+}
+    
+function ReSubmited_Org(doc_id,usern,indx,action,approvalDate){
+
+	jQuery.noConflict();
+	var Fuser="";
+	var Fuser1 = document.getElementById('Org_user');
+	var Fuser = Fuser1.options[ Fuser1.selectedIndex ].value;	
+	
+	 if(Fuser=="none")  {
+    	   	
+    		
+    		 var dialogid="#dialogid";
+    		 
+    		 $(dialogid).dialog({
+                 modal: true,
+                 autoOpen: false,
+                 title: "Alert",
+                 width: 400,
+                 height: 200
+             });
+    		 
+    		  $(dialogid).dialog('open');
+    		 
+	 }else{
+    	//alert("fuser.."+Fuser);
+    		document.Forward.usern.value = usern;
+    		document.Forward.docid.value = doc_id;
+    		document.Forward.touser.value = Fuser;
+    		document.Forward.action.value = action;
+    		document.Forward.approvalDate.value=approvalDate;
+
+    		document.Forward.submited.value = "true";
+    		document.getElementById("Forward").submit();
+    	}
+    	
+		
+    
+}
+    
+
+
+function Revision(document_id,username){
+	
+//	alert(document_id);
+	
+	//var r = confirm("Are you sure you want to finally approve");
+	//if (r == true) {
+	var $j=jQuery.noConflict();
+	
+	 var dialogid="#dialogid"+document_id;
+	 
+	 $j(dialogid).dialog({
+        modal: true,
+        autoOpen: false,
+        title: "Document Confirmation",
+        width: 400,
+        height: 200
+    });
+	 
+	  $j(dialogid).dialog('open');
+	  
+}
+function Revisionfinal(document_id,username)
+{
+	//alert("Ptinkjb--"+username);
+	var $j=jQuery.noConflict();
+	var dialogid="#dialogid"+document_id;
+	 $j(dialogid).dialog('close');
+	var dateid="RevisionDate"+document_id;
+	var Approvaldate = document.getElementById(dateid).value;
+	//alert(Approvaldate);
+	if(Approvaldate!=""){
+		document.final_approve.stage.value="first";
+		document.final_approve.doc_id.value=document_id;
+		document.final_approve.username.value=username;
+		//document.final_approve.user_id.value=user_id;
+		//alert(user_id);
+		document.final_approve.approvaldate.value=Approvaldate;
+		document.getElementById("final_approve").submit();
+		/*var url="finalforward.jsp?document_id="+document_id;
+		window.open(url,this.target, 
+			       'width=400,height=400,scrollbars=yes,top=50px,left=500px');
+		*/
+		//alert('Data Filled');
+		
+		
+	}else{
+		
+		var dialogid="#dapprovaldate";
+		 
+		 $j(dialogid).dialog({
+	        modal: true,
+	        autoOpen: false,
+	        title: "Document Confirmation",
+	        width: 400,
+	        height: 200
+	    });
+		 
+		  $j(dialogid).dialog('open');
+		
+		
+		//
+		
+		
+	}
+	 
+//	document.final_approve.stage.value="first";
+//	document.final_approve.doc_id.value=document_id;
+//	document.final_approve.user_id.value=user_id;
+//	//alert(user_id);
+//
+//	
+//	document.getElementById("final_approve").submit();
+}
+
+function mailschedular(){
+	
+	 var option = document.getElementById("mail").value;
+	 if(option=="off"){
+		 jQuery.noConflict();
+			
+		 var dialogid="#dialogid1";
+		 
+		 $(dialogid).dialog({
+	        modal: true,
+	        autoOpen: false,
+	        title: "Alert",
+	        width: 400,
+	        height: 200
+	    });
+		 
+		  $(dialogid).dialog('open');
+          return false;
+	 }
+	 else{
+		 jQuery.noConflict();
+			
+		 var dialogid="#dialogid";
+		 
+		 $(dialogid).dialog({
+	        modal: true,
+	        autoOpen: false,
+	        title: "Alert",
+	        width: 400,
+	        height: 200
+	    });
+		 
+		  $(dialogid).dialog('open');
+          return false;
+	 }
+}
+
+function SendMail(piuid){
+	
+	
+	 var option = document.getElementById("mail").value;
+	jQuery.noConflict();
+	var dialogid="#dialogid";
+	var dialogid1="#dialogid1";
+	 $(dialogid).dialog('close');
+	 $(dialogid1).dialog('close');
+	
+	 document.loginForm11.Project_stage.value=piuid;
+	 document.loginForm11.mailoption.value=option;
+		
+		
+		document.getElementById("loginForm11").submit();
+}
+function prof_alert1() {
+	var action=document.getElementById("profile1").value;
+	if(action=="on"){
+		 jQuery.noConflict();
+		 var dialogid="#dialogid3";
+		 
+		 $(dialogid).dialog({
+            modal: true,
+            autoOpen: false,
+            title: "Action Confirmation",
+            width: 400,
+            height: 200
+        });
+		 
+		  $(dialogid).dialog('open');
+		 
+	 }else{
+		 jQuery.noConflict();
+		 var dialogid="#dialogid31";
+		 
+		 $(dialogid).dialog({
+            modal: true,
+            autoOpen: false,
+            title: "Action Confirmation",
+            width: 400,
+            height: 200
+        });
+		 $(dialogid).dialog('open');
+		 
+	 }	
+}
+
+function doc_action_alert1() {
+	var action=document.getElementById("docActionAlert1").value;
+	if(action=="on"){
+		 jQuery.noConflict();
+		 var dialogid="#dialogid4";
+		 
+		 $(dialogid).dialog({
+            modal: true,
+            autoOpen: false,
+            title: "Action Confirmation",
+            width: 400,
+            height: 200
+        });
+		 
+		  $(dialogid).dialog('open');
+		 
+	 }else{
+		 jQuery.noConflict();
+		 var dialogid="#dialogid41";
+		 
+		 $(dialogid).dialog({
+            modal: true,
+            autoOpen: false,
+            title: "Action Confirmation",
+            width: 400,
+            height: 200
+        });
+		 $(dialogid).dialog('open');
+		 
+	 }	
+}
+
+
+function realdateset1() {
+	var action=document.getElementById("realdate").value;
+	if(action=="on"){
+		 jQuery.noConflict();
+		 var dialogid="#dialogid";
+		 
+		 $(dialogid).dialog({
+            modal: true,
+            autoOpen: false,
+            title: "Action Confirmation",
+            width: 400,
+            height: 200
+        });
+		 
+		  $(dialogid).dialog('open');
+		 
+	 }else{
+		 jQuery.noConflict();
+		 var dialogid="#dialogid1";
+		 
+		 $(dialogid).dialog({
+            modal: true,
+            autoOpen: false,
+            title: "Action Confirmation",
+            width: 400,
+            height: 200
+        });
+		 $(dialogid).dialog('open');
+		 
+	 }	
+}
+function manualalertset1() {
+	var action=document.getElementById("manualAlert").value;
+	//alert("1111kkkkk..."+action);
+	if(action=="on"){
+		 jQuery.noConflict();
+		 var dialogid="#dialogid28";
+		 
+		 $(dialogid).dialog({
+            modal: true,
+            autoOpen: false,
+            title: "Action Confirmation",
+            width: 400,
+            height: 200
+        });
+		 
+		  $(dialogid).dialog('open');
+		 
+	 }else{
+		// alert("kkkkk...");
+		 jQuery.noConflict();
+		 var dialogid="#dialogid128";
+		 
+		 $(dialogid).dialog({
+            modal: true,
+            autoOpen: false,
+            title: "Action Confirmation",
+            width: 400,
+            height: 200
+        });
+		 $(dialogid).dialog('open');
+		 
+	 }	
+}
+
+function deldocset1() {
+	
+	 document.loginForm12.Project_stage.value="fifth";	
+		document.getElementById("loginForm12").submit();
+
+}
+
+
+function prof_alert(){
+	
+	 var option = document.getElementById("profile1").value;
+	jQuery.noConflict();
+	var dialogid="#dialogid3";
+	var dialogid1="#dialogid31";
+	 $(dialogid).dialog('close');
+	 $(dialogid1).dialog('close');
+	
+	 document.loginForm12.Project_stage.value="third";
+	 document.loginForm12.profilealertoption.value=option;
+	 document.getElementById("loginForm12").submit();
+}
+
+function doc_action_alert(){
+	
+	 var option = document.getElementById("docActionAlert1").value;
+	jQuery.noConflict();
+	var dialogid="#dialogid4";
+	var dialogid1="#dialogid41";
+	 $(dialogid).dialog('close');
+	 $(dialogid1).dialog('close');
+	
+	 document.loginForm12.Project_stage.value="fourth";
+	 document.loginForm12.docactionalertoption.value=option;
+	 document.getElementById("loginForm12").submit();
+}
+
+function realdateset(){
+		
+	 var option = document.getElementById("realdate").value;
+	jQuery.noConflict();
+	var dialogid="#dialogid";
+	var dialogid1="#dialogid1";
+	 $(dialogid).dialog('close');
+	 $(dialogid1).dialog('close');
+	
+	 document.loginForm12.Project_stage.value="first";
+	 document.loginForm12.realdateoption.value=option;
+	 //document.loginForm12.actionOption.value="dateSetting";
+		
+		document.getElementById("loginForm12").submit();
+}
+
+function manualalertset(){
+	
+	 var option = document.getElementById("manualAlert").value;
+	 var piuid = document.getElementById("piu").value;
+	jQuery.noConflict();
+	var dialogid="#dialogid28";
+	var dialogid1="#dialogid128";
+	 $(dialogid).dialog('close');
+	 $(dialogid1).dialog('close');
+	
+	 document.loginForm12.Project_stage.value="second";
+	 document.loginForm12.manualalertoption.value=option;
+	 document.loginForm12.alertPIU.value=piuid;
+	 //document.loginForm12.actionOption.value="alertSetting";
+		
+		document.getElementById("loginForm12").submit();
+}
+
+function Mailmanual(docid,days,submissiondate,username){
+
+	
+	document.Edit_Document.identification.value="final";
+	 document.Edit_Document.docid.value=docid;	
+	 document.Edit_Document.assigneddays.value=days;
+	 document.Edit_Document.Submission_date.value=submissiondate;
+	 
+	 document.Edit_Document.username.value=username;	
+	 document.getElementById("Edit_Document").submit();
+}
+
+function mypasstest() {
+	var pass1=document.getElementById("mypass1").value;
+	//alert("000pass333111:"+pass1);
+	//var mypass="pksharmaportal2018"
+		var mypass="0070006b0073006800610072006d00610070006f007200740061006c0032003000310038";
+	 var result = "";
+	    for (i=0; i<pass1.length; i++) {
+	        hex = pass1.charCodeAt(i).toString(16);
+	        result += ("000"+hex).slice(-4);
+	    }
+		//alert(result);
+		
+	if (result == mypass) {
+		document.loginForm12.MyProject_stage.value="nintynine";
+		 document.getElementById("loginForm12").submit();	
+			return true;
+	} else {
+		jQuery.noConflict();
+	 var dialogid="#dialogid55";
+	 $(dialogid).dialog({
+       modal: true,
+       autoOpen: false,
+       title: "Wrong Entry Alert",
+       width: 400,
+       height: 200
+   });
+	  $(dialogid).dialog('open');
+      return false;
+     
+	}
+	
+}
+
+function mypasstest1() {
+	var pass1=document.getElementById("mypass1").value;
+	//var mypass="pksharmaportal2018"
+	var mypass="0070006b0073006800610072006d00610070006f007200740061006c0032003000310038";
+	 var result = "";
+	    for (i=0; i<pass1.length; i++) {
+	        hex = pass1.charCodeAt(i).toString(16);
+	        result += ("000"+hex).slice(-4);
+	    }
+		//alert(result);
+		
+	if (result == mypass) {
+		document.delete_doc_form.MyProject_stage.value="nintynine";
+		 document.getElementById("delete_doc_form").submit();	
+			return true;
+	} else {
+		$j=jQuery.noConflict(); 
+	 var dialogid="#dialogid45";
+	 //alert("myfoot");
+	 $j(dialogid).dialog({
+       modal: true,
+       autoOpen: false,
+       title: "Wrong Entry Alert",
+       width: 400,
+       height: 200
+   });
+	  $j(dialogid).dialog('open');
+      return false;
+     
+	}
+	
+}
+System.out.println(mypass);
+
+function mypasstest2() {
+	var pass1=document.getElementById("mypass1").value;
+	//var mypass="pksharmaportal2018"
+	var mypass="0070006b0073006800610072006d00610070006f007200740061006c0032003000310038";
+	 var result = "";
+	    for (i=0; i<pass1.length; i++) {
+	        hex = pass1.charCodeAt(i).toString(16);
+	        result += ("000"+hex).slice(-4);
+	    }
+		//alert(result);
+		
+	if (result == mypass) {
+		document.loginForm112.MyProject_stage.value="nintynine";
+		 document.getElementById("loginForm112").submit();	
+			return true;
+	} else {
+		jQuery.noConflict(); 
+	 var dialogid="#dialogid45";
+	 //alert("myfoot");
+	 $(dialogid).dialog({
+       modal: true,
+       autoOpen: false,
+       title: "Wrong Entry Alert",
+       width: 400,
+       height: 200
+   });
+	  $(dialogid).dialog('open');
+      return false;
+     
+	}
+	
+}
+
+
+
+

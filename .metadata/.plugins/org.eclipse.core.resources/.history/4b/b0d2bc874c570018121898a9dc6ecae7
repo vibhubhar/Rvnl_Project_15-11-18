@@ -1,0 +1,43 @@
+.top_bar{
+	background:#800000;
+	height:80px;
+}
+.top_middle_bar .h2 {
+	color:#FFFFFF;
+	font-size:5px;
+}
+.text-white{
+	color:#FFFFFF;
+}
+@media screen and (max-width: 1920px), screen and (max-height: 1200px){
+	.top_middle_bar{
+	font-size: 35px;
+	}
+@media screen and (max-width: 1680px), screen and (max-height: 1050px){
+	.top_middle_bar{
+	font-size: 30px;
+	}
+@media screen and (max-width: 1600px), screen and (max-height: 900px){
+	.top_middle_bar{
+	font-size: 28px;
+	}
+@media screen and (max-width: 1440px), screen and (max-height: 900px){
+	.top_middle_bar{
+	font-size: 25px;
+	}
+	@media screen and (max-width: 1366px), screen and (max-height: 768px){
+	.top_middle_bar{
+	font-size: 15px;
+	}
+	@media screen and (max-width: 1024px), screen and (max-height: 800px){
+	.top_middle_bar h2{
+	font-size: 5%;color:red;
+	}
+	@media screen and (max-width: 1024px), screen and (max-height: 600px){
+	.top_middle_bar h2{
+	font-size: 5%;color:red;
+	}
+	@media screen and (max-width: 360px), screen and (max-height: 640px){
+	.top_middle_bar h2{
+	font-size: 3px;color:red;
+	}

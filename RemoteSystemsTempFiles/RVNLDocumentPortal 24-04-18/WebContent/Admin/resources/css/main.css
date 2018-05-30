@@ -1,0 +1,53 @@
+body {
+	background-color: white;
+}
+
+#header {
+	background-color: #580058;
+	color: black;
+	background-image: url(images/Rail-Vikas-Nigam-Limited-RVNL.jpg);
+}
+
+h1 {
+	color: black;
+}
+
+
+table.ListOfTables {
+	width: 100%;
+	height: 400px;
+	text-align: center;
+	background-color: #F5F5DC;
+	border-collapse: collapse;
+}
+
+table.ListOfTables, tr.ListOfTables, td.ListOfTables {
+	border: 1px solid black;
+}
+
+.scrollit {
+	
+	height: 350px;
+}
+
+table.mainClass {
+	border:1px solid black;
+	width: 100%; 
+	height:300px;
+}
+
+td.left {
+	border:1px solid black;
+	width: 50%;
+	height: 300px;
+	background-color: #F0FFFF;
+}
+
+td.right {
+	width: 50%;
+	height: 300px;
+	background-color: #FFFAF0;
+}
+
+
+

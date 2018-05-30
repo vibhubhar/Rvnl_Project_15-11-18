@@ -1,0 +1,2 @@
+0:0:0:0:0:0:0:1 - - [05/May/2018:13:06:51 +0530] "GET /Application/Admin/admn_login.jsp HTTP/1.1" 500 4528
+0:0:0:0:0:0:0:1 - - [05/May/2018:13:06:52 +0530] "GET /Application/Admin/admn_login.jsp HTTP/1.1" 500 4528
