@@ -1663,6 +1663,6 @@ $drops<%=i%>.change(function(){
 </body>
 <br><br><br>
 
-										      <%@include file="included/Newfooter.jsp" %>
+										      <%@include file="included/footer.jsp" %>
  
 </html>

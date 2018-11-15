@@ -28,7 +28,8 @@ StringBuffer hexString = new StringBuffer();
 
 for (int i = 0; i < digest.length; i++) {
 	password = Integer.toHexString(0xFF & digest[i]);
-	
+	System.out.println(password);
+
     if (password.length() < 2) {
     	password = "0" + password;
     	}
@@ -36,7 +37,7 @@ for (int i = 0; i < digest.length; i++) {
     hexString.append(password);
 }
 
-System.out.println(password);
+System.out.println("after convert  "+password); 
 
 // encrytion md5 ends here
 String message="";
@@ -171,4 +172,4 @@ getServletContext().getRequestDispatcher("admn_index.jsp?user="+user_name).inclu
 
 }
 
-%>
+%>    

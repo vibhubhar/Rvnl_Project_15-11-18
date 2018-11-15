@@ -1,0 +1,445 @@
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title></title>
+<link rel="stylesheet" href="css/main-image-slider.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/bootstrap-multiselect.css"
+	type="text/css">
+<link rel="stylesheet" href="css/jquery.bootstrap-touchspin.css"
+	type="text/css">
+<style>
+#homecontent {
+	position: relative;
+}
+
+.sliderdiv {
+	/*  border: medium solid #3C8DBC;
+     */
+	display: table-cell;
+	margin-right: 100px;
+}
+
+.main-search {
+	/*  border: medium solid #3C8DBC;
+     */
+	display: table-cell;
+}
+
+.center-td {
+	text-align: center;
+	vertical-align: middle;
+}
+
+.hideclass {
+	display: none;
+}
+
+th.header {
+	background-image: url(scripts/bg.gif);;
+	cursor: pointer;
+	font-weight: bold;
+	background-repeat: no-repeat;
+	background-position: center left;
+	padding-left: 20px;
+	border-right: 1px solid #dad9c7;
+	margin-left: -1px;
+	background-position: center right;
+}
+
+th.headerSortUp {
+	background-image: url(scripts/asc.gif);
+	background-color: #3C8DBC;
+	color: #fff;
+	background-position: center right;
+}
+
+th.headerSortDown {
+	background-image: url(scripts/desc.gif);
+	background-color: #3C8DBC;
+	color: #fff;
+	background-position: center right;
+}
+
+body {
+	color: #6B6B6B;
+}
+
+.spinner {
+	width: 100px;
+}
+
+.spinner input {
+	text-align: right;
+}
+
+.input-group-btn-vertical {
+	position: relative;
+	white-space: nowrap;
+	width: 1%;
+	vertical-align: middle;
+	display: table-cell;
+}
+
+.input-group-btn-vertical>.btn {
+	display: block;
+	padding: 0.44em;
+	margin-left: -1px;
+	position: relative;
+	border-radius: 0;
+}
+
+.input-group-btn-vertical>.btn:first-child {
+	border-top-right-radius: 3px;
+}
+
+.input-group-btn-vertical>.btn:last-child {
+	margin-top: -4px;
+	border-bottom-right-radius: 3px;
+}
+
+.input-group-btn-vertical i {
+	position: absolute;
+	top: -2px;
+	left: 2px;
+}
+
+select[multiple], select[size] {
+	height: 1.7em !important;
+}
+
+.form-group {
+	margin-bottom: 15px !important;
+	padding: 2px !important;
+}
+
+.form-control {
+	padding: 2px 10px !important;
+}
+
+.multiselect {
+	height: 2.1em !important;
+	border-radius: 1px !important;
+	margin-left: 2px !important;
+}
+
+label {
+	float: left !important;
+	color: black !important;
+}
+
+.open {
+	z-index: 3 !important;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+	background-color: transparent !important;
+}
+
+.multiselect {
+	top: 0px !important;
+	left: -1px !important;
+}
+</style>
+</head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title></title>
+
+<body class="skin-blue sidebar-collapse" style="">
+
+	
+	<div class="content-wrapper"
+		style="margin-left: 48px; margin-top: -15px; margin-bottom: -15px;">
+		<section class="content" id="bodyOverlay"
+			style="padding-bottom: 0px; min-height: 0px;height: 1080px;">
+		<form action="createCity" method="post" name="createCity" id="createCity">
+			 <s:hidden id="sFor" name="sFor" />
+			 <s:hidden name="sReqFor" id="sReqFor"/>
+			<div class="box" style="border-top-color: #3C8DBC;">
+				<div class="box-header with-border">
+					<h3 class="box-title">City Details</h3>
+					<div class="box-tools pull-right">
+						<button class="btn btn-box-tool" data-widget="collapse"
+							data-toggle="tooltip" title="Collapse" style="color: #3C8DBC;">
+							<i class="fa fa-minus"></i>
+						</button>
+					</div>
+				</div>
+				<div class="box-body" style="text-align: center;">
+					<table style="border-spacing: 2px; width: 50%;">
+						<tr>
+						<td style="width: 25%;">
+			                     <div class="input-group" style="width: 100%;">
+			                     <span class="input-group-addon" id="sCountryId" for ="presidentsClientInput" style=" background-color: #9FBFF4;color: rgb(51, 51, 51);"><b>Country</b></span>
+			                     	<s:select name="sCountryId" theme="simple" headerKey="0" cssClass="form-control"  disabled="true" 
+													headerValue="Select" list="sCountryList" listKey="key" id="sCountryId"
+													style="padding:0px;width:80%" />
+								<input type="hidden" id="sCountryId" name="sCountryId" value="<s:property value="sCountryId" />" />					
+			              		</div>
+		              		</td>
+							
+							<td style="width: 25%;">
+			                     <div class="input-group" style="width: 100%;">
+			                      
+			                    	<span class="input-group-addon" id="statelist" for ="presidentsClientInput" style=" background-color: #9FBFF4;color: rgb(51, 51, 51);"><b>State</b></span>
+			                    	<s:hidden id="sStatehidden" name="sStatehidden" />
+			                     	<s:select name="sStateId" theme="simple" headerKey="0" cssClass="form-control"
+													headerValue="Select" list="sStateList" listKey="key"  onchange="changestate()"  id="sStateId"
+													style="padding:0px;width:80%" />
+			              		</div>
+		              		</td>
+							</td>
+							</tr>
+							</table>
+							</div>
+							</div>
+							
+							<div class="box" style="border-top-color: #3C8DBC;">
+
+				<div class="box-header ">
+					<h3 class="box-title">Search Result</h3>
+					<div class="box-tools pull-right">
+						<button class="btn btn-box-tool" data-widget="collapse"
+							data-toggle="tooltip" title="Collapse" style="color: #3C8DBC;">
+							<i class="fa fa-minus"></i>
+						</button>
+						<button class="btn btn-box-tool" data-widget="remove"
+							data-toggle="tooltip" title="Remove" style="color: #3C8DBC;">
+							<i class="fa fa-times"></i>
+						</button>
+					</div>
+				</div>
+			
+                <div class="box-body" style="text-align:center;width:40%">
+                
+                  <div class="box-body table-outter" style="text-align:center;">
+             	<table id="example1" class="table table-bordered table-striped" style="border-collapse:collapse;">
+                     <thead>
+                     <tr  id="tableHdrRow" style="background-color: #9FBFF4;">
+                     <th style="text-align: center; cursor: pointer;width:10%;"><span></span>
+		                      <input type="checkbox" value="" name="sAll" id="sAll" style="margin-right: 25px;" /></th>
+                     <%--  <th style="text-align: center; cursor: pointer;width: 67px;"><span>Check Box</span></th> --%>
+                       <th style="text-align: center; cursor: pointer;width:30px;"><span>City</span></th>
+                       
+                        <th style="text-align: center; cursor: pointer;    width: 10%;"><span>Add</span></th>
+                       <th style="text-align: center; cursor: pointer;    width: 10%;"><span>Remove</span></th>
+                       </tr>
+                       </thead>
+                       <tbody id="addRowId">
+
+						<% int count=0;%>
+							<s:if test="%{sCityDataList.size()>0}">
+
+								<s:iterator value="sCityDataList" var="sCityDataList"
+									status="rowNum">
+									<tr style="font-size: 14px;" class="gridRow" id="rowCountRole<s:property value="%{#rowNum.index}" />">
+									<td>
+									     <input type="checkbox" theme="simple" name="checkCity"  id="<s:property value="%{#rowNum.index}"/>"  value="<s:property value="%{#rowNum.index}"/>" />
+									      <input type="hidden" name="checkHidden" class="checkHi" id="checkHidden<s:property value="%{#rowNum.index}"/>">
+									</td>
+									 <td>
+									<input type="hidden" name="sCityId" id="sCityId<s:property value="%{#rowNum.index}"/>"  value="<s:property value="%{#sCityDataList.sCityId}"/>">	      
+										      <input type="text" id="sCity<s:property value="%{#rowNum.index}"/>" name="sCity" class="form-control num"
+											   placeholder="Enter..." style="" value="<s:property value="%{#sCityDataList.sCity}" />" maxlength="100" />
+										   </td>
+									   
+										
+									<%-- 	<td>
+										<input type="text" id="sCity<s:property value="%{#rowNum.index}"/>" name="sCity" maxlength="100" value="<s:property value="%{#sStateCityList.sCity}" />" class="form-control  num"
+											   placeholder="Enter..." style="" />
+										</td> --%>
+										<td style="width: 34px; cursor: pointer; text-align: center;">
+											 <img class="btnAdd12" style="width: 23px;"
+											src="scripts/plus.png" id="addrow<s:property value="%{#rowNum.index}"/>" onclick="javascript: addRow(this);" />
+										</td>
+										<td style="width: 34px; cursor: pointer; text-align: center;">
+											<img class="btn" title="This row can not be deleted!"
+											style="width: 41px; padding-bottom: 0px; padding-top: 0px; border-top-width: 0px; border-bottom-width: 0px;"
+											src="scripts/minus.png" />
+										</td>
+										</tr>
+										
+								</s:iterator>
+							</s:if>
+							<s:else>
+								<tr style="font-size: 14px; width:100%;" class="gridRow" id="rowCountRole0">
+								      <td>
+									       <input type="checkbox" name="checkCity" checked="checked" class="checkVal" id="checkCity0" value="0">
+									       <input type="hidden" name="checkHidden" class="checkHi">
+									 </td>
+									 <td>
+									        <input type="hidden" name="sCityId" id="sCityId0" >
+										    <input type="text" id="sCity0" name="sCity" class="form-control"
+											   placeholder="Enter..." style=""   maxlength="100" />
+										</td>
+										
+										<td style="width: 34px; cursor: pointer; text-align: center;">
+											 <img class="btnAdd12" style="width: 23px;"
+											src="scripts/plus.png" onclick="javascript: addRow();" />
+										</td>
+										<td style="width: 34px; cursor: pointer; text-align: center;">
+											<img class="btn" title="This row can not be deleted!"
+											style="width: 41px; padding-bottom: 0px; padding-top: 0px; border-top-width: 0px; border-bottom-width: 0px;"
+											src="scripts/minus.png" />
+										</td>
+										</tr>
+								</s:else>
+						</tbody>
+                  <%count++; %>
+                 </table>
+                 </div>
+           </div>
+           </form>
+           <div class="box-footer">
+				<table>
+					<tr>
+					    <td> <button type="button" class="btn btn-primary" id="saveBtn" onclick="savecity()">Save</button> </td>
+					
+						<td><a onclick="cityclose(<s:property value="sCountryId"/>)" <button type="button" class="btn btn-primary" id="closebtn" >Close</button></a> </td>
+						</tr>
+						</table>
+						
+           </div>
+           </section>
+           </div>
+           </body>
+           </html>
+           <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+  <script type="text/javascript" src="js/jquery.bootstrap-touchspin.js"></script>
+		<script src="js/jszip.min.js"></script> 
+<script  type="text/javascript">
+
+
+function addRow(){
+	   var lengthMs=$(".gridRow").length;
+		var html = '<tr id="rowCountRole'+lengthMs+'" class="gridRow"> '+
+		' <td ><input type="checkbox" name="checkCity" checked="checked" class="checkVal" value="'+lengthMs+'" id="check'+lengthMs+'"> <input type="hidden" name="checkHidden" id="checkhidden'+lengthMs+'" class="checkHi"> </td> '+
+		' <td><input type="hidden" name="sCityId" id="sCityId'+lengthMs+'" ><input type="text" id="sCity'+lengthMs+'"  name="sCity"  '+
+		' 		style="" class="form-control" placeholder="Enter..."  /></td> '
+		+ ' <td style=" width: 34px; cursor: pointer; text-align: center;"><img class="btnAdd" data-toggle="control-sidebar" style=" width: 23px; " src="scripts/plus.png" onclick="addRow();"/></td>'
+		+ ' <td style=" width: 34px; cursor: pointer; text-align: center;"><img class="btnRemove" data-toggle="control-sidebar" style=" width: 23px; " src="scripts/minus.png" onclick="removeRow('
+		+ lengthMs + ')"/></td>'+
+		' </tr>';
+		$("#addRowId").append(html);
+		 }	
+
+function removeRow(removeNum) {
+	jQuery('#rowCountRole' + removeNum).remove();
+}
+function cityclose(id){
+	 var sReqFor=$("#sReqFor").val(); 
+	 var closewin='';
+	if(sReqFor=='frmst')
+	{
+	 closewin = window.open('createCountry?sCountryId='+id,'_self');
+	}
+	else
+		 closewin = window.open('searchCountry','_self');
+	
+	if (window.focus) {
+		closewin.focus();
+	}
+}
+
+
+function savecity(){
+	
+	var checkbox= document.getElementsByName("checkCity");
+	
+
+	var len = checkbox.length;
+	
+
+	for (var i = 0; i<len; i++) {		
+		 if(checkbox[i].checked){
+			 if(document.getElementsByName("sCity")[i].value==''){
+				 showMessage("City name Can't be Empty !");
+				 return false;
+			 }
+		 }
+	}
+	if($("#sStateId").val()==0){
+		return false;
+	}else{
+	 var name=$("input[name=checkCity]:checked");
+	if(name.length==0 && (!isNullOrEmpty($("#sStateId").val()))){
+		var value=confirm("No City Selected,Continue?");
+		if(value==true){
+			$("#CreateCity").submit();
+			return true;
+		}
+		else{
+			return false;
+		}
+	}}
+	$('#sStatehidden').val(document.getElementById("sStateId").value);	
+	$('#sFor').val('save');
+	$('#createCity').submit();
+}
+
+function changestate(){
+    var stateid='';
+    var cityid='';
+    
+    stateid= document.getElementById("sStateId").value;
+    
+	
+   $.get("selectcityAjax",{
+	state_id : stateid,
+},function (result){
+	var data = JSON.parse(result);
+	var cityTr='';
+	$("#addRowId").html('');
+	  if(data.length==0){
+		cityTr=cityTr+'<tr id="rowCountRole" class="gridRow">'+
+		' <td><input type="checkbox" theme="simple" name="checkCity" class="checkVal" value="0" id="check"/> <input type="hidden" name="checkHidden" id="checkhidden" class="checkHi"> </td> '+
+		' <td><input type="hidden" name="sCityId" id="sCityId" ><input type="text" id="sCity" name="sCity"  '+
+		' 		style="" class="form-control" placeholder="Enter..."  /></td> '
+		+ ' <td style=" width: 34px; cursor: pointer; text-align: center;"><img class="btnAdd" data-toggle="control-sidebar" style=" width: 23px; " src="scripts/plus.png" onclick="addRow();"/></td>'
+		+ ' <td style=" width: 34px; cursor: pointer; text-align: center;"><img class="btnRemove" data-toggle="control-sidebar" style=" width: 23px; " src="scripts/minus.png" onclick="removeRow()"/></td>'+
+		' </tr>';
+		
+	} 
+
+	
+	for(var i=0;i<data.length;i++)
+		{
+   cityTr=cityTr+'<tr id="rowCountRole'+i+'" class="gridRow"> '+
+	' <td><input type="checkbox" theme="simple" name="checkCity"   class="checkVal" value="'+i+'" id="check'+i+'"/> <input type="hidden" name="checkHidden" id="checkhidden'+i+'" class="checkHi"> </td> '+
+	' <td><input type="hidden" name="sCityId" id="sCityId'+i+'" value="'+data[i].CityID+'" ><input type="text" id="sCity'+i+'" value="'+data[i].CityName+'" name="sCity"  '+
+	' 		style="" class="form-control" placeholder="Enter..."  /></td> '
+	+ ' <td style=" width: 34px; cursor: pointer; text-align: center;"><img class="btnAdd" data-toggle="control-sidebar" style=" width: 23px; " src="scripts/plus.png" onclick="addRow();"/></td>'
+	+ ' <td style=" width: 34px; cursor: pointer; text-align: center;"><img class="btnRemove" data-toggle="control-sidebar" style=" width: 23px; " src="scripts/minus.png" onclick="removeRow('
+	+ i + ')"/></td>'+
+	' </tr>';
+		}
+	$("#addRowId").html(cityTr);
+})
+}
+/* $(document).ready(function(){
+	$("#closebtn").click(function(){
+		parent.history.back();
+		return false;
+	});
+}); */
+    
+ $(document).ready(function(){
+	var disable= $("#sStateId").val();
+	
+		if(disable!="0"){
+			 $("#sStateId").prop("disabled", true);
+		}
+			 else if(disable=="0"){
+				 $("#sStateId").prop("disabled",false);
+			 } 
+		
+ })  
+
+
+</script>
+ 

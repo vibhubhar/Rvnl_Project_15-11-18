@@ -1,0 +1,4 @@
+127.0.0.1 - - [29/Jun/2018:12:12:12 +0530] "GET / HTTP/1.1" 404 951
+0:0:0:0:0:0:0:1 - - [29/Jun/2018:12:12:24 +0530] "GET /Application/Admin/admn_login.jsp HTTP/1.1" 200 10764
+0:0:0:0:0:0:0:1 - - [29/Jun/2018:12:12:29 +0530] "GET /Application/Admin/images/PDAMS_icon.ico HTTP/1.1" 200 5102
+0:0:0:0:0:0:0:1 - - [29/Jun/2018:12:42:29 +0530] "GET /Application/Admin/admn_login.jsp HTTP/1.1" 200 10764

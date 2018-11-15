@@ -762,6 +762,7 @@ function DesginChange_cUser2() {
 
 
 function modifying(id){
+	alert("hii");
 	var url="CreateProjects1.jsp?ID="+id;
 	window.open(url,this.target);
 //returnProjects(id);

@@ -1,0 +1,534 @@
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ page language="java" import="com.utils.EncodeDecode"%>
+<%@ taglib prefix="sx" uri="/struts-dojo-tags"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title></title>
+<link rel="stylesheet" href="css/main-image-slider.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/bootstrap-multiselect.css"
+	type="text/css">
+<link rel="stylesheet" href="css/jquery.bootstrap-touchspin.css"
+	type="text/css">
+	
+<style>
+#homecontent {
+	position: relative;
+}
+
+.sliderdiv {
+	/*  border: medium solid #3C8DBC;
+     */
+	display: table-cell;
+	margin-right: 100px;
+}
+
+.main-search {
+	/*  border: medium solid #3C8DBC;
+     */
+	display: table-cell;
+}
+
+.center-td {
+	text-align: center;
+	vertical-align: middle;
+}
+
+.hideclass {
+	display: none;
+}
+
+th.header {
+	background-image: url(scripts/bg.gif);;
+	cursor: pointer;
+	font-weight: bold;
+	background-repeat: no-repeat;
+	background-position: center left;
+	padding-left: 20px;
+	border-right: 1px solid #dad9c7;
+	margin-left: -1px;
+	background-position: center right;
+}
+
+th.headerSortUp {
+	background-image: url(scripts/asc.gif);
+	background-color: #3C8DBC;
+	color: #fff;
+	background-position: center right;
+}
+
+th.headerSortDown {
+	background-image: url(scripts/desc.gif);
+	background-color: #3C8DBC;
+	color: #fff;
+	background-position: center right;
+}
+
+body {
+	color: #6B6B6B;
+}
+
+.spinner {
+	width: 100px;
+}
+
+.spinner input {
+	text-align: right;
+}
+
+.input-group-btn-vertical {
+	position: relative;
+	white-space: nowrap;
+	width: 1%;
+	vertical-align: middle;
+	display: table-cell;
+}
+
+.input-group-btn-vertical>.btn {
+	display: block;
+	padding: 0.44em;
+	margin-left: -1px;
+	position: relative;
+	border-radius: 0;
+}
+
+.input-group-btn-vertical>.btn:first-child {
+	border-top-right-radius: 3px;
+}
+
+.input-group-btn-vertical>.btn:last-child {
+	margin-top: -4px;
+	border-bottom-right-radius: 3px;
+}
+
+.input-group-btn-vertical i {
+	position: absolute;
+	top: -2px;
+	left: 2px;
+}
+
+select[multiple], select[size] {
+	height: 1.7em !important;
+}
+
+.form-group {
+	margin-bottom: 15px !important;
+	padding: 2px !important;
+}
+
+.form-control {
+	padding: 2px 10px !important;
+}
+
+.multiselect {
+	height: 2.1em !important;
+	border-radius: 1px !important;
+	margin-left: 2px !important;
+}
+
+label {
+	float: left !important;
+	color: black !important;
+}
+
+.open {
+	z-index: 3 !important;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+	background-color: transparent !important;
+}
+
+.multiselect {
+	top: 0px !important;
+	left: -1px !important;
+}
+</style>
+</head>
+<body class="skin-blue sidebar-collapse" style="">
+
+	<jsp:include page="/header/header.jsp"></jsp:include>
+	<jsp:include page="/common/headerMenu.jsp"></jsp:include>
+	<jsp:include page="/common/changePassword.jsp"></jsp:include>>
+	<div class="content-wrapper"
+		style="margin-left: 48px; margin-top: -15px; margin-bottom: -15px;">
+		<section class="content" id="bodyOverlay"
+			style="padding-bottom: 0px; min-height: 0px;height: 1080px;">
+		<form action="searchCountry" method="post" name="searchCountry" id="searchCountry">
+				<s:hidden name="message" />
+			 <s:hidden name="sFor" id="sFor" />
+			 <s:hidden name="sRequestFrom" id="sRequestFrom"/>
+			<div class="box" style="border-top-color: #3C8DBC;">
+				<div class="box-header with-border">
+					<h3 class="box-title">Country Details</h3>
+					<div class="box-tools pull-right">
+						<button class="btn btn-box-tool" data-widget="collapse"
+							data-toggle="tooltip" title="Collapse" style="color: #3C8DBC;">
+							<i class="fa fa-minus"></i>
+						</button>
+					</div>
+				</div>
+				<div class="box-body" style="text-align: center;">
+					<table style="border-spacing: 2px; width: 100%;">
+						<tr>
+							<td>
+								<div class="input-group" style="width: 220px;">
+									<span class="input-group-addon"
+										style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>Code</b></span>
+									<s:textfield name="sCode" style="width: 120px;" id="sCode"
+										theme="simple" cssClass="form-control" />
+										 
+								</div>
+							</td>
+							<td>
+								<div class="input-group" style="width: 220px;">
+									<span class="input-group-addon"
+										style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>Country</b></span>
+									<s:textfield name="sCountryName" style="width: 120px;" id="sCountryName"
+										theme="simple" cssClass="form-control" />
+								</div>
+							</td>
+							<td>
+								<div class="input-group" style="width: 220px;">
+									<span class="input-group-addon"
+										style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>Region</b></span>
+									<s:textfield name="sRegion" style="width: 120px;" id="sRegion"
+										theme="simple" cssClass="form-control" />
+								</div>
+							</td>
+							<td>
+								<div class="input-group" style="width: 220px;">
+									<span class="input-group-addon"
+										style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>Capital</b></span>
+									<s:textfield name="sCapitalName" style="width: 120px;" id="sCapitalName"
+										theme="simple" cssClass="form-control" />
+								</div>
+							</td>
+
+						</tr>
+						<tr>
+						<td style="width: 20%;">
+									<div class="input-group" style="width: 220px;" >
+										<span class="input-group-addon"
+											style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>Status</b></span>
+									
+											<s:select theme="simple"
+											name="sActive1" class="form-control" list="#{'1':'Active', '0':'InActive'}"
+											 id="sActive1" cssStyle="width:100%" headerKey=" " headerValue="--Select--"/>
+									</div>
+								</td>
+						</tr>
+					</table>
+					<div class="pull-left">
+						<button type="button" id="btnSearch" class="btn btn-primary">Search</button>
+						<button type="reset" class="btn btn-primary">Clear</button>
+					</div>
+				</div>
+				<div class="box" style="border-top-color: #3C8DBC;">
+		            <div class="box-header with-border">
+		           <h3 class="box-title">Search Result</h3>
+		              
+		              <div class="box-tools pull-right">
+		                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse" style="color: #3C8DBC;"><i class="fa fa-minus"></i></button>
+		              </div>
+		          	</div>
+		          	
+		          	<div class="box-body" style="text-align:center;width:58%">
+		              	<table id="NFATbl" class="table table-bordered table-striped" style="border-collapse:collapse;">
+		                    <thead>
+		                      <tr  id="tableHdrRow" style="background-color: #9FBFF4;">
+		                      	<th style="text-align: center; cursor: pointer;width: 8%;"><span>Code</span></th>
+		                        <th style="text-align: center; cursor: pointer;width: 8%;"><span>Country </span></th>
+		                        
+		                        <th style="text-align: center; cursor: pointer;width: 8%"><span>Region</span></th>
+		                        <th style="text-align: center; cursor: pointer;width: 8%"><span>Capital</span></th>
+		                   
+		                        <th style="text-align: center; cursor: pointer;width: 8%"><span>State</span></th>
+		                        <th style="text-align: center; cursor: pointer;width: 8%;" ><span>City </span></th>
+		                        </tr>
+		                    </thead>
+		                    <tbody>
+		                     <s:iterator value="sCountryDataList" var="sCountryDataList" status="row_Num">
+		                     
+								 <tr class="gridRow" onclick="gridRowClicked(this)"> 
+
+									
+									<td style="text-align: center; cursor: pointer;"><input type="hidden" name="sCountryId" id="sCountryId<s:property value="%{#row_Num.index}" />"  value="<s:property value="%{#sCountryDataList.sCountryId}" />" /><s:property value="%{#sCountryDataList.sCode}" /></td>
+									<td style="text-align: center; cursor: pointer;"><s:property value="%{#sCountryDataList.sCountryName}" /></td>
+									<td style="text-align: center; cursor: pointer;"><s:property value="%{#sCountryDataList.sRegion}" /></td>
+									<td style="text-align: center; cursor: pointer;"><s:property value="%{#sCountryDataList.sCapitalName}" /></td>
+									
+						
+									<td style="text-align: center; cursor: pointer;"><input type="button" class="btn btn-primary" onclick="statebtn(<s:property value="%{#sCountryDataList.sCountryId}" />)" value="state" /></td>
+									<td style="text-align: center; cursor: pointer;"><input type="button" class="btn btn-primary" onclick="citybtn(<s:property value="%{#sCountryDataList.sCountryId}" />)" value="city" /></td>
+									</tr>
+									</s:iterator>
+		                  </tbody>
+	                   </table>
+	                   </div>
+	                   
+	                   
+	                    <div class="box-footer">
+				<table>
+					 <tr>
+						<td style=" width: 150px; "><a data-toggle="modal" href="#countryModal" ><button type="submit" class="btn btn-primary">Add Country</button></a> 
+								    <a href="home"><button type="button" class="btn btn-primary">Close</button></a></td>
+						
+					</tr>
+				</table>
+			</div>
+				</div>
+				</div>
+				
+				</form>
+				</section>
+				</div>
+				
+				<div id="countryModal" class="modal modal-wide fade">
+			  <div class="modal-dialog" style="width: 650px; margin-top: 100;">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			      	<span class="error" style="display: none; width: 350px;"
+				id="messageId"></span>
+			      
+			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			           </div>
+			      
+			      <section class="content" style="padding-bottom: 0px; min-height: 0px;">
+	
+		          <!-- Your Page Content Here -->
+				  <!-- Chat box -->
+	              
+        <div class="box" style="border-top-color: #3C8DBC;">
+         <div class="box-header with-border">
+           <h3 class="box-title">Country Details</h3>
+           <div class="box-tools pull-right">
+             <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse" style="color: #3C8DBC;"><i class="fa fa-minus"></i></button>
+           </div>
+       	</div>
+	            
+	            <div class="box-body" style="text-align:center;">
+	            <table style="text-align:center;">
+			<tr>
+			  <td>
+				<div class="input-group" style="width: 300px;">
+				  <span class="input-group-addon" for="presidentsClientInput"
+				        style="background-color: #9FBFF4; color: rgb(51, 51, 51); width: 100px; text-align: left;"><b>Code</b>
+				  </span> 
+				   <input id="sCodePop" name="sCodePop"  type="text" class="form-control" placeholder="Enter..." style="width:200px;">
+				</div>
+			 </td>
+				<td>
+				<div class="input-group" style="width: 300px;">
+			      <span class="input-group-addon" for="presidentsClientInput"
+						style="background-color: #9FBFF4; color: rgb(51, 51, 51); width: 100px; text-align: left;"><b>Country</b>
+				  </span> 
+				 <s:hidden name="sHiddenIdx" theme="simple"></s:hidden>
+				<input id="sCountrynamePop" name="sCountrynamePop"  type="text" class="form-control" placeholder="Enter..." style="width:200px;">
+													
+			   </div>
+	              
+	        </td>		
+		</tr>
+		<tr>
+			
+			  <td id="hide_party">
+	              <div class="input-group" style="width: 300px;">
+	               <span class="input-group-addon" for ="presidentsClientInput" 
+	                     style=" background-color: #9FBFF4;color: rgb(51, 51, 51);  width: 100px;text-align:left;"><b>Continent</b></span>
+	               <s:select name="sContinentPop" id="sContinentPop" theme="simple" headerKey="" headerValue="-- Please select --"
+						cssClass="form-control" placeholder="Enter..."	list="sContinentList" style="padding:0px;" />
+				 </div>
+	         </td>	
+				<td>
+				<div class="input-group" style="width: 300px;">
+			      <span class="input-group-addon" for="presidentsClientInput"
+						style="background-color: #9FBFF4; color: rgb(51, 51, 51); width: 100px; text-align: left;"><b>Region</b>
+				  </span> 
+				 <s:hidden name="sHiddenIdx" theme="simple"></s:hidden>
+				<input id="sRegionPop" name="sRegionPop"  type="text" class="form-control" placeholder="Enter..." style="width:200px;">
+													
+			   </div>
+	              
+	        </td>							
+										
+		</tr>
+									
+
+	<tr>
+	 <td id="hide_party">
+	              <div class="input-group" style="width: 300px;">
+	               <span class="input-group-addon" for ="presidentsClientInput" 
+	                     style=" background-color: #9FBFF4;color: rgb(51, 51, 51);  width: 100px;text-align:left;"><b>Capital</b></span>
+	               <s:select name="sCapitalPop" id="sCapitalPop" theme="simple" headerKey="" headerValue="-- Please select --"
+						cssClass="form-control" placeholder="Enter..."	list="sCapitalList" style="padding:0px;" />
+				 </div>
+	         </td>	
+	         
+	         <td style="width: 20%;">
+									<div class="input-group" style="width: 100%;" >
+										<span class="input-group-addon"
+											style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>Status</b></span>
+									
+											<s:select theme="simple"
+											name="sActivePop" class="form-control" list="#{'1':'Active', '0':'InActive'}"
+											 id="sActivePop" cssStyle="width:100%" headerKey=" " headerValue="--Select--"/>
+									</div>
+								</td>
+	
+		
+	</tr> 
+								
+						
+	              
+	             <!--  <tr>
+	              <td>
+	              <div class="box-footer">
+	           	  </div>
+	           	  </td>
+	              </tr>
+	              <tr>
+	              <td>
+	              <div class="box-footer">
+	           	  </div>
+	           	  </td>
+	              </tr>	       -->        
+	              
+	              </table>
+	              
+	            </div><!-- /.box-body -->
+	            
+	            </div>
+	           
+	            
+	          
+	        </section><!-- /.content -->
+			      
+			      <div class="modal-footer">
+			        <input  type="button" id="btnSave" class="btn btn-primary" onclick="btnSave()" style="float: left;" value="Save"/>
+			        <button type="button" class="btn btn-primary"  style="float: left;" data-dismiss="modal">Close</button>
+			      </div>
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+			</div>
+
+			
+		
+		
+	
+	<script type="text/javascript">
+ 	
+		    $(document).ready(function(){
+		    	$("#NFATbl").datatable();
+			});
+		    $("#btnSearch").click(function(){
+			//alert("cdhj");
+				$("#sFor").val('search');
+				$("#searchCountry").submit();
+			}); 
+		    
+		     function statebtn(id){
+		    	
+		    			
+		    			var newwin = window.open('createCountry?sCountryId='+id,'_self');
+		    			if (window.focus) {
+		    				newwin.focus();
+		    			}
+		    		}
+		    function citybtn(id){
+		    	var city=window.open('createCity?sCountryId='+id,'_self');
+		    	if (window.focus) {
+    				city.focus();
+    			}
+		    }
+		   function btnSave(){
+			   if(isNullOrEmpty($("#sCodePop").val())){
+				   showMessage("Please Enter Code !");
+					return false;
+			   }
+			   if(isNullOrEmpty($("#sCountrynamePop").val())){
+				   showMessage("Please Enter Country !");
+				   return false;
+			   }
+			   if(isNullOrEmpty($('#sContinentPop').val())){
+					showMessage("Please Enter Continent ! ");
+					return false;
+				}
+				if(isNullOrEmpty($("#sRegionPop").val())){
+					showMessage("Please Enter Region ! ");
+					return false;
+				}
+
+				if(isNullOrEmpty($("#sCapitalPop").val())){
+					showMessage("Please Enter Capital ! ");
+					return false;
+				}
+				if(isNullOrEmpty($("#sActivePop").val())){
+					showMessage("Please Select Active Flag ! ");
+					return false;
+				}
+			  alert("save");
+			   var sCode=$("#sCodePop").val();
+			   var sCountryname=$("#sCountrynamePop").val();
+			   var sContinent=$("#sContinentPop").val();
+			   var sRegion=$("#sRegionPop").val();
+			   var sCapital=$("#sCapitalPop").val();
+			   var sActive=$("#sActivePop").val();
+			  
+			   
+			   $.get("savecountryByAjax",{
+				   
+				   sCode : sCode,
+				   sCountryname : sCountryname,
+				   sContinent : sContinent,
+				   sRegion : sRegion,
+				   sCapital: sCapital,
+				   sActive : sActive
+					
+				},
+				function(result) {
+					alert(result);
+				
+					data = JSON .parse(result);
+					//showMessage(data[1])
+					if(data[0].status=='S')
+						{
+						statebtn(data[0].countryId);
+						}
+		   })
+		   }
+		   function isNullOrEmpty(param){
+				if(param=="" || param==null){
+					return true;
+				}
+				return false;
+			}
+			function showMessage(message) {
+				 $(".se-pre-con").fadeOut("slow");
+				if (!isNullOrEmpty(message)) {
+					if (message == "APP0013: Transaction completed.") {
+						$("#messageId").html(message).removeClass("error")
+								.addClass("success");
+						$("#messageId").show();
+					} else {
+						$("#messageId").html(message).removeClass("success")
+								.addClass("error");
+						$("#messageId").show();
+					}
+					$('html, body').animate({
+						scrollTop : 0
+					}, 'slow');
+				} else {
+					$("#messageId").hide();
+				} 
+			    
+			}
+		    </script>
+		    <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+</body>
+</html>

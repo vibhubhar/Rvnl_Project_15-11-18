@@ -41,12 +41,7 @@
 .dt-button.buttons-pdf.buttons-html5 {
     display: none;
 }
-#example_length {
-    display: none;
-}
-#example {
-    width: inherit;
-}
+
 
 table {
 	mso-displayed-decimal-separator: "\.";
@@ -76,9 +71,7 @@ table {
 	src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript"
 	src="http://www.allmyscripts.com/Table_Sort/beta/gs_sortable.js"></script>
-<script type="text/javascript" language="javascript" 
 
-src="js/data_table/jquery.dataTables.min.js"></script>
 
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -171,7 +164,7 @@ function mywinClose() {
 	
 	    
 	   		$('#example').DataTable( {
-	   				"infoCallback": function( settings, start, end, max, total, pre ) {
+	   				/*"infoCallback": function( settings, start, end, max, total, pre ) {
 					if (max==total) { return "Showing " + (end-start+1) + "  of " +total+" records"}
 					else {return "Showing " + (end-start+1) + "  of " +total+" records (filtered from total " + max+" records)"}
 				   	}, 
@@ -314,7 +307,7 @@ function mywinClose() {
 			                nc++;
 			        }
 		   				   		
-	   		}
+	   		}*/
 
 
 	    } );
@@ -646,4 +639,4 @@ c++;
 <br>
 </body>
 
-</html>
+</html>  

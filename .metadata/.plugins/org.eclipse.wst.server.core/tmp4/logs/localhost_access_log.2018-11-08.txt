@@ -1,0 +1,4 @@
+0:0:0:0:0:0:0:1 - - [08/Nov/2018:22:56:53 +0530] "GET /Application/Admin/admn_login.jsp HTTP/1.1" 500 4165
+0:0:0:0:0:0:0:1 - - [08/Nov/2018:23:26:54 +0530] "GET /Application/Admin/admn_login.jsp HTTP/1.1" 200 10955
+0:0:0:0:0:0:0:1 - - [08/Nov/2018:23:26:57 +0530] "GET /Application/Admin/images/Rail_Rvnl_Home.jpg HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [08/Nov/2018:23:26:57 +0530] "GET /Application/Admin/images/PDAMS_icon.ico HTTP/1.1" 200 5102

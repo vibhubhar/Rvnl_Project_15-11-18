@@ -39,7 +39,7 @@ try{
 	           PreparedStatement ps = conn.prepareStatement(sql);   	           
 		         ResultSet rs = ps.executeQuery();
 
-		      buffer ="<div class='scrollit' style='margin: -321px 0px 60px 1px;width: 100%;height: 434px;position:relative;'><table class='table table-hover table-bordered'><tr class='success'><th class='ListOfTables' width ='5%'><b>SNo</b></th>"+
+		      buffer ="<div class='scrollit' style='position:relative;'><table class='table table-hover table-bordered'><tr class='success'><th class='ListOfTables' width ='5%'><b>SNo</b></th>"+
 		    		  "<th class='ListOfTables' width ='15%'><b>Department</b></th>"+
 		    		  "<th class='ListOfTables' width ='5%'><b>Designation</b></th><th class='ListOfTables' width ='5%'><b>UserId</b></th><th class='ListOfTables' width ='15%'><b>Officer Name</b></th><th class='ListOfTables' width ='10%'><b>Email Id</b></th><th class='ListOfTables' width ='15%'><b>Contact No</b></th><th class='ListOfTables' width ='5%'><b>Modify</b></th><th class='ListOfTables' width ='15%'><b>Reset Password</b></th><th class='ListOfTables' width ='5%'><b>Action</b></th></tr>";
 	   	             int count=0,available=0;
@@ -95,7 +95,7 @@ try{
       	            PreparedStatement ps = conn.prepareStatement(sql);        
       	            ResultSet rs = ps.executeQuery();
 
-      	            buffer ="<div class='scrollit' style='margin: -321px 0px 60px 1px;width: 100%;height: 434px;position:relative;'><table class='table table-hover table-bordered'><tr class='success'><td class='ListOfTables' width ='1%'><b>SNo</b></td>"+
+      	            buffer ="<div class='scrollit' style='position:relative;'><table class='table table-hover table-bordered'><tr class='success'><td class='ListOfTables' width ='1%'><b>SNo</b></td>"+
       	   	    		  "<td class='ListOfTables' width ='5%'><b>Department</b></td>"+
       	   	    		  "<td class='ListOfTables' width ='10%'><b>UserId</b></td><td class='ListOfTables' width ='25%'><b>Officer Name</b></td><td class='ListOfTables' width ='5%'><b>Designation</b></td><td class='ListOfTables' width ='15%'><b>Email Id</b></td><td class='ListOfTables' width ='10%'><b>Contact No</b></td><td class='ListOfTables' width ='1%'><b>Modify</b></td><td class='ListOfTables' width ='1%'><b>Reset Password</b></td><td class='ListOfTables' width ='1%'><b>Action</b></td></tr>"; 
       	            int count1=0,available=0;
@@ -149,7 +149,7 @@ try{
             PreparedStatement ps = conn.prepareStatement(sql);        
             ResultSet rs = ps.executeQuery();
 
-            buffer ="<div class='scrollit' style='margin: -321px 0px 60px 1px;width: 100%;height: 434px;position:relative;'><table class='table table-hover table-bordered'><tr class='success'><td class='ListOfTables' width ='1%'><b>SNo</b></td>"+
+            buffer ="<div class='scrollit' style='position:relative;'><table class='table table-hover table-bordered'><tr class='success'><td class='ListOfTables' width ='1%'><b>SNo</b></td>"+
    	    		  "<td class='ListOfTables' width ='1%'><b>Division</b></td><td class='ListOfTables' width ='1%'><b>Department</b></td>"+
    	    		  "<td class='ListOfTables' width ='1%'><b>Designation</b></td><td class='ListOfTables' width ='1%'><b>UserId</b></td><td class='ListOfTables' width ='1%'><b>Officer Name</b></td><td class='ListOfTables' width ='1%'><b>Email Id</b></td><td class='ListOfTables' width ='1%'><b>Contact No</b></td><td class='ListOfTables' width ='1%'><b>Modify</b></td><td class='ListOfTables' width ='1%'><b>Reset Password</b></td><td class='ListOfTables' width ='1%'><b>Action</b></td></tr>"; 
             int count1=0,available=0;
@@ -207,7 +207,7 @@ try{
        PreparedStatement ps = conn.prepareStatement(sql);        
        ResultSet rs = ps.executeQuery();
 
-       buffer ="<div class='scrollit' style='margin: -321px 0px 60px 1px;width: 100%;height: 434px;position:relative;'><table class='table table-hover table-bordered'><tr class='success'><td class='ListOfTables' width ='1%'><b>SNo</b></td>"+
+       buffer ="<div class='scrollit' style='position:relative;'><table class='table table-hover table-bordered'><tr class='success'><td class='ListOfTables' width ='1%'><b>SNo</b></td>"+
 	    		  "<td class='ListOfTables' width ='20%'><b>UserId</b></td><td class='ListOfTables' width ='20%'><b>Modify</b></td><td class='ListOfTables' width ='20%'><b>Action</b></td></tr>"; 
        int count1=0,available=0;
        while(rs.next()){

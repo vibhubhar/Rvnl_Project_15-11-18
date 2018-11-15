@@ -47,7 +47,7 @@ String user_code = (String) session.getAttribute("User_Code");
 if (user_code!=null) {} else {user_code="0";}
  String mq=null, mqLaunch=null, mqMaint=null, mqOther=null, mqRly=null, mqRVNL=null;					
  //System.out.println("code="+user_code);	
-  Connection conn7 = null;
+  Connection conn7 = null;                                                      
      			PreparedStatement ps777=null;
      			ResultSet  rs777=null;
      						//Statement stmt7 = null;

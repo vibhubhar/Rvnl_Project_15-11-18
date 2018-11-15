@@ -1247,7 +1247,7 @@ function docChange() {
 
 
 function validateProject(){
-	//alert("asdads");
+	alert("asdads");
 	var userid=document.getElementById("userId").value;
 	var Project_names=document.getElementById("Project_name");
 	var pack=document.getElementById("packages1");

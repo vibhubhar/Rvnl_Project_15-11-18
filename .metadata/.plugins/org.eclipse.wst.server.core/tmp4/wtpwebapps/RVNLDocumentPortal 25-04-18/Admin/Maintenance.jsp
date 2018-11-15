@@ -117,7 +117,8 @@ div.absolute {
     									 n2++;
              %>   
    <tr><td width="5%"> <%=n2 %></td><td width="15%"> <%=item %></td>
-                <td width="80%"> <input type="text" maxlength="500" style="width:100%; height:30px;// background-color:#F0FCB4;" id="<%=item %>" name="<%=item %>" value="<%=desc %>"></td></tr>
+                <td width="80%"> <input type="text" maxlength="500" style="width:100%;     border-top: groove;
+    border-right: groove;height:30px;// background-color:#F0FCB4;" id="<%=item %>" name="<%=item %>" value="<%=desc %>"></td></tr>
                      
                      <%
     								}
@@ -232,7 +233,7 @@ div.absolute {
 			%>
 		</c:if>	
 			</form>		
-				<%@include file="included/Newfooter.jsp"%>
+				<%@include file="included/footer.jsp"%>
 
 			</body>
 			</html>

@@ -1,0 +1,1121 @@
+
+<%@ page language="java"%>
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<head>
+ <meta charset="UTF-8">
+<meta  content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
+		name='viewport'>
+		<link rel="stylesheet" href="css/main-image-slider.css"> 
+		<!-- DATA TABLES -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	    <link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css">
+	    <link rel="stylesheet" href="css/jquery.bootstrap-touchspin.css" type="text/css">
+	    <style type="text/css">
+		th.header {
+			background-image: url(scripts/bg.gif);
+			cursor: pointer;
+			font-weight: bold;
+			background-repeat: no-repeat;
+			background-position: center left;
+			padding-left: 20px;
+			border-right: 1px solid #dad9c7;
+			margin-left: -1px;
+			background-position: center right;
+		}
+		
+		th.headerSortUp {
+			background-image: url(scripts/asc.gif);
+			background-color: #3C8DBC;
+			color: #fff;
+			background-position: center right;
+		}
+		
+		th.headerSortDown {
+			background-image: url(scripts/desc.gif);
+			background-color: #3C8DBC;
+			color: #fff;
+			background-position: center right;
+		}
+		
+		body {
+		color:#6B6B6B;
+		}
+		
+		.spinner {
+		  width: 100px;
+		}
+		.spinner input {
+		  text-align: right;
+		}
+		.input-group-btn-vertical {
+		  position: relative;
+		  white-space: nowrap;
+		  width: 1%;
+		  vertical-align: middle;
+		  display: table-cell;
+		}
+		.input-group-btn-vertical > .btn {
+		  display: block;
+		  padding: 0.44em;
+		  margin-left: -1px;
+		  position: relative;
+		  border-radius: 0;
+		}
+		.input-group-btn-vertical > .btn:first-child {
+		  border-top-right-radius: 3px;
+		}
+		.input-group-btn-vertical > .btn:last-child {
+		  margin-top: -4px;
+		  border-bottom-right-radius: 3px;
+		}
+		.input-group-btn-vertical i{
+		  position: absolute;
+		  top: -2px;
+		  left: 2px;
+		}
+		select[multiple],
+		select[size] {
+		   height: 1.7em !important;
+		}
+		.form-group {
+			margin-bottom: 15px !important;
+		    padding-left: 6px !important;
+		    padding-bottom: 6px !important;
+		}
+		.form-control {
+			padding: 2px 10px !important;
+		}
+		.multiselect {
+		    height: 2.0em !important;
+		    border-radius : 1px !important;
+		    margin-left: 2px !important;
+		}
+		
+		label {
+			  float: left !important; 
+			  color: black  !important;
+		}
+		
+		.open{
+			    z-index: 3 !important;
+		}
+		
+		</style>
+
+</head>
+
+<body class="skin-blue sidebar-collapse" style="">
+	<% int count=0 ; %>
+	
+
+	
+	<div class="content-wrapper"
+		style="margin-left: 48px; margin-top: -15px; margin-bottom: -15px;">
+		<section class="content" id="bodyOverlay"
+			style="padding-bottom: 0px; min-height: 0px;">
+			<span class="error" style="display: none; width: 350px;"
+				id="messageId"></span>
+			<s:hidden name="message" />
+			<form action="editSubUnitCompMeter" method="post" id="editSubUnitCompMeter"
+				name="editSubUnitCompMeter" style="margin-top: 10px;">
+				<input type="hidden" name="sFor" id="sFor"
+					value="<s:property value='sFor' />" />
+					<input type="hidden" name="prjId" id="prjId"
+					value="<s:property value='prjId' />" />
+					<input type="hidden" name="secId" id="secId"
+					value="<s:property value='secId' />" />
+					<input type="hidden" name="pocId" id="pocId"
+					value="<s:property value='pocId' />" />
+					<input type="hidden" name="towId" id="towId"
+					value="<s:property value='towId' />" />
+					<input type="hidden" name="flrId" id="flrId"
+					value="<s:property value='flrId' />" />
+					<input type="hidden" name="unitId" id="unitId"
+					value="<s:property value='unitId' />" />
+					<input type="hidden" name="subunitId" id="subunitId"
+					value="<s:property value='subunitId' />" />
+					<input type="hidden" name="prjname" id="prjname"
+					value="<s:property value='prjname' />" />
+					<input type="hidden" name="secname" id="secname"
+					value="<s:property value='secname' />" />
+					<input type="hidden" name="pocname" id="pocname"
+					value="<s:property value='pocname' />" />
+					<input type="hidden" name="twrname" id="twrname"
+					value="<s:property value='twrname' />" />
+					<input type="hidden" name="flrname" id="flrname"
+					value="<s:property value='flrname' />" />
+					<input type="hidden" name="unitname" id="unitname"
+					value="<s:property value='unitname' />" />
+					<input type="hidden" name="subunitname" id="subunitname"
+					value="<s:property value='subunitname' />" />
+				<s:token />
+				<!-- Main content -->
+				<div class="box" style="border-top-color: #3C8DBC;">
+					<div class="box-header with-border">
+						<h3 class="box-title">Search Parameter</h3>
+						<div class="box-tools pull-right">
+							<button class="btn btn-box-tool" data-widget="collapse"
+								data-toggle="tooltip" title="Collapse" style="color: #3C8DBC;">
+								<i class="fa fa-minus"></i>
+							</button>
+							<button class="btn btn-box-tool" data-widget="remove"
+								data-toggle="tooltip" title="Remove" style="color: #3C8DBC;">
+								<i class="fa fa-times"></i>
+							</button>
+						</div>
+					</div>
+
+					<div class="box-body" style="text-align: center;">
+
+								<table style="border-spacing: 2px;">
+							<tr>
+							   <td id="compGrpId" class="form-group">
+								<div id="compGrpDivId" class="input-group" style="width:260px;" >
+									<span class="input-group-addon" for="presidentsClientInput"
+										style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>
+											Component Group</b></span>
+										<s:select list="sCompGroupList" id="crmComponentGroup"
+											name="crmComponentGroup" multiple="false" size="2"
+											 theme="simple" cssClass="form-control"></s:select>
+									</div>
+								</td>
+								<td>
+									<div id="prjDivId" class="input-group" style="width:226px;">
+										<span class="input-group-addon"
+											style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>
+												Project </b></span> <select id="fmsProject"
+												name="fmsProject" size="2" 
+												class="form-control">
+												<option value="" class="optCls">--Search--</option>
+											</select>
+									</div>
+								</td>
+								<td>
+									<div class="input-group" style="width:253px;">
+										<span class="input-group-addon"
+											style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>
+												Sector</b></span> <select id="fmsSector" name="fmsSector"
+											size="2" class="form-control">
+											<option value="" class="optCls">--Search--</option>
+										</select>
+									</div>
+								</td>
+                    			<td>
+									<div class="input-group" style="width:238px;">
+										<span class="input-group-addon"
+											style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>
+												Pocket</b></span> <select id="fmsPocket" name="fmsPocket"
+											size="2" class="form-control">
+											<option value="" class="optCls">--Search--</option>
+										</select>
+									</div>
+								</td>
+								<td>
+									<div class="input-group" style="width:266px;">
+										<span class="input-group-addon"
+											style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>
+												Tower </b></span> <select id="fmsTower" name="fmsTower"
+												size="2" class="form-control">
+												<option value="" class="optCls">--Search--</option>
+											</select>
+									</div>
+								</td>
+								
+								</tr>
+								<tr>
+								
+								<td>
+									<div class="input-group" style="width:251px;">
+										<span class="input-group-addon"
+											style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>
+												Floor</b></span> <select id="fmsFloor" name="fmsFloor"
+												size="2" class="form-control">
+												<option value="" class="optCls">--Search--</option>
+											</select>
+									</div>
+								</td>
+								<td>
+									<div class="input-group" style="width:225px;">
+										<span class="input-group-addon"
+											style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>
+												Unit</b></span> <select id="fmsUnit" name="fmsUnit"
+												size="2" class="form-control">
+												<option value="" class="optCls">--Search--</option>
+											</select>
+									</div>
+								</td>
+								<td>
+									<div class="input-group" style="width:253px;">
+										<span class="input-group-addon"
+											style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>
+												Sub Unit</b></span> <select id="fmsSubUnit" name="fmsSubUnit" size="2"
+											class="form-control">
+											<option value="" class="optCls">--Search--</option>
+										</select>
+									</div>
+								</td>
+							</tr>
+						</table>
+
+					</div>
+					<!-- /.box-body -->
+					<div class="box-footer">
+						<button type="button" onclick="searchButton();"
+							class="btn btn-primary">Search</button>
+						<button type="button" onclick="clearFields()"
+							class="btn btn-primary">Clear</button>
+					</div>
+				</div>
+			</form>
+			<div class="box" style="border-top-color: #3C8DBC;">
+				<div class="box-header ">
+					<h3 class="box-title">Search Result</h3>
+					<div class="box-tools pull-right">
+						<button class="btn btn-box-tool" data-widget="collapse"
+							data-toggle="tooltip" title="Collapse" style="color: #3C8DBC;">
+							<i class="fa fa-minus"></i>
+						</button>
+						<button class="btn btn-box-tool" data-widget="remove"
+							data-toggle="tooltip" title="Remove" style="color: #3C8DBC;">
+							<i class="fa fa-times"></i>
+						</button>
+					</div>
+				</div>
+				<div class="box-body" style="text-align: center;">
+					<table id="example1" class="table table-bordered table-striped"
+						style="border-collapse: collapse; table-layout: fixed;">
+						<thead>
+							<tr style="background-color: #9FBFF4;">
+								<th style="text-align: center; cursor: pointer;width:58px;"><span></span>
+								<input type="checkbox"  name="sAll" id="sAll" 
+										style="margin-right: 18px;" /></th>
+								<th style="text-align: center; cursor: pointer;"><span>Sub Unit</span></th>
+								<th style="text-align: center; cursor: pointer;"><span>Meter Num</span></th>
+								<th style="text-align: center; cursor: pointer;"><span>Start Date</span></th>
+								<th style="text-align: center; cursor: pointer;"><span>End Date </span></th>
+								<th style="text-align: center; cursor: pointer;width:67px;"><span>Active</span></th>
+								<th style="text-align: center; cursor: pointer;"><span>Meter Type</span></th>
+								<th style="text-align: center; cursor: pointer;width:110px;"><span>Conn. Type</span></th>
+								<th style="text-align: center; cursor: pointer;"><span>Opening Reading</span></th>
+								<th style="text-align: center; cursor: pointer;"><span>Old Meter</span></th>
+								<th style="text-align: center; cursor: pointer;width:67px;"><span>Overlap</span></th>
+								<th style="text-align: center; cursor: pointer;width:198px;"><span>Message</span></th>
+							</tr>
+						</thead>
+						<tbody id="SubUnitCompBody">
+
+							<s:iterator value="sIteratorList" var="sIteratorList"
+								status="row_Num">
+								<tr style="font-size: 14px;"
+									id="rowCount<s:property value="%{#row_Num.index}" />">
+									<td><input type="hidden" name="sSubUnitCompMeterId"
+										id="sSubUnitCompMeterId<s:property value="%{#row_Num.index}" />"
+										 value="<s:property value="%{#sIteratorList.sSubUnitCompMeterId}" />" />
+										<input type="checkbox" name="sCheckbox"
+										id="sCheckbox<s:property value="%{#row_Num.index}" />"
+										style="margin-left: 14px;"
+										 /></td>
+									<td><input type="hidden" name="sSubUnitHidden1" id="sSubUnitHidden1<s:property value="%{#row_Num.index}" />"
+										value="<s:property value="%{#sIteratorList.sSubUnitHidden1}" />" />
+										<input type="hidden" name="sSubUnitCompId1" id="sSubUnitCompId1<s:property value="%{#row_Num.index}" />"
+										value="<s:property value="%{#sIteratorList.sSubUnitCompId1}" />" />
+										<s:property value="%{#sIteratorList.sSubUnitVal1}" /></td>
+									<td><input type="text" id="sMeterNum<s:property value="%{#row_Num.index}" />" name="sMeterNum"
+										class="form-control" readonly="readonly"
+										 placeholder="Enter..."
+										onclick="callpopup1('sMeterNum','sMeterNumHidden',<s:property value="%{#row_Num.index}" />)"
+										value="<s:property value='sMeterNum' />"   onblur="checkCheckbox(<s:property value="%{#row_Num.index}" />)" /> <input
+										type="hidden" id="sMeterNumHidden<s:property value="%{#row_Num.index}" />" name="sMeterNumHidden"
+										class="form-control" value="<s:property value='sMeterNumHidden' />" /></td>
+									<td><input type="text" name="sFrom"
+										id="sFrom<s:property value="%{#row_Num.index}" />"
+										class="form-control from" placeholder="dd-Mon-yyyy"
+										value="<s:property value="%{#sIteratorList.sFrom}" />"  readonly="readonly"/>
+										</td>
+									<s:if test="#sIteratorList.sTo != ''">
+										<%-- <s:if test='"Y".equalsIgnoreCase(#unitCompList.sOverlap)'> --%>	
+									<td><input type="text" name="sTo"
+										id="sTo<s:property value="%{#row_Num.index}" />"
+										class="form-control" placeholder="dd-Mon-yyyy"
+										value="<s:property value="%{#sIteratorList.sTo}" />" readonly="readonly"/>
+										 </td>
+										 </s:if>
+										 <s:else>
+										 <td><input type="text" name="sTo"
+											id="sTo<s:property value="%{#row_Num.index}" />"
+											class="form-control from" placeholder="dd-Mon-yyyy"
+											value="<s:property value="%{#sIteratorList.sTo}" />" />
+										 </td>
+										 </s:else>
+									<td><input type="checkbox" name="sActive"
+											id="sActive<s:property value="%{#row_Num.index}" />"
+											style="margin-left: 23px;" <s:property value="%{#sIteratorList.sActive}" /> /> </td>
+									
+									<td style="width: 232px;">
+										<s:select name="sMeterType" id="sMeterType%{#row_Num.index}" theme="simple"
+											headerKey="" headerValue="--Select--" cssClass="form-control"
+											list="%{#sIteratorList.sMeterList}" 
+											 style="padding:0px;width:127px;"  disabled ="true"></s:select>
+										</td>
+										<td style="width: 232px;">
+										<s:select name="sConnType" id="sConnType%{#row_Num.index}" theme="simple"
+											headerKey="" headerValue="--Select--" cssClass="form-control"
+											list="%{#sIteratorList.sConnTypeList}" 
+											 style="padding:0px;width:100px;"  disabled ="true" ></s:select>
+
+										</td>
+										<td><input type="text" name="sOldReading"  readonly="readonly"
+							 				 placeholder="Enter..." id="sOldReading<s:property value="%{#row_Num.index}" />" class="form-control"
+											value="<s:property value="%{#sIteratorList.sOldReading}" />"  /></td>
+										<td><input type="hidden" name="sOldMeterId" 
+											  id="sOldMeterId<s:property value="%{#row_Num.index}" />"  
+											 value="<s:property value="%{#sIteratorList.sOldMeterId}" />"  />
+											<input type="text" name="sOldMeter"
+											  id="sOldMeter<s:property value="%{#row_Num.index}" />"  class="form-control"
+											readonly="readonly" value="<s:property value="%{#sIteratorList.sOldMeter}" />"   /></td>	
+									<s:if test='"Y".equalsIgnoreCase(#sIteratorList.sOverlap)'>
+										<td style="width: 34px; cursor: pointer; text-align: center;">
+											<img class="btnAdd12" id="overImg<s:property value="%{#row_Num.index}" />" style="width: 12px;"
+											src="scripts/redCircle1.jpg" />
+											<input type="hidden" name="overText" id="overText<s:property value="%{#row_Num.index}" />"   /> 
+										</td>
+									</s:if>
+									<s:else>
+										<td style="width: 34px; cursor: pointer; text-align: center;">
+											<img class="btnAdd12" id="overImg<s:property value="%{#row_Num.index}" />" style="width: 10px;"
+											src="scripts/greenCirlce.jpg" />
+											<input type="hidden" name="overText" id="overText<s:property value="%{#row_Num.index}" />"   />
+										</td>
+									</s:else>
+									<td style="font-size: 11px;">
+									<input type="text" id="sErrorMessage<s:property value="%{#row_Num.index}" />" name="sErrorMessage" value="<s:property value="%{#sIteratorList.sErrormsg}" />" class="form-control" readonly="true" style="width: 185px;" />
+								   </td>
+								</tr>
+							</s:iterator>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="box-footer" style="height: 75px; margin-top: -16px;">
+				<table width="100%">
+					<tr>
+						<td><button type="button" class="btn btn-primary"
+								id="saveBtnclick">Save</button><a onclick="closebutton()"> <button type="button" class="btn btn-primary" 
+								  name="close">Close</button></a></td>
+					</tr>
+				</table>
+			</div>
+
+		</section>
+	</div>
+	<footer class="main-footer" style="text-align: right;">
+		<!-- To the right -->
+		<div class="pull-right hidden-xs"></div>
+		<!-- Default to the left -->
+		<strong style="margin-left: 50px;">Copyright &copy; 2015 <a
+			href="#">Connaissant</a>.
+		</strong> All rights reserved.
+	</footer>
+
+
+	<div class='control-sidebar-bg'></div>
+	<script src="js/jquery-ui.js"></script>
+		<script src="scripts/commonJs.js"></script>
+		<script src="scripts/ajax.js"></script>
+	    <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+	    <script type="text/javascript" src="js/jquery.bootstrap-touchspin.js"></script>
+		<script src="js/jszip.min.js"></script> 
+		<script type="text/javascript">
+	
+	function checkDateOverlap(elementDate)
+	{
+			showModalMessage('');
+			var tr =elementDate.parentNode.parentNode;
+			var dataLen=tr.parentNode.getElementsByTagName("tr").length;
+			var index=tr.rowIndex;
+			var rowIndex= index-1;
+		    var startDate= document.getElementsByName("eStartDate");
+		 	var endDate = document.getElementsByName("eEndDate");
+			var selectedstartDate= startDate[index-1].value;
+			var selectedEndDate= endDate[index-1].value;
+			if(selectedstartDate=='')
+			{
+				showModalMessage("Please Select the start date @row "+index);
+				return false;
+			}
+			for(var i=0;i<dataLen;i++)
+			{
+				var startDate= document.getElementsByName("eStartDate")[i];
+				var endDate= document.getElementsByName("eEndDate")[i];
+				if(startDate.value=='')
+				{
+					showModalMessage("Please enter start date @row ."+rowIndex);
+				    return false;
+				}
+				if(rowIndex!=i&&dateCheck(startDate.value,endDate.value,selectedstartDate))
+				{
+					
+					showModalMessage("Start Date Selected cannot lie between previous selected dates  @row "+(rowIndex+1));
+				return false;
+				}
+				if(rowIndex!=i&&dateCheck(selectedstartDate,selectedEndDate,startDate.value))
+				{
+					showModalMessage("Date Overlapping :Start Date @ row "+ (i+1)+" lies between selected dates  @row "+(rowIndex+1));
+					return false;
+				}
+				if(selectedEndDate!='')
+				{
+				    if(rowIndex!=i&&dateCheck(startDate.value,endDate.value,selectedEndDate))
+					{
+				    	showModalMessage("End Date Selected cannot lie between previous selected dates   @row "+(rowIndex+1));
+						return false;
+					}
+				    if(rowIndex!=i&&dateCheck(selectedstartDate,selectedEndDate,endDate.value))
+					{
+						
+						showModalMessage("Date Overlapping :End Date @ row "+ (i+1)+" lies between selected dates  @row "+(rowIndex+1));
+						return false;
+					}
+				}
+				if(endDate.value!=''){
+					if(parseDate(endDate.value)<parseDate(startDate.value)){
+						showModalMessage("Start Date cannot be greater than End date @row "+(rowIndex+1));
+						return false;
+					}
+				}
+				
+			}	
+			return true;
+	}
+
+
+	 
+	 function dateCheck(from,to,check) 
+	{	
+		var fDate,lDate,cDate;
+	    fDate = parseDate(from);
+	   // alert(fDate+"fdate");
+	    var newdate = new Date();
+	    if(to!=''){
+	    	//alert("ifff");
+	    lDate = parseDate(to);
+	    }
+	    else{
+	   	//alert("elsee");
+	     lDate=newdate.setDate(newdate.getDate()+10000);
+	      var dd = newdate.getDate();
+	      var mm = newdate.getMonth() + 1;
+	      var y = newdate.getFullYear(); 
+	    lDate= new Date(y,mm,dd);
+	   }
+	  	cDate = parseDate(check);
+
+	    if(cDate<=lDate && cDate>= fDate)
+	    	{
+	    	if(cDate<=lDate && cDate>= fDate){
+	    		return true;
+	    	}
+	        	
+	    	}
+	    
+    	
+	    return false;
+	} 
+
+	 function parseDate(s)
+	   {//alert(s+"s");
+		//console.log(s);
+		  var months = {jan:0,feb:1,mar:2,apr:3,may:4,jun:5,
+		                jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
+		  var p = s.toString().split('-');
+		  //console.log(p);
+		  //alert(p[2]+"::"+p[0]);
+		  return new Date(p[2], months[p[1].toLowerCase()], p[0]);
+	} 
+	
+	function searchButton() {
+		$("#prjId").val($("#fmsProject").val());
+		$("#secId").val($("#fmsSector").val());
+		$("#pocId").val($("#fmsPocket").val());
+		$("#towId").val($("#fmsTower").val());
+		$("#flrId").val($("#fmsFloor").val());
+		$("#unitId").val($("#fmsUnit").val());
+		$("#subunitId").val($("#fmsSubUnit").val());
+		
+		$("#prjname").val($("#fmsProject option:selected").text());
+		$("#secname").val($("#fmsSector option:selected").text());
+		$("#pocname").val($("#fmsPocket option:selected").text());
+		$("#twrname").val($("#fmsTower option:selected").text());
+		$("#flrname").val($("#fmsFloor option:selected").text());
+		$("#unitname").val($("#fmsUnit option:selected").text());
+		$("#subunitname").val($("#fmsSubUnit option:selected").text());
+		showMessage("");
+		if( document.editSubUnitCompMeter.crmComponentGroup.value == "" )
+        {
+			showMessage("Please Select Component group First ");
+           return false;
+        }
+		if( document.editSubUnitCompMeter.fmsProject.value == "" )
+        {
+			showMessage("Please Select Project First ");
+           return false;
+        }
+		
+		$("#sFor").val("edit");
+		$("#editSubUnitCompMeter").submit();
+	}
+	function clearFields() {
+		$('#fmsSector option').removeAttr("selected");
+		$('#fmsSector').multiselect('rebuild');
+      
+		$('#fmsPocket option').removeAttr("selected");
+		$('#fmsPocket').multiselect('rebuild');
+		
+		$('#fmsProject option').removeAttr("selected");
+		$('#fmsProject').multiselect('rebuild');
+		
+		$('#fmsTower option').removeAttr("selected");
+		$('#fmsTower').multiselect('rebuild');
+		
+		$('#fmsFloor option').removeAttr("selected");
+		$('#fmsFloor').multiselect('rebuild');
+		
+		$('#fmsUnit option').removeAttr("selected");
+		$('#fmsUnit').multiselect('rebuild');
+		
+		$('#sCompHidden option').removeAttr("selected");
+		$('#sCompHidden').multiselect('rebuild');
+        
+		$('#crmComponentGroup option').removeAttr("selected");
+		$('#crmComponentGroup').multiselect('rebuild');
+		
+		$('#fmsSubUnit option').removeAttr("selected");
+		$('#fmsSubUnit').multiselect('rebuild');
+		
+	}
+	$('#sAll').click( function(){
+		var status = $(this).is(':checked');
+		var activeBox=document.getElementsByName("sCheckbox");
+		if(status){
+			for(var i=0;i<activeBox.length;i++){
+				document.getElementById("sCheckbox"+i).checked=true;
+			}
+		}
+		else{
+			for(var i=0;i<activeBox.length;i++){
+				document.getElementById("sCheckbox"+i).checked=false;
+			}
+		}
+		}); 
+	function closebutton() {
+		//alert("hii");
+		newwin=window.open('searchSubUnitCompMeter?sFor=search',"_self");
+		if (window.focus) {
+	   	 	newwin.focus();
+	   	 }
+		
+	}
+	function checkDateOverLap(elem){
+		showMessage("");
+		var rowIndex=elem.parentNode.parentNode.rowIndex;
+		var checkbox = document.getElementsByName("sCheckbox");
+		var sSubUnitCompMeterId=document.getElementsByName("sSubUnitCompMeterId")[rowIndex-1].value;
+		var sSubUnitCompId1=document.getElementsByName("sSubUnitCompId1")[rowIndex-1].value;
+		var sFrom=document.getElementsByName("sFrom")[rowIndex-1].value;
+		var sTo=document.getElementsByName("sTo")[rowIndex-1].value ; 
+		
+		$.get("checkSubUnitMeterDateOverlap.action",{
+			sSubUnitCompId1 : sSubUnitCompId1,
+			sSubUnitCompMeterId :sSubUnitCompMeterId ,
+			sFrom : sFrom,
+			sTo : sTo,
+			param:'edit'
+			},function(data){
+				
+				var menuList=JSON.parse(data);
+				//alert("test" + menuList[0].sOverlap);
+				if("Y" == menuList[0].sOverlap){
+					$("#rowCount"+(rowIndex-1)).find("#overImg" + (rowIndex-1)).attr("src", "scripts/redCircle1.jpg");
+					$("#rowCount"+(rowIndex-1)).find("#overImg" + (rowIndex-1)).css({'width' : '12px'});
+					
+					document.getElementById("overText"+(rowIndex-1)).value="red";
+					//elem.parentNode.parentNode.find('img[name="overlapImg"]').attr("src" , "scripts/redCircle.png")	;
+				}
+				else if("N" == menuList[0].sOverlap){
+					$("#rowCount"+(rowIndex-1)).find("#overImg" + (rowIndex-1)).attr("src", "scripts/greenCirlce.jpg");
+					$("#rowCount"+(rowIndex-1)).find("#overImg" + (rowIndex-1)).css({'width' : '10px'});
+					document.getElementById("overText"+(rowIndex-1)).value="green";
+					$("#rowCount"+(rowIndex-1)).css("background-color", "");
+					//elem.parentNode.parentNode.find('img[name="overlapImg"]').attr("src" , "scripts/greenCirlce.jpg");
+				}
+			});
+		}
+	
+	 $( ".from" ).datepicker({ 
+		dateFormat:$("#systemDatePickerFormat" ).val(),
+	 	onClose: function (selected) {
+		checkDateOverLap(this);
+       	}
+		});
+	
+	$(document).ready(function() {
+		 if($("#sFor").val()=="edit"){
+				if($("#prjId").val()!=''){
+				  $('#fmsProject').append("<option value="+$("#prjId").val()+" selected>"+$("#prjname").val()+"</option>");
+				 }
+				 if($("#secId").val()!=''){
+					 $('#fmsSector').append("<option value="+$("#secId").val()+" selected>"+$("#secname").val()+"</option>");
+							  }
+				 if($("#pocId").val()!=''){
+					 $('#fmsPocket').append("<option value="+$("#pocId").val()+" selected>"+$("#pocname").val()+"</option>");
+					
+				 }
+				 if($("#towId").val()!=''){
+					 $('#fmsTower').append("<option value="+$("#towId").val()+" selected>"+$("#twrname").val()+"</option>");
+					  
+				 }
+				 if($("#flrId").val()!=''){
+					 $('#fmsFloor').append("<option value="+$("#flrId").val()+" selected>"+$("#flrname").val()+"</option>");
+					
+				 }
+				 if($("#unitId").val()!=''){
+					 $('#fmsUnit').append("<option value="+$("#unitId").val()+" selected>"+$("#unitname").val()+"</option>");
+					  
+				 }
+				 if($("#subunitId").val()!=''){
+					 $('#fmsSubUnit').append("<option value="+$("#subunitId").val()+" selected>"+$("#subunitname").val()+"</option>"); 
+				 }
+			 }
+		
+		$(".from").on('change', function () {
+			checkDateOverLap(this);
+	    });
+		$("#saveBtnclick").click(function (){
+		var value = 'sFor=Save';
+		$("sFor").val("Save");
+		var checkbox = document.getElementsByName("sCheckbox");
+		var len = checkbox.length;
+		if(len==0){
+			showMessage(" No row exists to save !");
+			return false;
+		}
+		var flag=false;
+		 for (var i = 0; i < len; i++) {
+			 if(checkbox[i].checked){
+				 flag=true;
+				}
+		}
+		 if(!flag){
+			 showMessage("Please Select checkbox to save row !");
+			 return false;
+		 }
+		 for (var i = 0; i < len; i++) {
+			 if(checkbox[i].checked){
+			/* 	 if(document.getElementsByName("sFrom")[i].value==''){
+					 showMessage("Start Date Can't be Empty !");
+					 return false;
+				 }
+				 if(document.getElementsByName("sMeterNum")[i].value==''){
+					 showMessage("Meter Number Can't be Empty !");
+					 return false;
+				 }
+				 if(document.getElementsByName("sMeterType")[i].value==''){
+					 showMessage("Meter Type Can't be Empty !");
+					 return false;
+				 }
+				 if(document.getElementsByName("sOldReading")[i].value==''){
+					 showMessage("Opening Reading Can't be Empty !");
+					 return false;
+				 }
+ */				 if(document.getElementById("overText"+i).value == "red"){
+					 showMessage("Date Can't be  Overlap !");
+					 return false;
+				 }
+			 }
+		}
+		var sSubUnitCompMeterId = '';
+		var sSubUnitHidden1='';
+		var sActive='';
+		var sMeterNumHidden='';
+		var sFrom='';
+		var sTo='';
+		var sMeterType='';
+		var sConnType='';
+		var sOldReading='';
+		var sOldMeterId='';
+		var sSubUnitCompId1='';
+		
+		for(var i=0;i<len ;i++){
+			if(checkbox[i].checked){
+				sSubUnitCompMeterId=sSubUnitCompMeterId.concat(document.getElementsByName("sSubUnitCompMeterId")[i].value + "^");
+				sSubUnitCompId1=sSubUnitCompId1.concat(document.getElementsByName("sSubUnitCompId1")[i].value + "^");
+				sMeterNumHidden=sMeterNumHidden.concat(document.getElementsByName("sMeterNumHidden")[i].value + "^");
+				sMeterType=sMeterType.concat(document.getElementsByName("sMeterType")[i].value + "^");
+				sConnType=sConnType.concat(document.getElementsByName("sConnType")[i].value + "^");
+				sOldReading=sOldReading.concat(document.getElementsByName("sOldReading")[i].value + "^");
+				sOldMeterId=sOldMeterId.concat(document.getElementsByName("sOldMeterId")[i].value + "^");
+				sFrom=sFrom.concat(document.getElementsByName("sFrom")[i].value + "^");
+				sTo=sTo.concat(document.getElementsByName("sTo")[i].value + "^");
+				if(document.getElementsByName("sActive")[i].checked){
+				sActive=sActive.concat("1"+ "^");
+				}else{
+					sActive=sActive.concat("0"+ "^");
+				}
+			}
+		}
+		
+		$.get("addAjaxUnitCompMeter", {
+			sSubUnitCompMeterId : sSubUnitCompMeterId,
+			sSubUnitCompId1 :sSubUnitCompId1 ,
+			sMeterNumHidden : sMeterNumHidden,
+			sMeterType : sMeterType,
+			sConnType : sConnType,
+			sOldReading : sOldReading,
+			sOldMeterId : sOldMeterId,
+			sFrom : sFrom,
+			sTo :sTo,
+			sActive : sActive
+    		
+		}, function(result) {
+			var errorMsg ='';
+			data=JSON.parse(result);
+			 var errorCode=data[0].errorCode;
+			 var errorCodeArr = new Array(); 
+		     errorCodeArr = errorCode.split("^");
+		     var j = 0;		 
+				if (errorCodeArr.length != '' ) {
+					for (var i = 0; i < len; i++) {
+						if (checkbox[i].checked) {
+							 document.getElementById("sErrorMessage"+ i).value = errorCodeArr[j];
+							  if (errorCodeArr[j] == "APP0013: Transaction completed." ) {
+								$("#rowCount"+ i).css("background-color","#rgb(230, 249, 210);");
+								 } else {
+								$("#rowCount"+ i).css("background-color","#F7DBDB");
+							} 
+							  j++;
+						}
+					}
+				}
+			});
+		});
+		$('#crmComponentGroup').multiselect({
+			  enableFiltering: true,
+			  enableCaseInsensitiveFiltering:true,
+	          numberDisplayed: 2,
+	          nonSelectedText: '-- Please Select --',
+	          filterPlaceholder: 'Search...' 
+   	  		
+	});
+	$("#compGrpDivId").find('.multiselect').css('background-color', '#d6e2b5');
+		 multiSector();
+	     multiPocket();
+	     multiProject();
+	     multiTower();
+	     multiFloor();
+	     multiUnit();
+	     multiSubUnit();
+		});
+	function multiSector()
+	   {
+	   $('#fmsSector').multiselect({
+	       enableFiltering: true,
+	       numberDisplayed: 2,
+	       nonSelectedText: '-- Please Select --',
+	       filterPlaceholder: 'Search...',
+	       dynamicSearch:true,
+	       maxHeight: 200,
+		   action:'getFMSDpndntMultiSelectAjax?ajaxId='+$('#fmsSector').val()+'&valueSetName=231&attrName=sSectorId',
+	       onChange : function(option, checked) {
+	     	 getDependentOption(option.val(),'#fmsPocket',"232","#pocketId",'17','sSectorId',"Pocket","Sector","");
+		        }
+	   });
+	   }
+	
+	
+	   function multiPocket()
+	   {
+	   $('#fmsPocket').multiselect({
+			          enableFiltering: true,
+			          numberDisplayed: 2,
+			          nonSelectedText: '-- Please Select --',
+			          filterPlaceholder: 'Search...',
+			          dynamicSearch:true,
+			          maxHeight: 200,
+					  action:'getFMSDpndntMultiSelectAjax?ajaxId='+$('#fmsPocket').val()+'&valueSetName=232&attrName=sPocketId',
+			          onChange : function(option, checked) {
+							getDependentOption(option.val(),'#fmsProject',"227","#projectId",'18','sPocketId',"Project","Pocket",1);
+				         }
+			      });
+	   }
+	   function multiProject()
+	   {
+	   $('#fmsProject').multiselect({
+			          enableFiltering: true,
+			          numberDisplayed: 2,
+			          nonSelectedText: '-- Please Select --',
+			          filterPlaceholder: 'Search...',
+			          dynamicSearch:true,
+			          maxHeight: 200,
+					  action:'getFMSDpndntMultiSelectAjax?ajaxId='+$('#fmsProject').val()+'&valueSetName=227&attrName=sPrjId',
+			          onChange : function(option, checked) {
+			        	getDependentOption(option.val(),'#fmsTower',"228","#towerId",'19','sPrjId',"Tower","project",2);
+				        }
+			      });
+	   $("#prjDivId").find('.multiselect').css('background-color', '#d6e2b5');
+	   }
+	   function multiTower()
+	   {
+	  $('#fmsTower').multiselect({
+			          enableFiltering: true,
+			          numberDisplayed: 2,
+			          nonSelectedText: '-- Please Select --',
+			          filterPlaceholder: 'Search...',
+			          dynamicSearch:true,
+			          maxHeight: 200,
+					  action:'getFMSDpndntMultiSelectAjax?ajaxId='+$('#fmsTower').val()+'&valueSetName=228&attrName=sTowerId',
+			          onChange : function(option, checked) {
+			        	getDependentOption(option.val(),'#fmsFloor',"229","#floorId",'20','sTowerId',"Floor","tower",3);
+				          	
+			          	}
+			      });
+	   }
+	   function multiFloor()
+	   {
+	    $('#fmsFloor').multiselect({
+			          enableFiltering: true,
+			          numberDisplayed: 2,
+			          nonSelectedText: '-- Please Select --',
+			          filterPlaceholder: 'Search...',
+			          dynamicSearch:true,
+			          maxHeight: 200,
+					  action:'getFMSDpndntMultiSelectAjax?ajaxId='+$('#fmsFloor').val()+'&valueSetName=229&attrName=sFloorId',
+			          onChange : function(option, checked) {
+			        	 getDependentOption(option.val(),'#fmsUnit',"230","#unitId",'21','sFloorId','Unit','floor',4);
+			          	}
+			      });
+	   }
+	   function multiUnit() {
+			$('#fmsUnit').multiselect(
+					{
+						enableFiltering : true,
+						numberDisplayed : 2,
+						nonSelectedText : '-- Please Select --',
+						filterPlaceholder : 'Search...',
+						dynamicSearch:true,
+						maxHeight: 200,
+						action:'getFMSDpndntMultiSelectAjax?ajaxId='+$('#fmsUnit').val()+'&valueSetName=230&attrName=sUnit',
+						onChange : function(option, checked) {
+						getDependentOption(option.val(), '#fmsSubUnit',
+									"290", "#subUnitId", '21', 'sUnitId',
+									'SubUnit', 'unit', 5);
+							
+
+							$("#tatId").find("input").focus();
+						}
+					});
+		}
+	   function getDependentOption(valueId,dependentId,valueSetNm,dataId,count,attrName,sFor,depFor,depPos)
+    		{
+		
+			$(dependentId).find('option').remove();
+			$.get("getFMSDpndntMultiSelectAjax", {
+					ajaxId : valueId,
+					valueSetName : valueSetNm,
+					attrName: attrName,
+					userId: "2"
+				}, function(result) 
+					{
+				
+						if(result=="")
+						{
+							$(dependentId).append('<option class="optCls" value="">--Search--</option>');
+							$(dependentId).multiselect('rebuild');
+						result=[];
+						data=[];
+						if(sFor=='Pocket')
+						{
+						getDependentOption(valueId,'#fmsProject',"227","#projectId",'18',attrName,"Project",depFor,depPos);
+						}
+						if(sFor=='Tower')
+						{
+							$('#fmsFloor').find('option').remove();
+							$('#fmsFloor').append('<option class="optCls" value="">--Search--</option>');
+							$('#fmsFloor').multiselect('rebuild');
+							getDependentOption($('#fmsProject').val(), '#fmsUnit',"230","#unitId",'21','sPrjId',"Unit",
+								depFor, depPos);
+						}
+						}
+						else
+						{
+							var data=JSON.parse(result);
+							if(data.length>0){
+							for(var i=0;i<data.length;i++){  					
+							$(dependentId).append('<option value="'+data[i].id+'">'+data[i].name+'</option>');
+							}
+							$(dependentId).multiselect('rebuild');
+			  			if(sFor=='Sector')
+			  				getDependentOption(valueId,'#fmsPocket',"232","#pocketId",'17',attrName,"Pocket",depFor,depPos);
+			  			else if(sFor=='Pocket')
+			  				getDependentOption(valueId,'#fmsProject',"227","#projectId",'18',attrName,"Project",depFor,depPos);
+			  			else if(sFor=='Project')
+			  				{
+			  				getDependentOption(valueId,'#fmsTower',"228","#towerId",'19',attrName,"Tower",depFor,depPos);
+			  				
+			  				}
+			  			else if(sFor=='Tower')
+			  				getDependentOption(valueId,'#fmsFloor',"229","#floorId",'20',attrName,"Floor",depFor,depPos);
+			  			else if(sFor=='Floor')
+			  				getDependentOption(valueId,'#fmsUnit',"230","#unitId",'21',attrName,"Unit",depFor,depPos);
+			  			else if (sFor == 'Unit')
+							getDependentOption(valueId, '#fmsSubUnit', "290",
+									"#subUnitId", '22', attrName, "SubUnit",
+									depFor, depPos);
+						else if (sFor == "SubUnit") {
+							//alert(valueId + "  "+ depFor);
+							if(depFor!='Sector')
+								{
+							$.get("getFMSDependentValAjax", {
+								selectId : valueId,
+								flagName : depFor
+							}, function(result) {
+
+								var data = JSON.parse(result);
+								//console.log(data.length);
+								if (data.length > 0) {
+									setSelectValues(data, depPos);
+								}
+
+							})
+								}
+						}
+
+					}
+		}
+	});
+}
+	   
+	   function setSelectValues(data,sFor)
+		  {
+			  for(var i=0;i<data.length;i++)
+			  {
+				  if (i==0)
+					  {
+				  $('#fmsSector').empty();
+				  $('#fmsSector').append('<option class="optCls" value="">--Search--</option>');
+				  $("#fmsSector").multiselect('rebuild');
+					  }
+				  if(data[i].SECTOR_NAME!=null && data[i].SECTOR_NAME!='undefined')
+					  {
+				
+				$('#fmsSector').append("<option value="+data[i].SECTOR_ID+" selected>"+data[i].SECTOR_NAME+"</option>");
+					$("#fmsSector").multiselect('rebuild');
+					  }
+					
+			     
+			 		if(sFor>2)
+						 {
+						if(data[i].PRJ_NAME!=null && data[i].PRJ_NAME!='undefined')
+					 	 {
+							$('#fmsProject').empty();
+							$('#fmsProject').append("<option value="+data[i].PRJ_ID+" selected>"+data[i].PRJ_NAME+"</option>");
+							$("#fmsProject").multiselect('rebuild');
+					 	 }
+							
+				 	}
+					 if(sFor>3)
+					 { if(data[i].TOWER_NAME!=null && data[i].TOWER_NAME!='undefined')
+						 	 {
+							 $('#fmsTower').empty();
+							 $('#fmsTower').append("<option value="+data[i].TOWER_ID+" selected>"+data[i].TOWER_NAME+"</option>");
+								$("#fmsTower").multiselect('rebuild');
+						 	 }
+					 }
+					 if(sFor>4)
+					 {
+						  if(data[i].FLOOR_NAME!=null && data[i].FLOOR_NAME!='undefined')
+						 	 {
+							 $('#fmsFloor').empty();
+							 $('#fmsFloor').append("<option value="+data[i].FLOOR_ID+" selected>"+data[i].FLOOR_NAME+"</option>");
+							 $("#fmsFloor").multiselect('rebuild');
+						 	 }
+							
+					 }
+					 if (sFor > 5) {
+						if(data[i].UNIT_NAME!=null && data[i].UNIT_NAME!='undefined')
+							 	 {
+							 $('#fmsUnit').empty();
+							 $('#fmsUnit').append("<option value="+data[i].UNIT_ID+" selected>"+data[i].UNIT_NAME+"</option>");
+							 $("#fmsUnit").multiselect('rebuild');
+							 	 }
+
+						}
+					 if(sFor>1)
+					 {
+						if(data[i].POCKET_NAME!=null && data[i].POCKET_NAME!='undefined')
+						 	 {
+							 $('#fmsPocket').empty();
+							 $('#fmsPocket').append("<option value="+data[i].pocket_id+" selected>"+data[i].POCKET_NAME+"</option>");
+							 $("#fmsPocket").multiselect('rebuild');
+						 	 }
+					 }
+					 	
+		  }	
+				
+			  
+		  }
+
+	   function multiSubUnit() {
+			$('#fmsSubUnit').multiselect(
+					{
+						enableFiltering : true,
+						numberDisplayed : 2,
+						nonSelectedText : '-- Please Select --',
+						filterPlaceholder : 'Search...',
+						dynamicSearch:true,
+						maxHeight: 200,
+						action:'getFMSDpndntMultiSelectAjax?ajaxId='+$('#fmsSubUnit').val()+'&valueSetName=290&attrName=subUnit',
+				        onChange : function(option, checked) {
+							$.get("getFMSDependentValAjax", {
+								selectId : option.val(),
+								selectName : option.text(),
+								flagName : 'subUnit'
+							}, function(result) {
+
+								var data = JSON.parse(result);
+								if (data.length > 0) {
+									setSelectValues(data, 6);
+								}
+
+							});
+						}
+					});
+		}
+	   
+		function isNullOrEmpty(param) {
+			if (param == "" || param == null) {
+				return true;
+			}
+			return false;
+		}
+		function showMessage(message) {
+			if (!isNullOrEmpty(message)) {
+				if (message == "APP0013: Transaction completed.") {
+					$("#messageId").html(message).removeClass("error")
+							.addClass("success");
+					$("#messageId").show();
+				} else {
+					$("#messageId").html(message).removeClass("success")
+							.addClass("error");
+					$("#messageId").show();
+				}
+				$('html, body').animate({ scrollTop: 0 }, 'slow');
+			} else {
+				$("#messageId").hide();
+			}
+		}
+	</script>
+</body>
+
+</html>
+

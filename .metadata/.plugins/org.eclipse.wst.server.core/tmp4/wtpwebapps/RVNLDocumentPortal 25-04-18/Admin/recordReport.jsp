@@ -30,8 +30,8 @@
 <head>
 <title>PDAMS - Document Log</title>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-<link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.min.css"/>
+<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.css"/>
 <!-- <title>Report</title> -->
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
@@ -500,18 +500,18 @@ session.removeAttribute("back");
 	%>
 	<br>
 
-     <input type="button" href="#" onclick="javascript:window.print();" class="btn btn-primary" value="Print this page" style="float:right;">
+     <input type="button" href="#" onclick="javascript:window.print();" class="btn btn-primary" value="Print this page" style="">
  <%   if(backurl1==null){ %>
- <input type="button" class="btn btn-primary" value="Back" style="width:8%;" onclick="closeMe();"/>
+ <input type="button" class="btn btn-primary" value="Back" style="width:8%;float: left;" onclick="closeMe();"/>
  <%
  
  }
  
  else if(backurl==null){%>
-	<input type="button" class="btn btn-primary" value="Back" style="width:8%;" onclick="location.href='<%=back%>'"/>
+	<input type="button" class="btn btn-primary" value="Back" style="width:8%;float: left;" onclick="location.href='<%=back%>'"/>
 <%}else{%> 
 
-	<input type="button" class="btn btn-primary" value="Back" style="width:8%;" onclick="location.href='<%=back%>'"/>
+	<input type="button" class="btn btn-primary" value="Back" style="width:8%;float: left;" onclick="location.href='<%=back%>'"/>
 <%}%>
      
      

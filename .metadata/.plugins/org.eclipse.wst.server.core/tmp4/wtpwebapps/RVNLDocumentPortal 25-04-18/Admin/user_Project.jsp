@@ -13,8 +13,8 @@
 <html>
 <head>
 <link href="resources/css/main.css" rel="stylesheet" type="text/css">
-<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-<link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.min.css"/>
+<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.css"/>
 <script src="resources/JS/Approval_wf230.js"></script>
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -192,9 +192,15 @@ div.absolute {
 			<br>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		
-		<button id="addto" type="button" class="btn btn-primary"
-				onclick="javascript:validateProject();">Add To Me</button>
+		<div>
+		<button id="addto"  type="button" class="btn btn-primary"
+				onclick="validateProject1();">Add To Me</button>
+				
+				<button id="addto" onclick="button1();" type="button" class="btn btn-primary">Back</button>
+				</div>
+				
+				
+				
 			<br>
 			<br>
 <div id="dialogid" style="display: none"
@@ -391,7 +397,7 @@ if(rs21.next()) {
 					conn = ds.getConnection();
 
 					String sql3 = "select distinct(Project_ID) from xx_project_user_mapping where User_ID='"
-							+ user_id + "'";
+							+ user_id + "'";	 
 					 ps3 = conn.prepareStatement(sql3);
 					 rs3 = ps3.executeQuery();
 					while (rs3.next()) {
@@ -456,6 +462,7 @@ if(rs21.next()) {
 					</table>
 			</div>
           <script type="text/javascript">
+          
           
           jQuery.noConflict();
 			
@@ -708,9 +715,64 @@ INSERT INTO xx_project_user_mapping (User_ID,Project_ID,Package_Id) VALUES ('<%=
 		<br>
 		<br>
 		<br>
+		<script type="text/javascript">
+		
+          function validateProject1(){
+
+        		//alert("asdads");
+        		var userid=document.getElementById("userId").value;
+        		var Project_names=document.getElementById("Project_name");
+        		var pack=document.getElementById("packages1");
+        		
+        		var pack_nam = pack.options[ pack.selectedIndex ].value;
+        		//alert(pack);
+        		//alert("pack_name"+pack_name);
+        		var Project_name = Project_names.options[ Project_names.selectedIndex ].value;	
+        		if(Project_name=="none" || Project_name=="" || Project_name=="null" ||pack_nam=="none" || pack_nam=="" || pack_nam=="null" )
+        			{
+        			
+        			 jQuery.noConflict();
+        				
+        				 var dialogid="#dialogid";
+        				 
+        				$(function(){
+        					$(dialogid).dialog({
+        			        modal: true,
+        			        autoOpen: false,
+        			        title: "Alert",
+        			        width: 400,
+        			        height: 200
+        			    });
+        				 
+        				  $(dialogid).dialog('open');
+        				});
+        			}
+        		else{
+        		
+        		document.Add_Project.userid_1.value=userid;
+        		document.Add_Project.projectid.value=Project_name;
+        		document.getElementById("Add_Project").submit();
+        	}}
+</script>
+
+<script type="text/javascript">
+
+function button1(){
+	
+	/*var bck1= window.open('NewIndex.jsp','_self');
+	if(window.focus){
+		bck1.focus();
+	}*/
+	window.history.back();
+	
+}
+</script>
 
 	</form>
-	<%@include file="included/Newfooter.jsp"%>
+	<%@include file="included/footer.jsp"%>
+	
+	
+	
 </body>
 
 </html>

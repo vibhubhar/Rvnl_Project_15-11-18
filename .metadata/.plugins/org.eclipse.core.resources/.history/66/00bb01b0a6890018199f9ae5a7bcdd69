@@ -1,0 +1,521 @@
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ page language="java"%>
+<%@ taglib prefix="sx" uri="/struts-dojo-tags"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<head>
+<meta charset="UTF-8">
+<meta
+	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
+	name='viewport'>
+
+
+
+<link rel="stylesheet" href="css/main-image-slider.css">
+<!-- DATA TABLES -->
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="css/bootstrap-multiselect.css"
+	type="text/css">
+<link rel="stylesheet" href="css/jquery.bootstrap-touchspin.css"
+	type="text/css">
+
+<link rel="stylesheet" href="css/kendo.common.min.css" />
+<link rel="stylesheet" href="css/kendo.default.min.css" />
+
+
+<style type="text/css">
+th.header {
+	background-image: url(scripts/bg.gif);;
+	cursor: pointer;
+	font-weight: bold;
+	background-repeat: no-repeat;
+	background-position: center left;
+	padding-left: 20px;
+	border-right: 1px solid #dad9c7;
+	margin-left: -1px;
+	background-position: center right;
+}
+
+th.headerSortUp {
+	background-image: url(scripts/asc.gif);
+	background-color: #3C8DBC;
+	color: #fff;
+	background-position: center right;
+}
+
+th.headerSortDown {
+	background-image: url(scripts/desc.gif);
+	background-color: #3C8DBC;
+	color: #fff;
+	background-position: center right;
+}
+
+body {
+	color: #6B6B6B;
+}
+
+.spinner {
+	width: 100px;
+}
+
+.spinner input {
+	text-align: right;
+}
+
+.input-group-btn-vertical {
+	position: relative;
+	white-space: nowrap;
+	width: 1%;
+	vertical-align: middle;
+	display: table-cell;
+}
+
+.input-group-btn-vertical>.btn {
+	display: block;
+	padding: 0.44em;
+	margin-left: -1px;
+	position: relative;
+	border-radius: 0;
+}
+
+.input-group-btn-vertical>.btn:first-child {
+	border-top-right-radius: 3px;
+}
+
+.input-group-btn-vertical>.btn:last-child {
+	margin-top: -4px;
+	border-bottom-right-radius: 3px;
+}
+
+.input-group-btn-vertical i {
+	position: absolute;
+	top: -2px;
+	left: 2px;
+}
+
+select[multiple], select[size] {
+	height: 1.7em !important;
+}
+
+.form-group {
+	margin-bottom: 15px !important;
+	padding-left: 6px !important;
+	padding-bottom: 6px !important;
+}
+
+.form-control {
+	padding: 2px 10px !important;
+}
+
+.multiselect {
+	height: 2.0em !important;
+	border-radius: 1px !important;
+	margin-left: 2px !important;
+}
+
+label {
+	float: left !important;
+	color: black !important;
+}
+
+.open {
+	z-index: 3 !important;
+}
+
+#crmProject {
+	background-color: #D6E2B5;
+}
+
+.example1 th {
+	font-size: 14px;
+}
+</style>
+
+
+</head>
+<body class="skin-blue sidebar-collapse" style="">
+	<%
+		int count = 0;
+	%>
+	<jsp:include page="/header/header.jsp"></jsp:include>
+	<jsp:include page="/common/headerMenu.jsp"></jsp:include>
+
+	<div class="content-wrapper"
+		style="margin-left: 48px; margin-top: -15px; margin-bottom: -15px;">
+		
+		<section class="content" id="bodyOverlay"
+			style="padding-bottom: 0px; min-height: 0px;">
+			<span class="error" style="display: none; width: 350px;"
+				id="messageId"></span>
+			<s:hidden name="message" />
+			<form action="searchBillingCycle" method="post"
+				id="searchBillingCycle" name="searchBillingCycle"
+				style="margin-top: 10px;">
+				<input type="hidden" name="sFor" id="sFor"
+					value="<s:property value='sFor' />" /> 
+					<input type="hidden" name="sBillCycleHdrId" id="sBillCycleHdrId"
+					value="<s:property value='sBillCycleHdrId' />" /> 
+				<s:token />
+				<!-- Main content -->
+				<div class="box" style="border-top-color: #3C8DBC;">
+					<div class="box-header with-border">
+						<h3 class="box-title">Search Parameter</h3>
+						<div class="box-tools pull-right">
+							<button class="btn btn-box-tool" data-widget="collapse"
+								data-toggle="tooltip" title="Collapse" style="color: #3C8DBC;">
+								<i class="fa fa-minus"></i>
+							</button>
+							<button class="btn btn-box-tool" data-widget="remove"
+								data-toggle="tooltip" title="Remove" style="color: #3C8DBC;">
+								<i class="fa fa-times"></i>
+							</button>
+						</div>
+					</div>
+
+					<div class="box-body" style="text-align: center;">
+
+						<table style="border-spacing: 2px; width: 100%">
+							<tr style="width: 100%">
+								<td class="form-group"  style="width: 25%">
+									<div class="input-group"  style="width: 100%">
+										<span class="input-group-addon"
+											style="background-color: #9FBFF4; color: rgb(51, 51, 51);width:40%"><b>
+												Billing Cycle </b></span>
+										<s:textfield id="sBillingCycle" name="sBillingCycle"
+											cssClass="form-control" theme="simple" placeholder="Enter..."
+											></s:textfield>
+									</div>
+								</td>
+								<td id="frmDateId" class="form-group" style="width: 25%">
+									<div id="frmDateDiv" class="input-group"  style="width: 100%">
+										<span class="input-group-addon" for="presidentsClientInput"
+											style="background-color: #9FBFF4; color: rgb(51, 51, 51);width:40%"><b>
+												Start Date</b></span>
+										<s:textfield id="frmDate" name="frmDate" theme="simple"
+											cssClass="form-control from" placeholder="From (dd-Mon-yyyy)"
+											></s:textfield>
+									</div>
+								</td>
+								<td class="form-group" style="width: 25%">
+									<div class="input-group"  style="width: 100%">
+										<span class="input-group-addon"
+											style="background-color: #9FBFF4; color: rgb(51, 51, 51); width:40%"><b>
+												Duration </b></span>
+										<s:textfield id="sDuration" name="sDuration"
+											cssClass="form-control" theme="simple" placeholder="Enter..."
+											></s:textfield>
+									</div>
+								</td>
+
+								<td id="sUOMId" class="form-group" style="width: 25%">
+									<div class="input-group"  style="width: 100%"
+										id="sUOMDiv">
+										<span class="input-group-addon" for="presidentsClientInput"
+											style="background-color: #9FBFF4; color: rgb(51, 51, 51);width:40%"><b>
+												UOM </b></span>
+										<s:select list="sTimeUOMList" id="sUOM"
+											name="sUOM" multiple="false" size="2"
+											theme="simple" cssClass="form-control"></s:select>
+									</div>
+								</td>
+							</tr>
+							<tr style="width: 100%">
+								<td class="form-group" id="sPayTermId" style="width: 25%">
+									<div class="input-group" id="sPayTermDiv"
+										 style="width: 100%">
+										<span class="input-group-addon" for="presidentsClientInput"
+											style="background-color: #9FBFF4; color: rgb(51, 51, 51);width:40%"><b>Payment
+												Term </b></span>
+										<s:select list="sFMSBillingChargeList" id="sPayTerm" name="sPayTerm"
+											multiple="false" size="2" theme="simple"
+											cssClass="form-control"></s:select>
+									</div>
+								</td>
+								<td class="form-group" style="width: 25%">
+									<div class="input-group" style="width: 100%" id="sPenPayTermDiv">
+										<span class="input-group-addon"
+											style="background-color: #9FBFF4; color: rgb(51, 51, 51);width:40%"><b>
+												Penalty Term </b></span>
+										<s:select name="sPenPayTerm" id="sPenPayTerm" theme="simple"
+											 cssClass="form-control" list="sFMSBillingChargeList"
+											multiple="false" size="2"  />
+									</div>
+								</td>
+							</tr>
+
+
+						</table>
+					</div>
+					<!-- /.box-body -->
+					<div class="box-footer">
+						<button type="button" onclick="searchButton();"
+							class="btn btn-primary">Search</button>
+						<button type="button" onclick="clearFields()"
+							class="btn btn-primary">Clear</button>
+					</div>
+				</div>
+
+				<div class="box" style="border-top-color: #3C8DBC;">
+					<div class="box-header ">
+						<h3 class="box-title">Search Result</h3>
+						<div class="box-tools pull-right">
+							<button class="btn btn-box-tool" data-widget="collapse"
+								data-toggle="tooltip" title="Collapse" style="color: #3C8DBC;">
+								<i class="fa fa-minus"></i>
+							</button>
+							<button class="btn btn-box-tool" data-widget="remove"
+								data-toggle="tooltip" title="Remove" style="color: #3C8DBC;">
+								<i class="fa fa-times"></i>
+							</button>
+						</div>
+					</div>
+					<div class="box-body" style="text-align: center;">
+						<table id="example1"
+							class="table table-bordered table-striped example1"
+							>
+							<thead>
+								<tr style="background-color: #9FBFF4;">
+									<th style="text-align: center; cursor: pointer;"><span>Billing Cycle</span></th>
+									<th style="text-align: center; cursor: pointer;"><span>
+											Start Date</span></th>
+									<th style="text-align: center; cursor: pointer;"><span>Duration
+									</span></th>
+									<th style="text-align: center; cursor: pointer;"><span>
+											UOM</span></th>
+									<th style="text-align: center; cursor: pointer;"><span>Payment
+											Term</span></th>
+									<th style="text-align: center; cursor: pointer;"><span>Penalty Term
+									</span></th>
+									<th style="text-align: center; cursor: pointer;"><span>View</span></th>
+									<th style="text-align: center; cursor: pointer;"><span>Edit</span></th>
+								</tr>
+							</thead>
+							<tbody id="unitCompBody">
+
+								<s:iterator value="billingCycleData" var="billingCycleData"
+									status="row_Num">
+									<tr style="font-size: 14px;"
+										id="rowCount<s:property value="%{#row_Num.index}" />"
+										class="gridRow">
+										<td><input type="hidden" name="sBillingCycleHdrId"
+											id="sBillingCycleHdrId<s:property value="%{#row_Num.index}"  />"
+											value="<s:property value="%{#billingCycleData.sBillingCycleHdrId}" />" />
+											<s:property value="%{#billingCycleData.sBillingCycle1}" /></td>
+										<td><s:property value="%{#billingCycleData.sFrom1}" /></td>
+										<td style="text-align:right;"><s:property value="%{#billingCycleData.sDuration1}" /></td>
+										<td><s:property value="%{#billingCycleData.sUOM1}" /></td>
+
+										<td><s:property value="%{#billingCycleData.sPayTerm1}" /></td>
+										<td><s:property value="%{#billingCycleData.sPenPayTerm1}" /></td>
+										<td style="width: 34px; cursor: pointer; text-align: center;">
+											<a href="#"
+											onclick="editEntity('<s:property value="%{#billingCycleData.sBillingCycleHdrId}" />','view')" ><img
+												src="scripts/view_icon.png" /></a>
+
+										</td>
+										<td style="width: 34px; cursor: pointer; text-align: center;">
+											<a href="#"
+											onclick="editEntity('<s:property value="%{#billingCycleData.sBillingCycleHdrId}" />','edit')" ><img
+												src="scripts/Edit_icon.png" /></a>
+
+										</td>
+									</tr>
+								</s:iterator>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="box-footer">
+					<table width="100%">
+						<tr>
+							<td><a href="#"
+											onclick="editEntity('','new')" ><button type="button"
+										class="btn btn-primary">Add Billing Cycle</button></a> <a
+								href="home"><button type="button" class="btn btn-primary">Close</button></a></td>
+						</tr>
+					</table>
+				</div>
+			</form>
+		</section>
+	</div>
+	<footer class="main-footer" style="text-align: right;">
+		<!-- To the right -->
+		<div class="pull-right hidden-xs"></div>
+		<!-- Default to the left -->
+		<strong style="margin-left: 50px;">Copyright &copy; 2015 <a
+			href="#">Connaissant</a>.
+		</strong> All rights reserved.
+	</footer>
+
+
+	<div class='control-sidebar-bg'></div>
+	<script src="js/jquery-ui.js"></script>
+	<script src="scripts/commonJs.js"></script>
+	<script src="scripts/ajax.js"></script>
+	<script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+	<script type="text/javascript" src="js/jquery.bootstrap-touchspin.js"></script>
+	<script src="js/jszip.min.js"></script>
+	<script type="text/javascript">
+		
+		function editEntity( sBillingCycleHdrId,sFor) {
+			var newwin = window.open('addBillingCycle?sBillCycleHdrId=' + sBillingCycleHdrId+"&sFor="+sFor , "_self");
+			if (window.focus) {
+				newwin.focus();
+			}
+		}
+
+		function searchButton() {
+			$("#sFor").val("search");
+			$("#searchBillingCycle").submit();
+		}
+
+		$(document)
+				.ready(
+						function() {
+							$('#sPayTerm').multiselect({
+								  enableFiltering: true,
+								  enableCaseInsensitiveFiltering:true,
+						          numberDisplayed: 2,
+						          nonSelectedText: '-- Please Select --',
+						          filterPlaceholder: 'Search...'
+							  });
+							  
+						  $('#sPenPayTerm').multiselect({
+							  enableFiltering: true,
+							  enableCaseInsensitiveFiltering:true,
+					          numberDisplayed: 2,
+					          nonSelectedText: '-- Please Select --',
+					          filterPlaceholder: 'Search...'
+						  });
+						  $('#sUOM').multiselect({
+							  enableFiltering: true,
+							  enableCaseInsensitiveFiltering:true,
+					          numberDisplayed: 2,
+					          nonSelectedText: '-- Please Select --',
+					          filterPlaceholder: 'Search...'
+						  });
+							$('#togglr').click(function() {
+								$('#menu').show();
+								//$('#wd1_nlpopup').hide();
+							});
+							$('#bodyOverlay').click(function() {
+								$('#menu').hide();
+								//$('#wd1_nlpopup').hide();
+							});
+							$('.main-header').click(function() {
+								$('#menu').hide();
+								//$('#wd1_nlpopup').hide();
+							});
+							$('.main-menu').click(function() {
+								$('#menu').hide();
+								//$('#wd1_nlpopup').hide();
+							});
+							$('h1').click(function() {
+								$('#menu').hide();
+								//$('#wd1_nlpopup').hide();
+							});
+							$('#example1').tablesorter();
+							$('#example1').dataTable();
+							$('.gridRow')
+									.click(
+											function() {
+												$('#sRecordId')
+														.val(
+																document
+																		.getElementsByName("sBillingCycleHdrId")[(this).rowIndex - 1].value);
+												//alert($('#sRecordId').val());
+												//$('#wd1_nlpopup').hide();
+											});
+
+						});
+
+		
+		function highlight_row() {
+			var table = document.getElementById('example1');
+			var cells = table.getElementsByTagName('td');
+
+			//alert(cells.length);
+
+			for (var i = 0; i < cells.length; i++) {
+				// Take each cell
+				var cell = cells[i];
+				// do something on onclick event for cell
+				cell.onclick = function() {
+					// Get the row id where the cell exists
+					var rowId = this.parentNode.rowIndex;
+
+					var rowsNotSelected = table.getElementsByTagName('tr');
+					for (var row = 1; row < rowsNotSelected.length; row++) {
+						rowsNotSelected[row].style.backgroundColor = "";
+						rowsNotSelected[row].classList.remove('selected');
+					}
+					var rowSelected = table.getElementsByTagName('tr')[rowId];
+					rowSelected.style.backgroundColor = "#BCD4EC";
+					rowSelected.className += " selected";
+
+					msg = 'The ID of the company is: '
+							+ rowSelected.cells[0].innerHTML;
+					msg += '\nThe cell value is: ' + this.innerHTML;
+					// alert(msg);
+
+					document.getElementById("cellShowFlag").value = 1;
+					document.getElementById("historyId").value = rowSelected.cells[0].innerHTML;
+					document.getElementById("cellRoleName").value = rowSelected.cells[1].innerHTML;
+					document.getElementById("cellStartDate").value = rowSelected.cells[3].innerHTML;
+					document.getElementById("cellEndDate").value = rowSelected.cells[4].innerHTML;
+					document.getElementById("cellActiveUser").value = rowSelected.cells[5].innerHTML;
+
+				}
+			}
+
+		}
+		window.onload = highlight_row;
+
+		function clearFields() {
+
+			$('#sPenPayTerm option').removeAttr("selected");
+			$('#sPenPayTerm').multiselect('rebuild');
+
+			$('#sUOM option').removeAttr("selected");
+			$('#sUOM').multiselect('rebuild');
+
+			$('#sPayTerm option').removeAttr("selected");
+			$('#sPayTerm').multiselect('rebuild');
+
+			$('#sDuration').val("");
+			$('#sBillingCycle').val("");
+			$('#frmDate').val("");
+		}
+
+		function isNullOrEmpty(param) {
+			if (param == "" || param == null) {
+				return true;
+			}
+			return false;
+		}
+		function showMessage(message) {
+
+			if (!isNullOrEmpty(message)) {
+				if (message == "APP0013: Transaction completed.") {
+					$("#messageId").html(message).removeClass("error")
+							.addClass("success");
+					$("#messageId").show();
+				} else {
+					$("#messageId").html(message).removeClass("success")
+							.addClass("error");
+					$("#messageId").show();
+				}
+				$('html, body').animate({
+					scrollTop : 0
+				}, 'slow');
+			} else {
+				$("#messageId").hide();
+			}
+		}
+	</script>
+</body>
+
+</html>
+

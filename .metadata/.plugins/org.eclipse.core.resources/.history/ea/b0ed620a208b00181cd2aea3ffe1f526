@@ -1,0 +1,938 @@
+
+<%@ page language="java"%>
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<head>
+
+		
+	    <style type="text/css">
+		
+		th.header {
+			background-image: url(scripts/bg.gif);
+			cursor: pointer;
+			font-weight: bold;
+			background-repeat: no-repeat;
+			background-position: center left;
+			padding-left: 20px;
+			border-right: 1px solid #dad9c7;
+			margin-left: -1px;
+			background-position: center right;
+		}
+		
+		th.headerSortUp {
+			background-image: url(scripts/asc.gif);
+			background-color: #3C8DBC;
+			color: #fff;
+			background-position: center right;
+		}
+		
+		th.headerSortDown {
+			background-image: url(scripts/desc.gif);
+			background-color: #3C8DBC;
+			color: #fff;
+			background-position: center right;
+		}
+		
+		body {
+		color:#6B6B6B;
+		}
+		
+		.spinner {
+		  width: 100px;
+		}
+		.spinner input {
+		  text-align: right;
+		}
+		.input-group-btn-vertical {
+		  position: relative;
+		  white-space: nowrap;
+		  width: 1%;
+		  vertical-align: middle;
+		  display: table-cell;
+		}
+		.input-group-btn-vertical > .btn {
+		  display: block;
+		  padding: 0.44em;
+		  margin-left: -1px;
+		  position: relative;
+		  border-radius: 0;
+		}
+		.input-group-btn-vertical > .btn:first-child {
+		  border-top-right-radius: 3px;
+		}
+		.input-group-btn-vertical > .btn:last-child {
+		  margin-top: -4px;
+		  border-bottom-right-radius: 3px;
+		}
+		.input-group-btn-vertical i{
+		  position: absolute;
+		  top: -2px;
+		  left: 2px;
+		}
+		select[multiple],
+		select[size] {
+		   height: 1.7em !important;
+		}
+		.form-group {
+			margin-bottom: 15px !important;
+		    padding-left: 6px !important;
+		    padding-bottom: 6px !important;
+		}
+		.form-control {
+			padding: 2px 10px !important;
+		}
+		.multiselect {
+		    height: 2.0em !important;
+		    border-radius : 1px !important;
+		    margin-left: 2px !important;
+		}
+		
+		label {
+			  float: left !important; 
+			  color: black  !important;
+		}
+		
+		.open{
+			    z-index: 3 !important;
+		}
+		
+		</style>
+
+
+</head>
+<body class="skin-blue sidebar-collapse" style="">
+
+
+
+<div class="content-wrapper"
+	 style="margin-left: 48px; margin-top: -15px; margin-bottom: -15px;">
+<section class="content" id="bodyOverlay"
+      style="padding-bottom: 0px; min-height: 0px;">
+<span class="error" style="display: none; width: 350px;"
+	id="messageId"></span>
+<s:hidden name="message" />
+<form action="searchSubUnitCompMeter" method="post" id="searchSubUnitCompMeter"
+	name="searchSubUnitCompMeter" style="margin-top: 10px;">
+	<input type="hidden" name="sFor" id="sFor"
+		value="<s:property value='sFor' />" />
+		<input type="hidden" name="prjId" id="prjId"
+					value="<s:property value='prjId' />" />
+					<input type="hidden" name="secId" id="secId"
+					value="<s:property value='secId' />" />
+					<input type="hidden" name="pocId" id="pocId"
+					value="<s:property value='pocId' />" />
+					<input type="hidden" name="towId" id="towId"
+					value="<s:property value='towId' />" />
+					<input type="hidden" name="flrId" id="flrId"
+					value="<s:property value='flrId' />" />
+					<input type="hidden" name="unitId" id="unitId"
+					value="<s:property value='unitId' />" />
+					<input type="hidden" name="subunitId" id="subunitId"
+					value="<s:property value='subunitId' />" />
+					<input type="hidden" name="prjname" id="prjname"
+					value="<s:property value='prjname' />" />
+					<input type="hidden" name="secname" id="secname"
+					value="<s:property value='secname' />" />
+					<input type="hidden" name="pocname" id="pocname"
+					value="<s:property value='pocname' />" />
+					<input type="hidden" name="twrname" id="twrname"
+					value="<s:property value='twrname' />" />
+					<input type="hidden" name="flrname" id="flrname"
+					value="<s:property value='flrname' />" />
+					<input type="hidden" name="unitname" id="unitname"
+					value="<s:property value='unitname' />" />
+					<input type="hidden" name="subunitname" id="subunitname"
+					value="<s:property value='subunitname' />" />
+<div class="box" style="border-top-color: #3C8DBC;">
+	<div class="box-header with-border">
+		<h3 class="box-title">Search Parameter</h3>
+		<div class="box-tools pull-right">
+			<button class="btn btn-box-tool" data-widget="collapse"
+				data-toggle="tooltip" title="Collapse" style="color: #3C8DBC;">
+				<i class="fa fa-minus"></i>
+			</button>
+			<button class="btn btn-box-tool" data-widget="remove"
+				data-toggle="tooltip" title="Remove" style="color: #3C8DBC;">
+				<i class="fa fa-times"></i>
+			</button>
+		</div>
+	</div>
+
+<div class="box-body" style="text-align: center;">
+	<table style="border-spacing: 2px;">
+		<tr>
+				<td>
+				<div id="prjDivId" class="input-group" style="width:209px;" >
+					<span class="input-group-addon"
+						style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>
+							Project </b></span> <select id="fmsProject"
+							name="fmsProject" size="2" 
+							class="form-control">
+							<option value="" class="optCls">--Search--</option>
+						</select>
+				</div>
+			</td>
+				<td>
+				<div class="input-group" style="width:208px;">
+					<span class="input-group-addon"
+						style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>
+							Sector</b></span> <select id="fmsSector" name="fmsSector"
+						size="2" class="form-control">
+						<option value="" class="optCls">--Search--</option>
+					</select>
+				</div>
+			</td>
+               			<td>
+				<div class="input-group" style="width:262px;">
+					<span class="input-group-addon"
+						style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>
+							Pocket</b></span> <select id="fmsPocket" name="fmsPocket"
+						size="2" class="form-control">
+						<option value="" class="optCls">--Search--</option>
+					</select>
+				</div>
+			</td>
+			
+			<td>
+				<div class="input-group" style="width:250px;">
+					<span class="input-group-addon"
+						style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>
+							Tower </b></span> <select id="fmsTower" name="fmsTower"
+							size="2" class="form-control">
+							<option value="" class="optCls">--Search--</option>
+						</select>
+				</div>
+			</td>
+			<td>
+				<div class="input-group" style="width:256px;">
+					<span class="input-group-addon"
+						style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>
+							Floor</b></span> <select id="fmsFloor" name="fmsFloor"
+							size="2" class="form-control">
+							<option value="" class="optCls">--Search--</option>
+						</select>
+				</div>
+			</td>
+			</tr>
+			<tr>
+			
+			
+			<td>
+				<div class="input-group" style="width:208px;">
+					<span class="input-group-addon"
+						style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>
+							Unit</b></span> <select id="fmsUnit" name="fmsUnit"
+							size="2" class="form-control">
+							<option value="" class="optCls">--Search--</option>
+						</select>
+				</div>
+			</td>
+			<td>
+				<div class="input-group" style="width:217px;">
+					<span class="input-group-addon"
+						style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>
+							Sub Unit</b></span> <select id="fmsSubUnit" name="fmsSubUnit" size="2"
+						class="form-control">
+						<option value="" class="optCls">--Search--</option>
+					</select>
+				</div>
+			</td>
+			<td id="compGrpId" class="form-group">
+					<div class="input-group" style="width: 257px;">
+						<span class="input-group-addon" for="presidentsClientInput"
+							style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>
+								Component Group</b></span>
+						<s:select list="sCompGroupList" id="crmComponentGroup"
+							name="crmComponentGroup" multiple="false" size="2"
+							theme="simple" cssClass="form-control"></s:select>
+					</div>
+				</td>
+			 <td id="sConnectionTypeId" class="form-group">
+				<div class="input-group" style="width: 256px;" id="sConnectionTypeDiv">
+					<span class="input-group-addon" for="presidentsClientInput"
+						style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>Connection
+							Type </b></span>
+							<s:select list="sConnTypeList1" id="sConnectionType"
+						name="sConnectionType" multiple="false" size="2" 
+						theme="simple" cssClass="form-control"></s:select>
+				</div>
+			</td>
+			 <td class="form-group" id="sMeterTypeId">
+				<div class="input-group" id="sMeterTypeDiv" style="width: 249px;">
+					<span class="input-group-addon" for="presidentsClientInput"
+						style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>Meter
+							Type</b></span>
+							<s:select list="sMeterList1" id="sMeterType"
+						name="sMeterType" multiple="false" size="2" 
+						theme="simple" cssClass="form-control"></s:select>
+				</div>
+			</td> 
+		</tr>
+		
+	</table>
+
+</div>
+<!-- /.box-body -->
+<div class="box-footer">
+	<button type="button" onclick="searchButton();"
+		class="btn btn-primary">Search</button>
+	<button type="button" onclick="clearFields()"
+		class="btn btn-primary">Clear</button>
+</div>
+</div>
+<div class="box" style="border-top-color: #3C8DBC;">
+<div class="box-header ">
+	<h3 class="box-title">Search Result</h3>
+	<div class="box-tools pull-right">
+		<button class="btn btn-box-tool" data-widget="collapse"
+			data-toggle="tooltip" title="Collapse" style="color: #3C8DBC;">
+			<i class="fa fa-minus"></i>
+		</button>
+		<button class="btn btn-box-tool" data-widget="remove"
+			data-toggle="tooltip" title="Remove" style="color: #3C8DBC;">
+			<i class="fa fa-times"></i>
+		</button>
+	</div>
+</div>
+<div class="box-body" style="text-align: center;">
+	<table id="example1" class="table table-bordered table-striped"
+		style="border-collapse: collapse;">
+		<thead>
+			<tr style="background-color: #9FBFF4;">
+			
+				
+				<th style="text-align: center; cursor: pointer;"><span>Project</span></th>
+				<th style="text-align: center; cursor: pointer;"><span>Sector</span></th>
+				<th style="text-align: center; cursor: pointer;"><span>Pocket</span></th>
+				<th style="text-align: center; cursor: pointer;"><span>Tower</span></th>
+				<th style="text-align: center; cursor: pointer;"><span>Floor</span></th>
+				<th style="text-align: center; cursor: pointer;"><span> Unit</span></th>
+				<th style="text-align: center; cursor: pointer;"><span>Sub Unit</span></th>
+				<th style="text-align: center; cursor: pointer;"><span>Comp. Group</span></th>
+				<th style="text-align: center; cursor: pointer;"><span>Meter Num</span></th>
+				<th style="text-align: center; cursor: pointer;"><span>Meter Type</span></th>
+				<th style="text-align: center; cursor: pointer;"><span>Conn. Type</span></th>
+				<th style="text-align: center; cursor: pointer;"><span>Active</span></th>
+				<th style="text-align: center; cursor: pointer; "><span>Old Reading</span></th>
+				<th style="text-align: center; cursor: pointer; "><span>Old Meter</span></th>
+			</tr>
+		</thead>
+		<tbody id="unitCompBody">
+			<s:iterator value="unitCompData" var="unitCompData"
+				status="row_Num">
+				<tr style="font-size: 14px;"
+					id="rowCount<s:property value="%{#row_Num.index}" />" class="gridRow">
+					<td><input type="hidden" name="sSubUnitCompMeterId"
+						id="sSubUnitCompMeterId<s:property value="%{#row_Num.index}"  />" 
+					    value="<s:property value="%{#unitCompData.sSubUnitCompMeterId}" />" />
+						<input type="hidden" name="sSubUnitHidden1"
+						id="sSubUnitHidden1<s:property value="%{#row_Num.index}"  />"
+					    value="<s:property value="%{#unitCompData.sSubUnitHidden1}" />" />
+					    <s:property value="%{#unitCompData.sPrjVal1}" /></td>
+					<td><s:property value="%{#unitCompData.sSectorVal1}" /></td>
+					<td><s:property value="%{#unitCompData.sPocketVal1}" /></td>
+					<td><s:property value="%{#unitCompData.sTowerVal1}" /></td>
+					<td><s:property value="%{#unitCompData.sFloorVal1}" /></td>
+					<td><s:property value="%{#unitCompData.sUnitVal1}" /></td>
+					<td><s:property value="%{#unitCompData.sSubUnitVal1}" /></td>
+					<td><s:property value="%{#unitCompData.sCompGrpVal1}" /></td>
+					<td><s:property value="%{#unitCompData.sMeterNum1}" /></td>
+					<td><s:property value="%{#unitCompData.sMeterType1}" /></td>
+					<td><s:property value="%{#unitCompData.sConnType1}" /></td>
+					<td><input type="checkbox" name="sFlag"
+						id="sFlag<s:property value="%{#row_Num.index}" />"
+						style="margin-left: 20px;" disabled="disabled" 
+						<s:property value="%{#unitCompData.sFlag}" /> /></td>	 
+					<td style="text-align:right;"><s:property value="%{#unitCompData.sOldReading}" /></td>
+					<td><s:property value="%{#unitCompData.sOldMeter}" /></td>
+				</tr>
+			</s:iterator>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="box-footer">
+<table width="100%">
+	<tr>
+		<td><a href="addSubUnitCompMeter"><button type="button"
+			class="btn btn-primary">Create </button></a> 
+			<a href="editSubUnitCompMeter"><button type="button"
+			class="btn btn-primary">Update </button></a> 
+			<a href="home"><button
+			type="button" class="btn btn-primary">Close</button></a></td>
+	</tr>
+</table>
+</div>
+</form>
+		</section>
+		
+	</div>
+
+	<footer class="main-footer" style="text-align: right;">
+		<!-- To the right -->
+		<div class="pull-right hidden-xs"></div>
+		<!-- Default to the left -->
+		<strong style="margin-left: 50px;">Copyright &copy; 2015 <a
+			href="#">Connaissant</a>.
+		</strong> All rights reserved.
+	</footer>
+
+
+	<div class='control-sidebar-bg'></div>
+		<script src="js/jquery-ui.js"></script>
+		<script src="scripts/commonJs.js"></script>
+		<script src="scripts/ajax.js"></script>
+	    <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+	    <script type="text/javascript" src="js/jquery.bootstrap-touchspin.js"></script>
+		<script src="js/jszip.min.js"></script> 
+		<script type="text/javascript">
+	
+		$("#sMeterchecked").click(function (){
+			if($("#sMeterchecked").is(":checked")){
+				$("#sMeter").val("1");
+				
+			}else{
+				$("#sMeter").val("0");
+			}
+		});
+		
+		function searchButton() {
+			$("#prjId").val($("#fmsProject").val());
+			$("#secId").val($("#fmsSector").val());
+			$("#pocId").val($("#fmsPocket").val());
+			$("#towId").val($("#fmsTower").val());
+			$("#flrId").val($("#fmsFloor").val());
+			$("#unitId").val($("#fmsUnit").val());
+			$("#subunitId").val($("#fmsSubUnit").val());
+			
+			$("#prjname").val($("#fmsProject option:selected").text());
+			$("#secname").val($("#fmsSector option:selected").text());
+			$("#pocname").val($("#fmsPocket option:selected").text());
+			$("#twrname").val($("#fmsTower option:selected").text());
+			$("#flrname").val($("#fmsFloor option:selected").text());
+			$("#unitname").val($("#fmsUnit option:selected").text());
+			$("#subunitname").val($("#fmsSubUnit option:selected").text());
+			if( document.searchSubUnitCompMeter.fmsProject.value == "" )
+	        {
+				showMessage("Please Select Project First ");
+	           return false;
+	        }
+			$("#sFor").val("search");
+			$("#searchSubUnitCompMeter").submit();
+	}
+	
+	
+	$(document).ready(function() {
+		 if($("#sFor").val()=="search"){
+				if($("#prjId").val()!=''){
+				  $('#fmsProject').append("<option value="+$("#prjId").val()+" selected>"+$("#prjname").val()+"</option>");
+				 }
+				 if($("#secId").val()!=''){
+					 $('#fmsSector').append("<option value="+$("#secId").val()+" selected>"+$("#secname").val()+"</option>");
+							  }
+				 if($("#pocId").val()!=''){
+					 $('#fmsPocket').append("<option value="+$("#pocId").val()+" selected>"+$("#pocname").val()+"</option>");
+					
+				 }
+				 if($("#towId").val()!=''){
+					 $('#fmsTower').append("<option value="+$("#towId").val()+" selected>"+$("#twrname").val()+"</option>");
+					  
+				 }
+				 if($("#flrId").val()!=''){
+					 $('#fmsFloor').append("<option value="+$("#flrId").val()+" selected>"+$("#flrname").val()+"</option>");
+					
+				 }
+				 if($("#unitId").val()!=''){
+					 $('#fmsUnit').append("<option value="+$("#unitId").val()+" selected>"+$("#unitname").val()+"</option>");
+					  
+				 }
+				 if($("#subunitId").val()!=''){
+					 $('#fmsSubUnit').append("<option value="+$("#subunitId").val()+" selected>"+$("#subunitname").val()+"</option>"); 
+				 }
+			 }
+		
+		// 		$("body").trigger("click")
+		$('#togglr').click(function() {
+				$('#menu').show();
+				//$('#wd1_nlpopup').hide();
+			});
+			$('#bodyOverlay').click(function() {
+				$('#menu').hide();
+				//$('#wd1_nlpopup').hide();
+			});
+			$('.main-header').click(function() {
+				$('#menu').hide();
+				//$('#wd1_nlpopup').hide();
+			});
+			$('.main-menu').click(function() {
+				$('#menu').hide();
+				//$('#wd1_nlpopup').hide();
+			});
+			$('h1').click(function() {
+				$('#menu').hide();
+				//$('#wd1_nlpopup').hide();
+			});
+		
+			$('#crmComponentGroup').multiselect({
+				  enableFiltering: true,
+				  enableCaseInsensitiveFiltering:true,
+		          numberDisplayed: 2,
+		          nonSelectedText: '-- Please Select --',
+		          filterPlaceholder: 'Search...' 
+	     	  	});
+			$('#sConnectionType').multiselect({
+				  enableFiltering: true,
+				  enableCaseInsensitiveFiltering:true,
+		          numberDisplayed: 2,
+		          nonSelectedText: '-- Please Select --',
+		          filterPlaceholder: 'Search...' 
+	     	  	});
+			$('#sMeterType').multiselect({
+				  enableFiltering: true,
+				  enableCaseInsensitiveFiltering:true,
+		          numberDisplayed: 2,
+		          nonSelectedText: '-- Please Select --',
+		          filterPlaceholder: 'Search...' 
+	     	  	});
+			
+			
+			
+		 multiSector();
+	     multiPocket();
+	     multiProject();
+	     multiTower();
+	     multiFloor();
+	     multiUnit();
+	     multiSubUnit();
+	     
+	     $('#example1').tablesorter();
+			$('#example1').dataTable();
+			$('.gridRow').click(function() {
+				$('#sRecordId').val(document.getElementsByName("sSubUnitCompMeterId")[(this).rowIndex-1].value);
+				//alert($('#sRecordId').val());
+				//$('#wd1_nlpopup').hide();
+			});
+	});
+	
+	function multiSector()
+	   {
+	   $('#fmsSector').multiselect({
+	       enableFiltering: true,
+	       numberDisplayed: 2,
+	       nonSelectedText: '-- Please Select --',
+	       filterPlaceholder: 'Search...',
+	       dynamicSearch:true,
+	       maxHeight: 200,
+		   action:'getFMSDpndntMultiSelectAjax?ajaxId='+$('#fmsSector').val()+'&valueSetName=231&attrName=sSectorId',
+	       onChange : function(option, checked) {
+	     	 getDependentOption(option.val(),'#fmsPocket',"232","#pocketId",'17','sSectorId',"Pocket","Sector","");
+		        }
+	   });
+	   }
+	   function multiPocket()
+	   {
+	   $('#fmsPocket').multiselect({
+			          enableFiltering: true,
+			          numberDisplayed: 2,
+			          nonSelectedText: '-- Please Select --',
+			          filterPlaceholder: 'Search...',
+			          dynamicSearch:true,
+			          maxHeight: 200,
+					  action:'getFMSDpndntMultiSelectAjax?ajaxId='+$('#fmsPocket').val()+'&valueSetName=232&attrName=sPocketId',
+			          onChange : function(option, checked) {
+							getDependentOption(option.val(),'#fmsProject',"227","#projectId",'18','sPocketId',"Project","Pocket",1);
+				         }
+			      });
+	   }
+	   function multiProject()
+	   {
+	   $('#fmsProject').multiselect({
+			          enableFiltering: true,
+			          numberDisplayed: 2,
+			          nonSelectedText: '-- Please Select --',
+			          filterPlaceholder: 'Search...',
+			          dynamicSearch:true,
+			          maxHeight: 200,
+					  action:'getFMSDpndntMultiSelectAjax?ajaxId='+$('#fmsProject').val()+'&valueSetName=227&attrName=sPrjId',
+			          onChange : function(option, checked) {
+			        	getDependentOption(option.val(),'#fmsTower',"228","#towerId",'19','sPrjId',"Tower","project",2);
+				        }
+			      });
+	   $("#prjDivId").find('.multiselect').css('background-color', '#d6e2b5');
+	   }
+	   function multiTower()
+	   {
+	  $('#fmsTower').multiselect({
+			          enableFiltering: true,
+			          numberDisplayed: 2,
+			          nonSelectedText: '-- Please Select --',
+			          filterPlaceholder: 'Search...',
+			          dynamicSearch:true,
+			          maxHeight: 200,
+					  action:'getFMSDpndntMultiSelectAjax?ajaxId='+$('#fmsTower').val()+'&valueSetName=228&attrName=sTowerId',
+			          onChange : function(option, checked) {
+			        	getDependentOption(option.val(),'#fmsFloor',"229","#floorId",'20','sTowerId',"Floor","tower",3);
+				          	
+			          	}
+			      });
+	   }
+	   function multiFloor()
+	   {
+	    $('#fmsFloor').multiselect({
+			          enableFiltering: true,
+			          numberDisplayed: 2,
+			          nonSelectedText: '-- Please Select --',
+			          filterPlaceholder: 'Search...',
+			          dynamicSearch:true,
+			          maxHeight: 200,
+					  action:'getFMSDpndntMultiSelectAjax?ajaxId='+$('#fmsFloor').val()+'&valueSetName=229&attrName=sFloorId',
+			          onChange : function(option, checked) {
+			        	 getDependentOption(option.val(),'#fmsUnit',"230","#unitId",'21','sFloorId','Unit','floor',4);
+			          	}
+			      });
+	   }
+	   function multiUnit() {
+			$('#fmsUnit').multiselect(
+					{
+						enableFiltering : true,
+						numberDisplayed : 2,
+						nonSelectedText : '-- Please Select --',
+						filterPlaceholder : 'Search...',
+						dynamicSearch:true,
+						maxHeight: 200,
+						action:'getFMSDpndntMultiSelectAjax?ajaxId='+$('#fmsUnit').val()+'&valueSetName=230&attrName=sUnit',
+						onChange : function(option, checked) {
+						getDependentOption(option.val(), '#fmsSubUnit',
+									"290", "#subUnitId", '21', 'sUnitId',
+									'SubUnit', 'unit', 5);
+							
+
+							$("#tatId").find("input").focus();
+						}
+					});
+		}
+	   function multiSubUnit() {
+			$('#fmsSubUnit').multiselect(
+					{
+						enableFiltering : true,
+						numberDisplayed : 2,
+						nonSelectedText : '-- Please Select --',
+						filterPlaceholder : 'Search...',
+						dynamicSearch:true,
+						maxHeight: 200,
+						action:'getFMSDpndntMultiSelectAjax?ajaxId='+$('#fmsSubUnit').val()+'&valueSetName=290&attrName=subUnit',
+				        onChange : function(option, checked) {
+							$.get("getFMSDependentValAjax", {
+								selectId : option.val(),
+								selectName : option.text(),
+								flagName : 'subUnit'
+							}, function(result) {
+
+								var data = JSON.parse(result);
+								if (data.length > 0) {
+									setSelectValues(data, 6);
+								}
+
+							});
+							
+
+						}
+					});
+		}
+	   
+	function highlight_row() {
+		var table = document.getElementById('example1');
+		var cells = table.getElementsByTagName('td');
+
+		//alert(cells.length);
+
+		for (var i = 0; i < cells.length; i++) {
+			// Take each cell
+			var cell = cells[i];
+			// do something on onclick event for cell
+			cell.onclick = function() {
+				// Get the row id where the cell exists
+				var rowId = this.parentNode.rowIndex;
+
+				var rowsNotSelected = table.getElementsByTagName('tr');
+				for (var row = 1; row < rowsNotSelected.length; row++) {
+					rowsNotSelected[row].style.backgroundColor = "";
+					rowsNotSelected[row].classList.remove('selected');
+				}
+				var rowSelected = table.getElementsByTagName('tr')[rowId];
+				rowSelected.style.backgroundColor = "#BCD4EC";
+				rowSelected.className += " selected";
+
+				msg = 'The ID of the company is: '
+						+ rowSelected.cells[0].innerHTML;
+				msg += '\nThe cell value is: ' + this.innerHTML;
+				// alert(msg);
+
+				document.getElementById("cellShowFlag").value = 1;
+				document.getElementById("historyId").value = rowSelected.cells[0].innerHTML;
+				document.getElementById("cellRoleName").value = rowSelected.cells[1].innerHTML;
+				document.getElementById("cellStartDate").value = rowSelected.cells[3].innerHTML;
+				document.getElementById("cellEndDate").value = rowSelected.cells[4].innerHTML;
+				document.getElementById("cellActiveUser").value = rowSelected.cells[5].innerHTML;
+
+			}
+		}
+
+	}
+	window.onload = highlight_row;
+		
+		function clearFields() {
+			///alert("alert");
+			$('#crmComponentGroup option').removeAttr("selected");
+			$('#crmComponentGroup').multiselect('rebuild');
+          
+		
+          
+			$('#fmsSector option').removeAttr("selected");
+			$('#fmsSector').multiselect('rebuild');
+          
+			$('#fmsPocket option').removeAttr("selected");
+			$('#fmsPocket').multiselect('rebuild');
+			
+			$('#fmsProject option').removeAttr("selected");
+			$('#fmsProject').multiselect('rebuild');
+			
+			$('#fmsTower option').removeAttr("selected");
+			$('#fmsTower').multiselect('rebuild');
+			
+			$('#fmsFloor option').removeAttr("selected");
+			$('#fmsFloor').multiselect('rebuild');
+			
+			$('#fmsUnit option').removeAttr("selected");
+			$('#fmsUnit').multiselect('rebuild');
+            
+			$('#fmsSubUnit option').removeAttr("selected");
+			$('#fmsSubUnit').multiselect('rebuild');
+			
+			$('#sConnectionType option').removeAttr("selected");
+			$('#sConnectionType').multiselect('rebuild');
+			
+			$('#sMeterType option').removeAttr("selected");
+			$('#sMeterType').multiselect('rebuild');
+			
+			
+			
+		}
+
+		function isNullOrEmpty(param) {
+			if (param == "" || param == null) {
+				return true;
+			}
+			return false;
+		}
+		function showMessage(message) {
+
+			if (!isNullOrEmpty(message)) {
+				if (message == "APP0013: Transaction completed.") {
+					$("#messageId").html(message).removeClass("error")
+							.addClass("success");
+					$("#messageId").show();
+				} else {
+					$("#messageId").html(message).removeClass("success")
+							.addClass("error");
+					$("#messageId").show();
+				}
+				$('html, body').animate({ scrollTop: 0 }, 'slow');
+			} else {
+				$("#messageId").hide();
+			}
+			
+
+		}
+		
+		function getDependentOption(valueId,dependentId,valueSetNm,dataId,count,attrName,sFor,depFor,depPos)
+	       {
+	   		
+				$(dependentId).find('option').remove();
+	//alert("ajaxId="+ valueId +" valueSetName" +valueSetNm+" attrName:"+ attrName);
+	//alert(depFor);
+				$.get("getFMSDpndntMultiSelectAjax", {
+						ajaxId : valueId,
+						valueSetName : valueSetNm,
+						attrName: attrName,
+						userId: "2"
+					}, function(result) 
+						{
+					
+							if(result=="")
+							{
+								$(dependentId).append('<option class="optCls" value="">--Search--</option>');
+								$(dependentId).multiselect('rebuild');
+							result=[];
+							data=[];
+							if(sFor=='Pocket')
+							{
+							getDependentOption(valueId,'#fmsProject',"227","#projectId",'18',attrName,"Project",depFor,depPos);
+							}
+							if(sFor=='Tower')
+							{
+								$('#fmsFloor').find('option').remove();
+								$('#fmsFloor').append('<option class="optCls" value="">--Search--</option>');
+								$('#fmsFloor').multiselect('rebuild');
+								getDependentOption($('#fmsProject').val(), '#fmsUnit',"230","#unitId",'21','sPrjId',"Unit",
+									depFor, depPos);
+							}
+							}
+							else
+							{
+								var data=JSON.parse(result);
+								if(data.length>0){
+								for(var i=0;i<data.length;i++){  					
+								$(dependentId).append('<option value="'+data[i].id+'">'+data[i].name+'</option>');
+								}
+								$(dependentId).multiselect('rebuild');
+				  			if(sFor=='Sector')
+				  				getDependentOption(valueId,'#fmsPocket',"232","#pocketId",'17',attrName,"Pocket",depFor,depPos);
+				  			else if(sFor=='Pocket')
+				  				getDependentOption(valueId,'#fmsProject',"227","#projectId",'18',attrName,"Project",depFor,depPos);
+				  			else if(sFor=='Project')
+				  				{
+				  				getDependentOption(valueId,'#fmsTower',"228","#towerId",'19',attrName,"Tower",depFor,depPos);
+				  				
+				  				}
+				  			else if(sFor=='Tower')
+				  				getDependentOption(valueId,'#fmsFloor',"229","#floorId",'20',attrName,"Floor",depFor,depPos);
+				  			else if(sFor=='Floor')
+				  				getDependentOption(valueId,'#fmsUnit',"230","#unitId",'21',attrName,"Unit",depFor,depPos);
+				  			else if (sFor == 'Unit')
+								getDependentOption(valueId, '#fmsSubUnit', "290",
+										"#subUnitId", '22', attrName, "SubUnit",
+										depFor, depPos);
+							else if (sFor == "SubUnit") {
+								//alert(valueId + "  "+ depFor);
+								if(depFor!='Sector')
+									{
+								$.get("getFMSDependentValAjax", {
+									selectId : valueId,
+									flagName : depFor
+								}, function(result) {
+
+									var data = JSON.parse(result);
+									//console.log(data.length);
+									if (data.length > 0) {
+										setSelectValues(data, depPos);
+									}
+
+								})
+									}
+							}
+
+						}
+				/* $(dependentId).multiselect('destroy');				
+				 if(sFor=='Pocket')
+					multiPocket();
+				else if(sFor=='Project')
+					multiProject();
+				else if(sFor=='Tower')
+					multiTower()
+				else if(sFor=='Floor')
+					multiFloor();
+				else if(sFor=="Unit")
+				multiUnit();
+				else if(sFor=="SubUnit")
+				multiSubUnit(); */
+		 
+			}
+		});
+	  }
+		
+	function setSelectValues(data,sFor)
+		  {
+			 // var sForUpper = sFor.to
+			  for(var i=0;i<data.length;i++)
+			  {
+				  //alert(data[i].SECTOR_NAME);
+				  if (i==0)
+					  {
+				  $('#fmsSector').empty();
+				  $('#fmsSector').append('<option class="optCls" value="">--Search--</option>');
+				  $("#fmsSector").multiselect('rebuild');
+					  }
+				  if(data[i].SECTOR_NAME!=null && data[i].SECTOR_NAME!='undefined')
+					  {
+				
+				$('#fmsSector').append("<option value="+data[i].SECTOR_ID+" selected>"+data[i].SECTOR_NAME+"</option>");
+					//$('select[id="fmsSector"] option[value="'+data[i].SECTOR_ID+'"]').attr("selected","selected");
+					$("#fmsSector").multiselect('rebuild');
+					  }
+					
+			     
+			 		if(sFor>2)
+						 {
+							/* $('select[id="fmsProject"] option[value="'+data[i].PRJ_ID+'"]').attr("selected","selected"); */
+						if(data[i].PRJ_NAME!=null && data[i].PRJ_NAME!='undefined')
+					 	 {
+							$('#fmsProject').empty();
+							$('#fmsProject').append("<option value="+data[i].PRJ_ID+" selected>"+data[i].PRJ_NAME+"</option>");
+							$("#fmsProject").multiselect('rebuild');
+					 	 }
+							
+				 	}
+					 if(sFor>3)
+					 {
+							/* $('select[id="fmsTower"] option[value="'+data[i].TOWER_ID+'"]').attr("selected","selected");
+							$("#fmsTower").multiselect('destroy');
+							 multiTower(); */
+							 if(data[i].TOWER_NAME!=null && data[i].TOWER_NAME!='undefined')
+						 	 {
+							 $('#fmsTower').empty();
+							 $('#fmsTower').append("<option value="+data[i].TOWER_ID+" selected>"+data[i].TOWER_NAME+"</option>");
+								$("#fmsTower").multiselect('rebuild');
+						 	 }
+					 }
+					 if(sFor>4)
+					 {
+						 /* $('select[id="fmsFloor"] option[value="'+data[i].FLOOR_ID+'"]').attr("selected","selected");
+							$("#fmsFloor").multiselect('destroy');
+							 multiFloor(); */
+							 if(data[i].FLOOR_NAME!=null && data[i].FLOOR_NAME!='undefined')
+						 	 {
+							 $('#fmsFloor').empty();
+							 $('#fmsFloor').append("<option value="+data[i].FLOOR_ID+" selected>"+data[i].FLOOR_NAME+"</option>");
+							 $("#fmsFloor").multiselect('rebuild');
+						 	 }
+							
+					 }
+					 if (sFor > 5) {
+						/* 	$(
+									'select[id="fmsUnit"] option[value="'
+											+ data[i].UNIT_ID + '"]').attr(
+									"selected", "selected");
+							$("#fmsUnit").multiselect('destroy');
+								multiUnit(); */
+								if(data[i].UNIT_NAME!=null && data[i].UNIT_NAME!='undefined')
+							 	 {
+							 $('#fmsUnit').empty();
+							 $('#fmsUnit').append("<option value="+data[i].UNIT_ID+" selected>"+data[i].UNIT_NAME+"</option>");
+							 $("#fmsUnit").multiselect('rebuild');
+							 	 }
+
+						}
+					 if(sFor>1)
+					 {
+						
+						/*  $('select[id="fmsPocket"] option[value="'+data[i].pocket_id+'"]').attr("selected","selected");
+							$("#fmsPocket").multiselect('destroy');
+							multiPocket(); */
+							if(data[i].POCKET_NAME!=null && data[i].POCKET_NAME!='undefined')
+						 	 {
+							 $('#fmsPocket').empty();
+							 $('#fmsPocket').append("<option value="+data[i].pocket_id+" selected>"+data[i].POCKET_NAME+"</option>");
+							 $("#fmsPocket").multiselect('rebuild');
+						 	 }
+					 }
+					 	
+		  }	
+				
+			  
+		  }
+	</script>
+</body>
+
+</html>
+

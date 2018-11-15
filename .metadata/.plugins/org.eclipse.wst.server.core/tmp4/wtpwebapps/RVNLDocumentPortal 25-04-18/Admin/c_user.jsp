@@ -18,6 +18,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
 <title>Create User</title>
 <link href="resources/css/main.css" rel="stylesheet" type="text/css">
 <link href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.min.css" rel="stylesheet"/>
@@ -1373,16 +1374,16 @@ Email_Id,Contact_No,Created_by,Date_created) VALUES ('<%=User_name%>','<%=Passwo
 							String pageName1 = url.substring(0, url.lastIndexOf("/"))+"/admn_login.jsp";
 						    final String to = Email_Id;
 						    final String subject = "RVNL DOCUMENT PORTAL - Login details";
-						    final String messg = "<div style='font-family:Georgia; font-size:16px; text-align:justify; line-height:150%;'>To <BR> <b>"+User_name.toUpperCase()+"</b> <br><br> You have been added as a User on the portal. Your login details are as under;"
-						     +"<br><BR> User Id:  "+User_name+" <BR> Password:  "+password1+"<BR> Login webpage: <a href=\""+ pageName1+"\">"+pageName1+"</a><br><br>You are advised to change your password. <br><br><br><span style='color:brown;  font-size:20px; font-style:italic;'><b> RVNL Document Portal</b></span><br><br><span style='color:gray;  font-size:10px; font-style:italic;'>Note: This is a system generated email. Don't reply to system email address i.e. indiarvnl@gmail.com.</span></div>";
+						    final String messg = ""+User_name.toUpperCase()+" You have been added as a User on the portal. Your login details are as under;"
+						     +" User Id:  "+User_name+" AND Password:  "+password1+" Login webpage: \""+ pageName1+"\"You are advised to change your password.  RVNL Document Portal. Note: This is a system generated email. Don't reply to system email address i.e. indiarvnl@gmail.com.";
 						    						
 						    // Sender's email ID and password needs to be mentioned
-						    final String from = "indiarvnl@gmail.com";
-						    final String pass = "vsam3WSCJAIw4cj7";
+						    final String from = "vibhardwaj55@gmail.com";
+						    final String pass = "8899403746";
 						    
 						    final String cc = cc1;
 						    // Defining the gmail host
-						    String host = "smtp-relay.sendinblue.com";
+						    String host = "smtp.gmail.com";
 						 
 						    // Creating Properties object
 						    Properties props = new Properties();
@@ -1862,12 +1863,12 @@ System.out.println("Error SMS "+e);
 						     +"<BR> User Id:  "+username+" <BR> Password:  "+password+"<br> Zones Assigned:"+zones_assigned+"<BR> Login webpage: <a href=\""+ pageName1+"\">"+pageName1+"</a><br><br>You are advised to change your password. <br><br><br><span style='color:brown; font-size:20px; font-style:italic;'<b> RVNL Document Portal</b></span><br><br><span style='color:gray;  font-size:10px; font-style:italic;'>Note: This is a system generated email. Don't reply to system email address i.e. indiarvnl@gmail.com.</span></div>";
 						    						
 						    // Sender's email ID and password needs to be mentioned
-						    final String from = "indiarvnl@gmail.com";
-						    final String pass = "vsam3WSCJAIw4cj7";
+						    final String from = "vibhardwaj55@gmail.com";
+						    final String pass = "8899403746";
 						    
 						    final String cc = cc1;
 						    // Defining the gmail host
-						    String host = "smtp-relay.sendinblue.com";
+						    String host = "smtp.gmail.com";
 						 
 						    // Creating Properties object
 						    Properties props = new Properties();
@@ -1961,7 +1962,7 @@ System.out.println("Error SMS "+e);
 	</form>
 	<br><br><br><br><br><br><br><br>
 	</div>										     
-	 <%@include file="included/Newfooter.jsp" %>
+	 <%@include file="included/footer.jsp" %>
 	<script type="text/javascript">
 
 $('#PIUunderList').change(function(){

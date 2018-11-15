@@ -55,7 +55,7 @@
 }
 	</style>
 <script type="text/javascript">
-	var people, asc1 = 1, asc2 = 1, asc3 = 1, asc4 = 1, asc5 = 1, asc6 = 1, asc7 = 1, asc8 = 1;
+	var people, asc1 = 1, asc2 = 1,;
 	window.onload = function() {
 		people = document.getElementById("people");
 	}

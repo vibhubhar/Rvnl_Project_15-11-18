@@ -1,0 +1,402 @@
+
+<%@ page language="java"%>
+
+<meta charset="UTF-8">
+<meta
+	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
+	name='viewport'>
+<link rel="stylesheet" href="css/main-image-slider.css">
+<!-- DATA TABLES -->
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="css/bootstrap-multiselect.css"
+	type="text/css">
+<link rel="stylesheet" href="css/jquery.bootstrap-touchspin.css"
+	type="text/css">
+
+<link rel="stylesheet" href="css/kendo.common.min.css" />
+<link rel="stylesheet" href="css/kendo.default.min.css" />
+
+
+<style type="text/css">
+th.header {
+	background-image: url(scripts/bg.gif);;
+	cursor: pointer;
+	font-weight: bold;
+	background-repeat: no-repeat;
+	background-position: center left;
+	padding-left: 20px;
+	border-right: 1px solid #dad9c7;
+	margin-left: -1px;
+	background-position: center right;
+}
+
+th.headerSortUp {
+	background-image: url(scripts/asc.gif);
+	background-color: #3C8DBC;
+	color: #fff;
+	background-position: center right;
+}
+
+th.headerSortDown {
+	background-image: url(scripts/desc.gif);
+	background-color: #3C8DBC;
+	color: #fff;
+	background-position: center right;
+}
+
+body {
+	color: #6B6B6B;
+}
+
+.spinner {
+	width: 100px;
+}
+
+.spinner input {
+	text-align: right;
+}
+
+.input-group-btn-vertical {
+	position: relative;
+	white-space: nowrap;
+	width: 1%;
+	vertical-align: middle;
+	display: table-cell;
+}
+
+.input-group-btn-vertical>.btn {
+	display: block;
+	padding: 0.44em;
+	margin-left: -1px;
+	position: relative;
+	border-radius: 0;
+}
+
+.input-group-btn-vertical>.btn:first-child {
+	border-top-right-radius: 3px;
+}
+
+.input-group-btn-vertical>.btn:last-child {
+	margin-top: -4px;
+	border-bottom-right-radius: 3px;
+}
+
+.input-group-btn-vertical i {
+	position: absolute;
+	top: -2px;
+	left: 2px;
+}
+
+select[multiple], select[size] {
+	height: 1.7em !important;
+}
+
+.form-group {
+	margin-bottom: 15px !important;
+	padding-left: 6px !important;
+	padding-bottom: 6px !important;
+}
+
+.form-control {
+	padding: 2px 10px !important;
+}
+
+
+
+.multiselect {
+		    height: 2.0em !important;
+		    border-radius : 1px !important;
+		    margin-left: 2px !important;
+		}
+		
+		label {
+			  float: left !important; 
+			  color: black  !important;
+		}
+		
+		.open{
+			    z-index: 3 !important;
+		}
+
+
+
+
+</style>
+</head>
+
+<body class="skin-blue sidebar-collapse">
+	
+
+	<div class="content-wrapper"
+		style="margin-left: 48px; margin-top: -15px; margin-bottom: -15px;">
+		<section class="content" id="bodyOverlay"
+			style="padding-bottom: 0px; min-height: 0px;">
+
+
+			<form action="addFmsAging" method="post" id="addFmsAging" name="searchFMSAging">
+				<s:hidden name="sFor" id="sFor"></s:hidden>
+				<div class="box" style="border-top-color: #3C8DBC;">
+					<div class="box-header with-border">
+						<h3 class="box-title">Aging Details</h3>
+						<div class="box-tools pull-right">
+							<button class="btn btn-box-tool" data-widget="collapse"
+								data-toggle="tooltip" title="Collapse" style="color: #3C8DBC;">
+								<i class="fa fa-minus"></i>
+							</button>
+							<button class="btn btn-box-tool" data-widget="remove"
+								data-toggle="tooltip" title="Remove" style="color: #3C8DBC;">
+								<i class="fa fa-times"></i>
+							</button>
+						</div>
+					</div>
+					<div class="box-body">
+						<table>
+							<tr>
+								<td>
+									<div class="input-group" style="width: 100%;">
+									<input type="hidden" id="sBucketHdrId" name="sBucketHdrId" value="<s:property value="sBucketHdrId"/>"/>	
+										<span class="input-group-addon" for="presidentsClientInput"
+											style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>Name</b>
+										</span>
+										<s:textfield name="sName" id="sName" cssClass="form-control"
+											placeholder="Enter..."  theme="simple"  />
+									</div>
+								</td>
+								<td style="padding-left: 50px;">
+									<div class="input-group" style="width: 130%;">
+										<span class="input-group-addon" for="presidentsClientInput"
+											style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>
+												Description</b> </span>
+										<s:textfield name="sDescription"  cssClass="form-control"
+											theme="simple"  placeholder="Enter..."  />
+									</div>
+								</td>
+								<td style="padding-left: 90px;">
+									<div class="input-group" style="width: 100px;">
+										<span class="input-group-addon" 
+											 style="background-color: #9FBFF4; color: rgb(51, 51, 51);"><b>
+												No. of Bucket</b> </span>
+											
+										<s:select name="sNoOfBucket" Id="sNoOfBucket" theme="simple" onchange="changebucket()"
+											cssClass="form-control" headerKey="" 
+											headerValue="--Please Select--" title="Name" list=""
+											style="height:31px;width:200px;" />
+									</div>
+								</td>
+								<td style="padding-left: 50px;">
+									<div class="input-group" style="width: 266px;">
+										<span class="input-group-addon"
+											style="background-color: #9FBFF4; color: rgb(51, 51, 51); font-size: 13px;"><b>
+												Active</b></span>
+												
+										<s:select name="sCheckHidden" theme="simple" id="sCheckHidden" 
+											cssClass="form-control" style="height:29px;width:115px;"
+											headerKey="" headerValue="--Select--" list="">
+										</s:select>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+			</form>
+				<div class="box" style="border-top-color: #3C8DBC;">
+				<div class="box-header ">
+					<h3 class="box-title">Bucket Details</h3>
+					<div class="box-tools pull-right">
+						<button class="btn btn-box-tool" data-widget="collapse"
+							data-toggle="tooltip" title="Collapse" style="color: #3C8DBC;">
+							<i class="fa fa-minus"></i>
+						</button>
+						<button class="btn btn-box-tool" data-widget="remove"
+							data-toggle="tooltip" title="Remove" style="color: #3C8DBC;">
+							<i class="fa fa-times"></i>
+						</button>
+					</div>
+				</div>
+				<div class="box-body" style="text-align:center; width:40%;">
+					<table id="example1" class="table table-bordered table-striped"
+						style="border-collapse: collapse; table-layout: fixed;">
+						<thead>
+							<tr id="tableHdrRow" style="background-color: #9FBFF4; width:50%;">
+								
+								<th style="text-align: center; cursor: pointer; width: 11%"><span>From Days</span>
+								</th>
+								<th style="text-align: center; cursor: pointer; width: 12%"><span>To Days</span>
+								</th>
+								<th style="text-align: center; cursor: pointer; width: 12%"><span>Bucket Name
+										</span>
+								</th>
+							
+							</tr>
+						</thead>
+						<tbody id="tBodyId">
+							<s:iterator value="sBucketDtlList" var="list" status="rowNum" >
+								<tr style="font-size: 14px;" class="gridRow" id="rowCountRole<s:property value="%{#list.rowNum}" />">
+
+							<td> <input type="text" name="sFromVal" style="text-align: left;width:100%;" value="<s:property
+											value="%{#list.sFromVal}" />"/>
+						<input type="hidden" id="sBucketDtlId" name="sBucketDtlId" value="<s:property value="%{#list.sBucketDtlId}"/>"/>	
+							</td>
+							
+							<td> <input type="text" name="sToVal" style="text-align: left;width:100%;" value="<s:property
+											value="%{#list.sToVal}" />"/>
+							</td>
+							<td style="text-align: left; cursor: pointer;width:120px;"><input type="text"  name="sBucketName"  value="<s:property 
+							       value="%{#list.sBucketName}"/>" />
+							</td>
+								</tr>
+							</s:iterator>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="box-footer">
+				<table width="100%">
+					<tr>
+						<td style="">
+							<button type="button" onclick="saveBtn()"
+									class="btn btn-primary">Save</button>
+									<button type="button" onclick="closebtn()" class="btn btn-primary">Close</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</section>
+	</div>
+	<!-- Main Footer -->
+	<footer class="main-footer" style="text-align: right;">
+		<!-- To the right -->
+		<div class="pull-right hidden-xs"></div>
+		<!-- Default to the left -->
+		<strong style="margin-left: 50px;">Copyright &copy; 2015 <a
+			href="#">Connaissant</a>.
+		</strong> All rights reserved.
+	</footer>
+
+	<div class='control-sidebar-bg'></div>
+	<script type="text/javascript">
+	
+	function saveBtn(){
+		$('#sFor').val('save');
+		$('#addFmsAging').submit();
+		
+		
+		var bucketSize=$("#sNoOfBucket").val();
+		if(isNullOrEmpty(bucketSize)){
+			showMessage("Please Enter Bucket No !");
+			return false;
+		}
+		
+	}
+	$("#sNoOfBucket").change(function (){
+		/* if(!isNullOrEmpty($("#sNoOfBucket").val())){ */
+		var len=$("#sNoOfBucket").val();
+		
+		
+		var html='';
+		$("#tBodyId").html('');
+		for(var count=0; count<len; count++){
+		  html =html+'<tr id="rowCountRole'+count+'"> '
+				/* + ' <td><input type="hidden" id="sCritLineId'+count+'" name="sCritLineId" class="form-control" placeholder="Enter..."/></td>' */
+				
+				+' <td><input type="hidden" name="sBucketDtlId" value="0"  id="sBucketDtlId'+count+'"/><input type="text" id="sFromVal'+count+'"  name="sFromVal" class="form-control" placeholder="Enter..." style="width:100%;height:31px;" onblur="viewBucketValue('+count+')"/>'
+				+'</td>'
+				+'<td><input type="text" id="sToVal'+count+'" name="sToVal" class="form-control" placeholder="Enter..." style="width:100%;height:31px;" onblur="viewBucketValue('+count+')"/>'
+				+'</td>'
+				+ ' <td ><input type="text" id="sBucketName'+count+'"'
+				+ 'name="sBucketName" class="form-control" placeholder="Enter..." style="width:100%;height:31px;" readonly="readonly"  />'
+				+ '<input type="hidden" value="<s:property value="sCritSpecVal"/>" id="sCritSpecHidden'+count+'"'
+				+ 'name="sCritSpecHidden" class="form-control" ></td>'
+				
+				+ ' </tr>';
+				
+						
+		}
+		$("#tBodyId").append(html);
+		
+		
+	});
+	 function removeRow(removeNum) {
+		jQuery('#rowCountRole' + removeNum).remove();
+	}
+	/*var ID = 0;
+	var count = 0;
+	function addRow123(html) {
+		
+		//alert("vHdrId");
+		var len = document.getElementsByName("sCritSpecVal").length;
+		count=len-1;
+		
+		 html = '<tr id="rowCountRole'+count+'"> '
+			+ ' <td><input type="hidden" id="sCritLineId'+count+'" name="sCritLineId" class="form-control" placeholder="Enter..."/></td>'
+			+ ' <td ><input type="text" id="sCritSpecVal'+count+'"'
+			+ 'name="sCritSpecVal" class="form-control" placeholder="Enter..." style="width:143px;height:31px;" readonly="readonly" onclick="callpopup1('+count+',\'sCritSpecVal\',\'sCritSpecHidden\')" />'
+			+ '<input type="hidden" id="sCritSpecHidden'+count+'"'
+			+ 'name="sCritSpecHidden" class="form-control" ></td>'
+			+' <td><input type="text" id="sFromVal'+count+'" name="sFromVal" class="form-control" placeholder="Enter..." style="width:80px;height:31px;" onblur="textval1('+count+')"/>'
+			 +'</td>'
+			 +'<td><input type="text" id="sToVal'+count+'" name="sToVal" class="form-control" placeholder="Enter..." style="width:80px;height:31px;" onblur="textval2('+count+')"/>'
+			 +'</td>'
+			 + ' <td style=" width: 34px; cursor: pointer; text-align: center;"><img class="btnAdd" data-toggle="control-sidebar" style=" width: 23px; " src="scripts/plus.png" onclick="addRow123();"/></td>'
+			+ ' <td style=" width: 34px; cursor: pointer; text-align: center;"><img class="btnRemove" data-toggle="control-sidebar" style=" width: 23px; " src="scripts/minus.png" onclick="removeRow('
+			+ count + ')"/></td>' + ' </tr>';
+					
+	count++;
+		
+	}*/
+		function isNullOrEmpty(param) {
+			if (param == "" || param == null) {
+				return true;
+			}
+			return false;
+		}
+	function viewBucketValue(rowNum){
+		$("#sBucketName"+rowNum).val('');
+	
+             if( $("#sFromVal"+rowNum).val()!='' || $("#sToVal"+rowNum).val()!=''){
+		
+			var result=$("#sFromVal"+rowNum).val() +'-' +$("#sToVal"+rowNum).val()+ " days";
+			$("#sBucketName"+rowNum).val(result);
+              }
+		
+		//alert(result);
+	}
+	function closebtn(){
+		
+		
+			var newwin=window.open('searchFMSAging?sFor=search',"_self");
+			if (window.focus) {
+		   	 	newwin.focus();
+			}
+		}
+	
+		
+		function showMessage(message) {
+			if (!isNullOrEmpty(message)) {
+				if (message == "APP0013: Transaction completed.") {
+					$("#messageId").html(message).removeClass("error")
+							.addClass("success");
+					$("#messageId").show();
+				} else {
+					$("#messageId").html(message).removeClass("success")
+							.addClass("error");
+					$("#messageId").show();
+				}
+			}
+		}
+		
+
+		$(document).ready(function() {
+			var message = $(":input[name='message']").val();
+			showMessage(message);
+			
+		});
+
+		
+	</script>
+</body>
+</html>
+

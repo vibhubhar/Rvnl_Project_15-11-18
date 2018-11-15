@@ -15,8 +15,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>RVNL Document Portal</title>
 
-<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet" />
+<link href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.css"/>
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript"
@@ -718,7 +718,7 @@ xmlhttp.send();
 			<tr>
 				Zone Name :
 				<input type="text" name="zoneName" id="zoneName"
-					style="width: 205px; margin-left: 50px" onkeyup="loadXMLDoczone('zoneName','err')" onCopy=return(false) onDrag=return(false) onDrop=return(false) onPaste=return(false) autocomplete=off>
+					style="width: 205px; border:groove;margin-left: 50px" onkeyup="loadXMLDoczone('zoneName','err')" onCopy=return(false) onDrag=return(false) onDrop=return(false) onPaste=return(false) autocomplete=off>
 			</tr></br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<span id="err"> </span>
 			<%
@@ -892,7 +892,7 @@ xmlhttp.send();
 		<br> <br>
 	</form>
 	
-	<%@include file="included/Newfooter.jsp"%>
+	<%@include file="included/footer.jsp"%>
 
 </body>
 <div id="dialogid" style="display: none"

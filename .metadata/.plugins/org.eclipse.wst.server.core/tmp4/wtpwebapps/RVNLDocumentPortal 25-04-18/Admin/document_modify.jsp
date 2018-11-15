@@ -198,6 +198,7 @@ function modidoc(document_id) {
 		<c:if test="${(param.MyProject_stage != null) and (param.stage == '')}">
 		
 			<br>
+			<div class='scrollit' style='overflow-x: scroll;width: 100%;position:relative;'>
 			<table class="table table-hover table-bordered"
 				style="background-color: #F0FFFF" id="example" class="display" border="1">
 				<thead>
@@ -341,6 +342,7 @@ function modidoc(document_id) {
 					%>
 				</tbody>
 			</table>
+			</div>
 				<br>
 <input type="button" value="close" class="btn btn-primary" onclick="location.href='NewIndex.jsp';" style="margin-left: 50%;"> 
 <br><br>		

@@ -17,8 +17,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Create User</title>
 <link href="resources/css/main.css" rel="stylesheet" type="text/css">
-<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-<link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.css"/>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script src="resources/JS/Approval_wf230.js"></script>
@@ -37,23 +36,21 @@
 	rel="stylesheet" type="text/css" /> -->
 <script type="text/javascript"
 	src="resources/JS/datasort.js"></script>
-	<link
-	href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"
-	rel="stylesheet" type="text/css" />
+	
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script type="text/javascript"
-	src="resources/JS/datasort.js"></script>
-	<link
+
+	
+	<script src="resources/JS/jquery.dataTables.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+
+<link
 	href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"
 	rel="stylesheet" type="text/css" />
 	
 <style>
-#example_length {
-    display: none;
-}
-#example {
-    width: inherit;
-}
+
 	</style>
 <script type="text/javascript">
 function showtable1() {
@@ -97,20 +94,8 @@ function sort_table(tbody, col, asc) {
 
 $(document).ready(function() {
     $('#example').DataTable( {
-        columnDefs: [ {
-            targets: [ 0 ],
-            orderData: [ 0, 1 ]
-        }, {
-            targets: [ 1 ],
-            orderData: [ 1, 0 ]
-        }, {
-            targets: [ 2 ],
-            orderData: [ 2, 0 ]
-        } ],
-			"infoCallback": function( settings, start, end, max, total, pre ) {
-			if (max==total) { return "Showing " + (end-start+1) + "  of " +total+" records"}
-			else {return "Showing " + (end-start+1) + "  of " +total+" records (filtered from total " + max+" records)"}
-		   	}
+       
+			
     } );
 } );
 </script>
@@ -252,13 +237,13 @@ String user = (String)session.getAttribute("user_name");
 									Statement stmt = conn.createStatement();
 									ResultSet rs = stmt.executeQuery(query);
 							%>	
-									
+									<div class='scrollit' style='overflow-x: scroll;width: 100%;position:relative;'>
 									<table border=1 class="table table-hover table-bordered"
 											style="background-color: #F0FFFF; margin-left:20px;" id="example" class="display nowrap" cellspacing="0" width="100%">
 											<thead>
 											<tr class="success">
-											<th >SN</th>
-												<th >PIU</th>
+											<th style="padding: 0px 14px 24px 0px;">SN</th>
+												<th style="padding: 0px 0px 22px 25px;">PIU</th>
 												<th >Submitted By</th>
 												<th>Project Id</th>
 												<th>Project</th>
@@ -327,6 +312,7 @@ String user = (String)session.getAttribute("user_name");
 											%>
 											</tbody>
 											</table>
+											</div>
 			<%
 									} else if (stage1.equalsIgnoreCase("second") ) {
 										String filt2=request.getParameter("filt2");
@@ -417,6 +403,7 @@ String user = (String)session.getAttribute("user_name");
 	<br><br><br><br><br><br><br><br><br>
 	
 </body>
+
 <br><br><br><br><br><br><br><br><br><br><br><br>
-		      <%@include file="included/Newfooter.jsp" %>
+		      <%@include file="included/footer.jsp" %>
 </html>

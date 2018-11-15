@@ -1,5 +1,6 @@
 var xmlHttp
 function showList(str1) {
+	
 	var str = encodeURIComponent(str1);
 	if (typeof XMLHttpRequest != "undefined") {
 		xmlHttp = new XMLHttpRequest();
@@ -10,13 +11,18 @@ function showList(str1) {
 		alert("Browser does not support XMLHTTP Request")
 		return;
 	}
+
 	var url = "showList.jsp";
 	
 	url += "?type=" + str;
 	xmlHttp.onreadystatechange = onChange;
 	xmlHttp.open("GET", url, true);
+	
 	xmlHttp.send(null);
-		
+	
+	
+	
+	
 }
 
 

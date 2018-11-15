@@ -17,7 +17,7 @@
 <html>
 <head>
 <script type="text/javascript"
-	src="https://code.jquery.com/jquery-1.12.4.js"></script>                       
+	src="https://code.jquery.com/jquery-1.12.4.js"></script>
 
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -29,16 +29,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Reports</title>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-
+<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet"/>
 <script src="resources/JS/backButton.js"></script>
 <script src="resources/JS/validate230.js"></script>
 
-
-<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.css"/>
-<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap-theme.css"/> 
-<script type="text/javascript" src="/Application/Admin/resources/bootstrap-3.3.7-dist/js/jquery-3.3.1.js"></script> 
-   <script type="text/javascript" src="/Application/Admin/resources/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
-   
   <script src="resources/JS/Reports230.js"></script>
     <link href="http://code.jquery.com/ui/1.10.4/themes/blitzer/jquery-ui.css" rel="stylesheet"> 
       <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
@@ -48,7 +43,7 @@
 <script type="text/javascript">
 function mywinClose() {
 	var sessionTimeout1 = "<%= session.getMaxInactiveInterval() %>";
-	window.setTimeOut("window.close();",(sessionTimeout1-10)*1000)	
+	window.setTimeOut("window.close();",(sessionTimeout1-10)*1000)
 }
 </script>
 
@@ -154,7 +149,8 @@ response.setDateHeader("Expires", -1);
 
 <c:if test="${param.stage == null}">
 	
-<table class="table table-hover table-bordered" style="margin-top: -40px;">
+<div class='scrollit' style='overflow-x: scroll;width: 100%;position:relative;'>	
+<table class="table table-hover table-bordered" style="margin-top: 0px;">
 <tr ><td colspan="3" style="padding:0px;"> <div id="reporttype" Style="color:black;margin-top: 0px;margin-left: 0px; padding:0px; height:60px; background-color:#C2D8AD; "> <center><b><Br>Report Type:</b>
 <input type = "radio" name="myRadios" id="Detailed" value ="1" style='margin-left:80px' checked="checked">  Detailed Report &nbsp;&nbsp;
 					<input type = "radio" name="myRadios" id="Summary" value ="2">  Project wise Summary Report &nbsp;&nbsp;
@@ -167,7 +163,7 @@ response.setDateHeader("Expires", -1);
 					<input type = "number" name="t2" id="t2" step="1"  min="1" max="999" style="width:50px; height:20px;  //margin-top:-20px; text-align:center;" value="60">days < &nbsp;&nbsp;&nbsp;&nbsp;      Period 3 </span></b></center></div>
 				</td></tr>
 <tr class="success">
-<td><font color="green"><br />
+<td><font color="grey"><br />
 <%
 String Zone2="";
 String dname1="";
@@ -187,7 +183,7 @@ try {
 			%>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Zone :</b>&nbsp;
 			<select name="zone" id="zone" 
-			style="width: 200px;margin: 1px 0px 6px 74px;" onchange="showDivisions(this.value);showprojectspkzonechange();showuserspkzonechange();">
+			style="width: 200px;margin-left: 73px;" onchange="showDivisions(this.value);showprojectspkzonechange();showuserspkzonechange();">
 				 
 			<%
 			if((piu_id1==null || piu_id1=="") && role.equalsIgnoreCase("MOR")){ 
@@ -257,7 +253,7 @@ try {
 					
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Division :</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<div id ='DivsionsDiv' style='display: inline;'>
-					<select name='division' id='division1' style="width: 200px;margin:0px 0px 0px 18px;" onchange="showprojectspk(); showuserspk();">
+					<select name='division' id='division1' style="width: 196px; margin-left:20px" onchange="showprojectspk(); showuserspk();">
 						
 					
 				<%	
@@ -384,7 +380,7 @@ try {
 					<tr class="success">
 					
 							<td><font color="grey"><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Project Type :</b>
-							&nbsp;&nbsp; 
+							&nbsp;
 						<div id="project_type" style="margin:-45px 0px 0px 49px;"> 
 						<select name='proj_type' id='proj_type' style="width: 200px;margin: 20px 0px 0px 98px;" onchange="showprojectspk();" >
 						<option value="">-- Select Project Type --</option>
@@ -412,7 +408,7 @@ try {
 							<td><font color="grey"><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Project :</b>
 							 
 						<div id="project_select" style="margin:-45px 0px 0px 40px;"> 
-						<select name='projects' id='project1' style="width: 240px;margin: 20px 0px 0px 98px;" onchange="Locselect(this.value);" >
+						<select name='projects' id='project1' style="width: 200px;margin: 20px 0px 0px 98px;" onchange="Locselect(this.value);" >
 						<option value="">-- Select Project --</option>
 						</select></div>
 									
@@ -453,7 +449,7 @@ try {
 					<tr class="success">
 					
 					<td><font color="grey"><br />
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Document Type :</b>&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Document Type :</b>&nbsp;
 				<select name="document" id="document" 
 					style="width: 200px">
 						<option value="">-- Select Document Type --</option>
@@ -632,7 +628,8 @@ try {
 			%>
 			</select> </font><br /> <br></td>  <td></td>	
 					</tr>		
-		</table>	
+		</table>
+		</div>	
 				 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

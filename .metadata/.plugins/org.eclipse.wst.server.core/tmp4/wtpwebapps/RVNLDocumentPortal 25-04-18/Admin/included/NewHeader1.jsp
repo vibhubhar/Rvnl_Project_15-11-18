@@ -99,13 +99,13 @@ if (user_code!=null) {} else {user_code="0";}
      	   <div class="container-fluid top_bar">
            <div class="row">
            <div class="col-md-4 col-sm-4 col-xs-4" >
-           <img src="/Application/Admin/images/Rail_logo.png" alt="" class="img-responsive"/>
+           <img src="images/Rail_logo.png" alt="" class="img-responsive"/>
            </div>
            <div class="col-md-4 col-sm-4 col-xs-4 top_middle_bar">
            <h2 ><p class="text-white bg-dark"><i>Project Documents Approval Monitoring System (PDAMS)</i></p></h2>
            </div>
            <div class="col-md-4 col-sm-4 col-xs-4 right_bar" >
-           <img src="/Application/Admin/images/RVNL_LOGO.jpg" alt="" class="img-responsive pull-right"/>
+           <img src="images/RVNL_LOGO.jpg" alt="" class="img-responsive pull-right"/>
            </div>
  		   
  		  

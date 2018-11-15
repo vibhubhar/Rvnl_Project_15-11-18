@@ -1,0 +1,604 @@
+<%@page import="com.itextpdf.text.log.SysoLogger"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ page import="javax.servlet.*"%>
+<%@ page import="javax.servlet.http.*"%>
+<%@ page import="javax.naming.*,java.sql.*,javax.sql.*"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="true"%>
+<%@include file="sessionCheck.jsp"%>
+
+<%@page import="java.net.URLEncoder"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Returned Task</title>
+<link href="resources/css/main.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.min.css"/>
+<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.css"/>
+<script src="resources/JS/Approval_wf230.js"></script>
+
+<style>
+.ui-datepicker-year {
+   background-color: #cc0000;
+ padding-left:20px;
+}
+#example_length {
+    display: none;
+}
+#example {
+    width: inherit;
+}
+	</style>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript"
+	src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="resources/jQuery/jquery-ui.js"></script>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script
+	src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js"
+	type="text/javascript"></script>
+<link
+	href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css"
+	rel="stylesheet" type="text/css" />
+
+<%@include file="included/NewHeader.jsp"%>
+<script type="text/javascript"
+	src="resources/JS/datasort.js"></script>
+	<link
+	href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"
+	rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+	function frezedate(id, startDate) {
+		jQuery.noConflict();
+
+		var idof = id;
+		//alert(startDate);
+		var chunks = startDate.split('-');
+		var formattedDate = [ chunks[2], chunks[1], chunks[0] ].join("/");
+		//alert(formattedDate);
+		$("#" + idof).datepicker({
+
+			dateFormat : 'dd/mm/yy',
+			minDate : formattedDate,
+			maxDate : '0', changeYear: true
+
+		}).datepicker("show").val();
+		//var today = new Date(); var dd = today.getDate(); 
+
+	}
+</script>
+
+<script type="text/javascript">
+	var people, asc1 = 1, asc2 = 1, asc3 = 1, asc4 = 1, asc5 = 1, asc6 = 1, asc7 = 1, asc8 = 1; asc8 = 1; asc9 = 1; asc10 = 1; asc11 = 1; asc12 = 1;
+	window.onload = function() {
+		people = document.getElementById("people");
+	}
+
+	function sort_table(tbody, col, asc) {
+		var rows = tbody.rows, rlen = rows.length, arr = new Array(), i, j, cells, clen;
+		// fill the array with values from the table
+		for (i = 0; i < rlen; i++) {
+			cells = rows[i].cells;
+			clen = cells.length;
+			arr[i] = new Array();
+			for (j = 0; j < clen; j++) {
+				arr[i][j] = cells[j].innerHTML;
+			}
+		}
+		// sort the array by the specified column number (col) and order (asc)
+		arr.sort(function(a, b) {
+			return (a[col] == b[col]) ? 0
+					: ((a[col] > b[col]) ? asc : -1 * asc);
+		});
+		// replace existing rows with new rows created from the sorted array
+		for (i = 0; i < rlen; i++) {
+			rows[i].innerHTML = "<td>" + arr[i].join("</td><td>") + "</td>";
+		}
+	}
+	
+	
+</script>
+<script>	
+	
+	$(document).ready(function() {
+		jQuery.extend( jQuery.fn.dataTableExt.oSort, {
+		    "date-uk-pre": function ( a ) {
+		        if (a == null || a == "") {
+		            return 0;
+		        }
+		        var ukDatea = a.split('-');
+		        return (ukDatea[2] + ukDatea[1] + ukDatea[0]) * 1;
+		    },
+		 
+		    "date-uk-asc": function ( a, b ) {
+		        return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+		    },
+		 
+		    "date-uk-desc": function ( a, b ) {
+		        return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+		    }
+		} );
+		
+		
+		
+	    $('#example').DataTable( {
+	         	       
+  			"infoCallback": function( settings, start, end, max, total, pre ) {
+				if (max==total) { return "Showing " + (end-start+1) + "  of " +total+" records"}
+				else {return "Showing " + (end-start+1) + "  of " +total+" records (filtered from total " + max+" records)"}
+			   	},
+	   
+	    columnDefs:   [ {  type: 'date-uk', targets: [7]}, {  width: '260px', targets: [7]},  { targets: [9,10,11,12],"orderable":false }  ]
+	    } );
+	} );
+</script>
+<style>
+
+div.absolute {
+   	position:absolute;
+   	margin-top: 5px;
+   	margin-left: 33px;
+   	margin-bottom: 20px;
+ 	padding: 15 px;
+    width: auto;
+    height: 30px;
+    border: 3px double #ff4d4d;
+    background-color:#ffe6e6;
+        }
+    table.center {
+    margin-left:auto; 
+    margin-right:auto;
+  }
+</style>
+</head>
+<body>
+<%-- <div><h4 style='width: 300px; margin-left: 27px'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returned Documents</h4></div>
+<h4 align="left" style='width: 300px; margin-left: 27px'>
+				<font style="color: red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Welcome&nbsp;</font><font color="#99CC00">:&nbsp;<%=(String) session.getAttribute("user_name")%></font>
+			</h4> --%>
+			
+<div class="absolute" style="font-weight:bold" ><h8>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Returned Documents] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h8>
+
+<h8><font style="color:red; font-weight:normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Welcome&nbsp;</font><font style="color:#3333cc; font-weight:normal">:&nbsp;<%=(String)session.getAttribute("user_name") %>&nbsp;&nbsp;&nbsp;</font></h8>
+</div>	<br><br> <center><h3><u><b> Documents returned from Railway Users or pending with other Organizations</b></u></h3></center><br><br>		
+	<div class="container" style="margin-top: 44px;
+    margin-left: 24px;">
+		<form name="MoreInfo" id="MoreInfo">
+			<%
+				String use1r = (String) session.getAttribute("user_name");
+			session.removeAttribute("backurl");
+			String rdstatus = (String) session.getAttribute("RealdateStatus");
+				response.setHeader("Cache-control", "no-store");
+					response.setHeader("Pragma", "no-cache");
+					response.setDateHeader("Expires", -1);
+					String user = (String) session.getAttribute("user_name");
+					String more = request.getParameter("Information");
+					
+			%> 
+			<INPUT TYPE="HIDDEN" NAME="Stage"> <INPUT TYPE="HIDDEN" NAME="Document_id">
+			<c:if test="${param.Stage == null}">
+				<%int count=0;
+				String docid=null;
+				try{
+					Context initCtx = new InitialContext();
+								Context envCtx = (Context) initCtx.lookup("java:comp/env");
+								DataSource ds = (DataSource) envCtx.lookup("jdbc/MySQLDB");
+								Connection conn = null;
+								conn = ds.getConnection();
+								PreparedStatement ps = null, ps2 = null, ps3 = null,psm=null;
+								ResultSet rs = null, rs2 = null, rs3 = null,rsm=null;
+								SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+								String rd = df.format(new Date());
+			                    
+								String sql1 = "select * from xx_moreammendments where status ='return' and (action_to ='"
+										+ user + "' or action_performedBy ='" + user + "')";
+								
+								ps = conn.prepareStatement(sql1);
+								rs = ps.executeQuery();
+				%>
+				<table class="table-bordered" id="example" class="display"
+					style="background-color: #F0FFFF; width:100%"> 
+					<thead>
+						<tr class="success">
+						<th><b>SNo</b></th>
+							
+						<th><b>Project</b></th>
+						<th><b>Package Name</b></th>
+							
+						<th><b>Document	Type</b></th>
+						<th><b>Document	No.</b></th>
+						<th><b>Document Name</b></th>
+						<th><b>Returned From/ Pending With</b></th>
+						<th ><b>Returned/ Forward Date</b></th>
+						<th><b>Remark</b></th>
+						<th><b>Log Details </b></th>
+						<th><b>Resubmission/ Forward Date</b></th>
+						<th><center><b>Action 1</b></center></th>
+						<th><center><b>Action 2</b></center></th>
+						</tr>
+					</thead>
+					<tbody id="people">
+						<%
+						
+							String doc_id = null,actionPerformed=null,actionPerformedBy=null, division = null, requested_by1 = null, requested = null,documentname=null,documentno=null,documentType=null,documentType12=null,document_id=null;
+											while (rs.next()) {
+												doc_id = rs.getString("document_id");
+												String docno = rs.getString("document_number");
+												String Status = rs.getString("status");
+												String action_performedBy = rs.getString("action_performedBy");
+												String project = rs.getString("project");
+												String packagee = rs.getString("package");
+												String pCoordinator = rs.getString("projectCoordinator");
+												String packDirector = rs.getString("packageDirector");
+												String remark = rs.getString("Information");
+												String actionto = rs.getString("action_To");
+												String ldate = null;
+												int pullbackcase=0;
+												
+												String sql21 = "select * from xx_record_actions where Document_id="+doc_id;
+;
+												 
+												PreparedStatement ps21 = conn.prepareStatement(sql21);
+												ResultSet rs21 = ps21.executeQuery();
+												while (rs21.next()) {
+													boolean last=rs21.isLast();
+											   if(last==false){
+													actionPerformed=rs21.getString("ActionPerformed");
+													//System.out.println(n+"..moreinfo...."+actionPerformed);
+													if(actionPerformed.equalsIgnoreCase("Pulled back by RVNL")){
+														actionPerformedBy=rs21.getString("ActionPerformedBy");
+														
+													}
+													else if(actionPerformed.equalsIgnoreCase("Returned to RVNL with approval")){
+														actionPerformedBy=rs21.getString("ActionPerformedBy");
+														pullbackcase=3;
+														
+													} 
+													else if(actionPerformed.equalsIgnoreCase("Forwarded to Others")){
+														actionPerformedBy=rs21.getString("ActionPerformedBy");
+														pullbackcase=4;
+													} else {													
+														
+														//actionPerformed=rs21.getString("ActionPerformed");
+														if(actionPerformed.equalsIgnoreCase("Returned to RVNL") ){
+															actionPerformedBy=rs21.getString("ActionPerformedBy");
+															
+															
+														}
+													}
+													}
+																									
+													else{
+														
+														if(actionPerformed.equalsIgnoreCase("Pulled back by RVNL")){
+															pullbackcase=1;
+														}
+														if( actionPerformed.equalsIgnoreCase("Returned to RVNL")){
+															pullbackcase=2;
+														}
+														if( actionPerformed.equalsIgnoreCase("Forwarded to Others")){
+															pullbackcase=4;
+														}
+														
+														if( actionPerformed.equalsIgnoreCase("Returned to RVNL with approval")){
+															pullbackcase=3;
+														}
+													}
+													
+													
+												}
+												
+												//System.out.println("..22moreinfo...."+actionPerformedBy+action_performedBy+actionPerformed);
+												
+													
+												String sql2 = "select * from xx_document_mapping where document_map_id="
+														+ doc_id;
+												
+												ps2 = conn.prepareStatement(sql2);
+												rs2 = ps2.executeQuery();
+												count=count+1;
+												while (rs2.next()) {
+													documentname = rs2.getString("Document_Name");
+													documentno = rs2.getString("Document_Number");
+													documentType12 = rs2.getString("Document_Type");
+													documentType = URLEncoder.encode(documentType12, "UTF-8");
+													document_id = rs2.getString("Document_Map_ID");
+													
+													requested_by1 = rs2.getString("Submitted_by");
+													division = rs2.getString("Division");
+													
+													
+												}
+												String sql3 = "select * from xx_user_master where user_id="
+														+ requested_by1;
+												ps3 = conn.prepareStatement(sql3);
+												rs3 = ps3.executeQuery();
+												while (rs3.next()) {
+													requested = rs3.getString("User_name");
+
+												}
+											String result2=null;
+												String sql4 = "select * from xx_record_actions where Document_id='"
+														+ doc_id + "' order by Rownum";
+												
+												PreparedStatement ps4 = conn.prepareStatement(sql4);
+												ResultSet rs4 = ps4.executeQuery();
+												while (rs4.next()) {
+													ldate = rs4.getString("CurrentDate");
+													action_performedBy=rs4.getString("ActionPerformedBy");
+													if(ldate==null){
+														result2="";
+													}else{
+													SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
+													  Date result1 = formater.parse(ldate);
+													  SimpleDateFormat AppDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+													  
+													   result2 =AppDateFormat.format(result1);
+													}
+												}
+												
+												if(pullbackcase!=0 ){
+													action_performedBy=actionPerformedBy;
+													
+												}/* 
+												if(pullbackcase==2){
+													action_performedBy=actionPerformedBy;
+													
+												}
+												if(pullbackcase==3){
+													
+													action_performedBy=actionPerformedBy;
+													
+												}
+												 */
+												if(actionPerformed.equalsIgnoreCase("Returned to RVNL with approval")){
+						%>
+						<tr  style="background-color:#DAF7A6;">
+						<td><%=count%></td>
+							<td><%=project%></td>
+							<td><%=packagee%></td>
+							<td><%=documentType12%></td>
+						    <td><%=documentno%></td>
+						    <td><%=documentname%></td>
+							<%-- <td><%=docno%></td> --%>
+							<td><%=action_performedBy%></td>
+							<td ><%=result2 %></td>
+							<%-- <td><%=packDirector%></td> --%>
+							<td><%=remark%></td>
+							<td><a href="recordReport.jsp?Document_Type=<%=documentType%>&doc_id=<%=document_id%>" target="_blank">
+					Log Details </a>
+			</td>
+<%
+	//System.out.print("Real Date Status"+rdstatus+rd);
+//System.out.print("Cut off date"+ldate);
+if (rdstatus.equalsIgnoreCase("0")) { 
+%>			
+					
+							<td><input type="text" id="ApprovalDate<%=doc_id%>"
+								name="ApprovalDate<%=doc_id%>"
+								onclick="frezedate('ApprovalDate<%=doc_id%>','<%=ldate%>')" readonly="true" 
+								style="width: 150px"></td>
+					<%
+} else {
+%>
+<td><input type="text" id="ApprovalDate<%=doc_id%>"
+							name="ApprovalDate<%=doc_id%>"  readonly="true"
+							style="width: 150px; background-color: lightgray;" value=<%=rd %>></td>
+<%
+}
+%>					
+							<!-- <td><button id ="Send" type="button" onclick="resubmitdoc('<%=doc_id%>','<%=requested%>','<%=docno%>','<%=user%>','<%=division%>','forwarded')" 
+ class="btn btn-primary">Send Document</button></td> -->
+
+							<td>
+							<input type="button" class="btn btn-primary"
+								id="btnShownt<%=doc_id%>" value="Resubmit"
+								onclick="resubmitdoc('<%=doc_id%>','resubmit')" />
+						    </td>	
+						<td>
+							<input type="button" class="btn btn-primary"
+								id="btnOthers<%=doc_id%>" value="Forward to Other Org."
+								onclick="resubmitdoc('<%=doc_id%>','submitothers')" />
+						</td>
+
+<%} else if(actionPerformed.equalsIgnoreCase("Forwarded to Others")){
+	
+	%>
+	<tr  style="background-color:whitesmoke;">
+	<td><%=count%></td>
+		<td><%=project%></td>
+		<td><%=packagee%></td>
+		<td><%=documentType12%></td>
+	    <td><%=documentno%></td>
+	    <td><%=documentname%></td>
+		<%-- <td><%=docno %></td> --%>
+		<td><%=actionto%></td>
+		<td ><%=result2 %></td>
+		<%-- <td><%=packDirector%></td> --%>
+		<td><%=remark%></td>
+		<td><a href="recordReport.jsp?Document_Type=<%=documentType%>&doc_id=<%=document_id%>" target="_blank">
+Log Details </a>
+</td>
+<%
+	//System.out.print("Real Date Status"+rdstatus+rd);
+if (rdstatus.equalsIgnoreCase("0")) { 
+%>			
+					
+							<td><input type="text" id="ApprovalDate<%=doc_id%>"
+								name="ApprovalDate<%=doc_id%>"
+								onclick="frezedate('ApprovalDate<%=doc_id%>','<%=ldate%>')" readonly="true" 
+								style="width: 150px"></td>
+					<%
+} else {
+%>
+<td><input type="text" id="ApprovalDate<%=doc_id%>"
+							name="ApprovalDate<%=doc_id%>"  readonly="true"
+							style="width: 150px; background-color: lightgray;" value=<%=rd %>></td>
+<%
+}
+%>							
+		<td colspan='1'>
+		<center><input type="button" class="btn btn-warning"
+			id="btnShownt<%=doc_id%>" value="Approval Received"
+			onclick="resubmitdoc('<%=doc_id%>','approvalrecd')" /></center>
+	    </td><td></td>
+
+<%	} 			
+												else {%>
+													
+													<tr >
+													<td><%=count%></td>
+														<td><%=project%></td>
+														<td><%=packagee%></td>
+														<td><%=documentType12%></td>
+													    <td><%=documentno%></td>
+													    <td><%=documentname%></td>
+														<%-- <td><%=docno%></td> --%>
+														<td><%=action_performedBy%></td>
+														<td ><%=result2 %></td>
+														<%-- <td><%=packDirector%></td> --%>
+														<td><%=remark%></td>
+														<td><a href="recordReport.jsp?Document_Type=<%=documentType%>&doc_id=<%=document_id%>" target="_blank">
+												Log Details </a>
+										</td>
+							<%
+	//System.out.print("Real Date Status"+rdstatus+rd);
+if (rdstatus.equalsIgnoreCase("0")) { 
+%>			
+					
+							<td><input type="text" id="ApprovalDate<%=doc_id%>"
+								name="ApprovalDate<%=doc_id%>"
+								onclick="frezedate('ApprovalDate<%=doc_id%>','<%=ldate%>')" readonly="true" 
+								style="width: 150px"></td>
+					<%
+} else {
+%>
+<td><input type="text" id="ApprovalDate<%=doc_id%>"
+							name="ApprovalDate<%=doc_id%>"  readonly="true"
+							style="width: 150px; background-color: lightgray;" value=<%=rd %>></td>
+<%
+}
+%>					
+														<!-- <td><button id ="Send" type="button" onclick="resubmitdoc('<%=doc_id%>','<%=requested%>','<%=docno%>','<%=user%>','<%=division%>','forwarded')" 
+							 class="btn btn-primary">Send Document</button></td> -->
+
+														<td>
+														<input type="button" class="btn btn-primary"
+															id="btnShownt<%=doc_id%>" value="Resubmit"
+															onclick="resubmitdoc('<%=doc_id%>','resubmit')" />			
+
+								</td>
+								<td>
+							<input type="button" class="btn btn-primary"
+								id="btnOthers<%=doc_id%>" value="Forward to Other Org."
+								onclick="resubmitdoc('<%=doc_id%>','submitothers')" />
+						</td>
+
+						</tr>
+
+						<%
+							}%>
+							<div id="dialogid<%=doc_id%>" style="display: none"
+									align="center">
+									<br> Are You Sure You Want To ReSubmit Document<br> <br>
+									<button id="ok" class="btn btn-primary"
+										onclick="jQuery.noConflict();$('#dialogid<%=doc_id%>').dialog('close'); submit2nd('<%=doc_id%>','<%=requested%>','<%=docno%>','<%=user%>','<%=division%>','forwarded','resubmit');">OK</button>
+									<button id="cancle" class="btn btn-primary"
+										onclick="jQuery.noConflict();$('#dialogid<%=doc_id%>').dialog('close');">cancel</button>
+								</div>
+								<div id="dialogid2<%=doc_id%>" style="display: none"
+									align="center">
+									<br> Are You Sure You Want To Submit Document to Other Organization<br> <br>
+									<button id="ok" class="btn btn-primary"
+										onclick="jQuery.noConflict();$('#dialogid2<%=doc_id%>').dialog('close'); submit2nd('<%=doc_id%>','<%=requested%>','<%=docno%>','<%=user%>','<%=division%>','forwarded','submitothers');">OK</button>
+									<button id="cancle" class="btn btn-primary"
+										onclick="jQuery.noConflict();$('#dialogid2<%=doc_id%>').dialog('close');">cancel</button>
+								</div>
+							<div id="dialogid3<%=doc_id%>" style="display: none"
+									align="center">
+									<br> Are You Sure You Want To Register Approval of User: '<%=actionto %>' Of Other Organization<br> <br>
+									<button id="ok" class="btn btn-primary"
+										onclick="jQuery.noConflict();$('#dialogid3<%=doc_id%>').dialog('close'); submit2nd('<%=doc_id%>','<%=requested%>','<%=docno%>','<%=actionto%>','<%=division%>','returned','approvalrecd');">OK</button>
+									<button id="cancle" class="btn btn-primary"
+										onclick="jQuery.noConflict();$('#dialogid3<%=doc_id%>').dialog('close');">cancel</button>
+								</div>					
+								<%	
+								System.out.println("line..."+doc_id);
+											}
+				
+											
+
+											try {
+												if (doc_id.equals("")) {
+
+												}
+											} catch (Exception e) {
+						%>
+
+						<div style="color:RED;text-align:center;margin-bottom: 29px;
+margin-top: -50px;"><b> There is no returned document for you. </b></div>
+
+						<%
+							e.printStackTrace();
+
+											}
+				conn.close();
+				}
+				catch(Exception e1){
+				e1.printStackTrace();	
+				}
+						%>
+					</tbody>
+				</table>
+				<div id="dapprovaldate" style="display: none" align="center">
+					<br> Please Fill Date.....<br> <br>
+					<button id="appok" class="btn btn-primary"
+						onclick="$('#dapprovaldate').dialog('close');">OK</button>
+					
+				</div>
+			</c:if>
+			<c:if test="${param.Stage != null}">
+
+				<%
+					String doc_id = request.getParameter("Document_id");
+				%>
+				<!-- <sql:update dataSource="jdbc/MySQLDB" var="rs">
+  update xx_approval_workflow set action ='N' where document_id =<%=doc_id%>
+</sql:update> -->
+				<sql:update dataSource="jdbc/MySQLDB" var="rs">
+  update xx_moreammendments set status ='Referred' where document_id =<%=doc_id%>
+				</sql:update>
+				
+				<sql:update dataSource="jdbc/MySQLDB" var="rs">
+  insert into xx_record_actions (Document_id,CurrentDate,ActionPerformed,ActionPerformedBy,Real_ActionDate) Values ('<%=doc_id%>',now(),'referred','<%=user%>', now())
+</sql:update>
+
+			</c:if>
+		</form>
+	</div>
+
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<%@include file="included/footer.jsp"%>
+</body>
+</html>

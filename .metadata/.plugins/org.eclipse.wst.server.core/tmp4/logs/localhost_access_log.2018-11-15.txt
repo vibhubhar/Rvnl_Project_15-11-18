@@ -1,0 +1,15 @@
+127.0.0.1 - - [15/Nov/2018:10:43:15 +0530] "GET / HTTP/1.1" 404 951
+0:0:0:0:0:0:0:1 - - [15/Nov/2018:11:06:07 +0530] "GET /Application/Admin/admn_login.jsp HTTP/1.1" 200 10955
+0:0:0:0:0:0:0:1 - - [15/Nov/2018:11:06:07 +0530] "GET /Application/Admin/admn_login.jsp HTTP/1.1" 200 10955
+0:0:0:0:0:0:0:1 - - [15/Nov/2018:11:06:07 +0530] "GET /Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [15/Nov/2018:11:06:07 +0530] "GET /Application/Admin/resources/JS/validateSysAdmin230.js HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [15/Nov/2018:11:06:07 +0530] "GET /Application/Admin/images/Rail_logo.png HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [15/Nov/2018:11:06:07 +0530] "GET /Application/Admin/images/RVNL_LOGO.jpg HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [15/Nov/2018:11:06:07 +0530] "GET /Application/Admin/resources/css/main.css HTTP/1.1" 200 2595
+0:0:0:0:0:0:0:1 - - [15/Nov/2018:11:06:15 +0530] "POST /Application/Admin/login_success.jsp HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [15/Nov/2018:11:06:50 +0530] "GET /Application/Admin/NewIndex.jsp HTTP/1.1" 200 13660
+0:0:0:0:0:0:0:1 - - [15/Nov/2018:11:06:51 +0530] "GET /Application/Admin/resources/css/ThmBrown.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [15/Nov/2018:11:06:53 +0530] "GET /favicon.ico HTTP/1.1" 404 973
+0:0:0:0:0:0:0:1 - - [15/Nov/2018:12:17:40 +0530] "GET /Application/Admin/User_list1.jsp HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [15/Nov/2018:12:17:52 +0530] "GET /Application/Admin/admn_login.jsp HTTP/1.1" 200 10955
+0:0:0:0:0:0:0:1 - - [15/Nov/2018:12:47:55 +0530] "GET /Application/Admin/admn_login.jsp HTTP/1.1" 200 10955

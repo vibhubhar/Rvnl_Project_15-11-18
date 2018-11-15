@@ -282,7 +282,7 @@ response.getWriter().println(buffer);
 	stmt7 = con.createStatement();
 	rs7 = stmt7.executeQuery(sqlQuery7);
 			
-	buffer="<table class='table table-hover table-bordered'><tr class ='success'><th class='ListOfTables'><font color='grey'>Sno</font></th><th class='ListOfTables'><font color='grey'>Project type</font></th>"
+	buffer="<table class='table table-hover table-bordered'><tr class ='success'><th class='ListOfTables'><font color='grey'>Snoooo</font></th><th class='ListOfTables'><font color='grey'>Project typeeee</font></th>"
 +"<td  class='ListOfTables'><a href='addToDb.jsp?type=Projects' class='btn btn-primary'><b>Add Project Type</b></a></button></td><td></td></tr>";
 String Project_type_id = null;
 String Project_type = null;
@@ -310,5 +310,44 @@ response.getWriter().println(buffer);
     try { con.close(); } catch (Exception e) { /* ignored */ }
 }
 %>
+
+<script type="text/javascript">
+$(document).ready(function(){//19/06/2018 by vibhu
+$('#example').DataTable({
+	
+		
+	  	"infoCallback": function( settings, start, end, max, total, pre ) {
+	if (max==total) { return "Showing " + (end-start+1) + "  of " +total+" records"}
+	else {return "Showing " + (end-start+1) + "  of " +total+" records (filtered from total " + max+" records)"}
+   	},
+   
+   
+dom: 'Bfrtip',
+lengthMenu: [
+             [ 10, 25, 50, -1 ],
+             [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+         ],
+buttons: [
+'pageLength'],
+exportOptions: {
+	  
+	 columns: [':visible :not(:last-child)']
+},
+   extend: 'print',
+   message: message1,
+   title: 'RVNL DOCUMENT REPORT (DETAILED REPORT)',
+   customize: function (win) {
+       $(win.document.body).find('table').addClass('display').css('font-size', '9px');
+       $(win.document.body).find('tr:nth-child(odd) td').each(function(index){
+           $(this).css('background-color','#D0D0D0');
+       });
+       $(win.document.body).find('h1').css('text-align','center');
+   }
+} 	
+);
+});
+
+</script>
+
  </body>
 </html>

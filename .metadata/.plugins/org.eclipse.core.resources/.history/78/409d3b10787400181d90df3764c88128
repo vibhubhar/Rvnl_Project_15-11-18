@@ -1,0 +1,440 @@
+ <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+   <%@ page import="javax.servlet.*" %>
+<%@ page import="javax.servlet.http.*" %>
+<%@ page import="javax.naming.*,java.sql.*,javax.sql.*" %> 
+    <%@page import="java.net.URLEncoder"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+
+<link
+	href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"
+	rel="stylesheet" type="text/css" />
+	<link href="resources/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css">
+	<script src="resources/JS/jquery.dataTables.min.js"></script>
+<script src="resources/JS/dataTables.buttons.min.js"></script>
+
+<script src="resources/JS/Update230.js"></script>
+<script src="resources/JS/backButton.js"></script>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/sql' prefix='sql' %>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
+</head>
+<body>
+ 
+ <script type="text/javascript">
+ $(document).ready(function() {
+ 
+	$('#example4').DataTable( {
+			
+		  	"infoCallback": function( settings, start, end, max, total, pre ) {
+		if (max==total) { return "Showing " + (end-start+1) + "  of " +total+" records"}
+		else {return "Showing " + (end-start+1) + "  of " +total+" records (filtered from total " + max+" records)"}
+	   	},
+	   
+	   	
+    dom: 'Bfrtip',
+    lengthMenu: [
+                 [ 10, 25, 50, -1 ],
+                 [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+             ],
+    buttons: [
+'pageLength',
+
+
+
+              
+{exportOptions: {
+
+columns: [':visible :not(:last-child)']
+},
+extend: 'print',
+message: message1,
+title: 'RVNL DOCUMENT REPORT (DETAILED REPORT)',
+customize: function (win) {
+$(win.document.body).find('table').addClass('display').css('font-size', '9px');
+$(win.document.body).find('tr:nth-child(odd) td').each(function(index){
+    $(this).css('background-color','#D0D0D0');
+});
+$(win.document.body).find('h1').css('text-align','center');
+}
+},
+              
+{exportOptions: {
+columns: [':visible :not(:last-child)']
+}, 
+              
+                  
+                  //'print',
+                  
+                 title: 'RVNL DOCUMENT REPORT (DETAILED REPORT)',
+                  extend: 'excel',
+                  
+                 
+                  fixedHeader: {
+                      header: true,
+                      footer: true
+                  },
+                  
+                  
+                  customize: function (xlsx) {
+                      var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                      var numrows = 6;
+                      var clR = $('row', sheet);
+
+                      //update Row
+                      clR.each(function () {
+                          var attr = $(this).attr('r');
+                          var ind = parseInt(attr);
+                          ind = ind + numrows;
+                          $(this).attr("r",ind);
+                      });
+                      var message33=document.getElementById("message1").value;
+                      // Create row before data
+                      $('row c ', sheet).each(function () {
+                          var attr = $(this).attr('r');
+                          var pre = attr.substring(0, 1);
+                          var ind = parseInt(attr.substring(1, attr.length));
+                          ind = ind + numrows;
+                          $(this).attr("r", pre + ind);
+                      });
+
+                      function Addrow(index,data) {
+                          msg='<row r="'+index+'">'
+                          for(i=0;i<data.length;i++){
+                              var key=data[i].key;
+                              var value=data[i].value;
+                              msg += '<c t="inlineStr" r="' + key + index + '">';
+                              msg += '<is>';
+                              msg +=  '<t>'+value+'</t>';
+                              msg+=  '</is>';
+                              msg+='</c>';
+                          }
+                          msg += '</row>';
+                          return msg;
+                      }
+
+
+                      //insert
+                      var r1 = Addrow(1, [{ key: 'F', value:  'RVNL DOCUMENT PORTAL (DETAILED REPORT)' }]);
+                      var r2 = Addrow(2, [{ key: 'A', value: pkl1 }]);
+                       var r3 = Addrow(3, [{ key: 'A', value: pkl2 }]);
+                      var r4 = Addrow(4, [{ key: 'A', value: pkl3}]);
+                      var r5 = Addrow(5, [{ key: 'A', value: pkl4}]);
+                      
+                      sheet.childNodes[0].childNodes[1].innerHTML = r1+r2+r3+r4+r5+ sheet.childNodes[0].childNodes[1].innerHTML;		                  
+                      }
+                  	                  
+                  
+                  }
+              
+              ]
+	   
+	   });
+ });
+ 
+ </script>
+ 
+ 
+ 
+<%
+String type=request.getParameter("type");  
+String Department_id=null,departmentnames=null;
+String buffer="";
+Connection con = null;
+Statement stmt = null;
+ResultSet rs = null;
+Context initCtx = new InitialContext();
+Context envCtx = (Context) initCtx.lookup("java:comp/env");
+DataSource ds = (DataSource) envCtx.lookup("jdbc/MySQLDB");
+con = ds.getConnection();	
+try{
+
+if(type.equalsIgnoreCase("zone")) {
+	int slno=0;
+	String sqlQuery = "select * from xx_zones_master order by Zone_Name";
+	stmt = con.createStatement();
+	rs = stmt.executeQuery(sqlQuery);
+	
+	buffer="<table class='table table-hover table-bordered' id='example4'><tr class ='success'><td class='ListOfTables'><font color='grey'><b>Sno</b></font></td><td class='ListOfTables'><font color='grey'><b>Zone Name</b></font></td>"+
+			"<td class='ListOfTables'><a href='addToDb.jsp?type=zone' class='btn btn-primary' ><b>Add Zone</b></a></button></td><td></td></tr>";
+	String zoneId = null;
+	String zoneName = null;
+	while(rs.next()){
+		zoneId = rs.getString(1);
+		zoneName = rs.getString(2);
+		
+		
+		
+		String zoneNamenew=zoneName.replace(" ","~");
+		//System.out.println("zoneNamenew = "+zoneNamenew+"--");
+		
+		String arg="modifydisplay('"+zoneNamenew+"','"+zoneId+"')";
+		
+		slno=slno+1;
+buffer = buffer+"<tr><td><font color='blue'>"+slno+"</font></td><td><font color='blue'>"+zoneName+"</font></td>"+
+"<td width='100px' class='ListOfTables'><input class='btn btn-primary' value='modify'  onClick="+arg+" type='button'/></td></tr>";
+								} 
+	buffer=buffer+"</table>";
+	response.getWriter().println(buffer);
+} 
+
+else if(type.equalsIgnoreCase("division")) {
+	Statement stmt1 = null,hq_stmt=null;
+	ResultSet rs1 = null,hq_rs=null;
+	int slno=0;
+	String sqlQuery2 = "select division_id,zone_name,division_name from xx_divisions_map DM,xx_zones_master ZM where ZM.zone_id = DM.Ext_Zone_Id and DM.Division_Id NOT BETWEEN 70 AND 86 order by ZM.zone_name, DM.division_name";
+	stmt1 = con.createStatement();
+	rs1 = stmt1.executeQuery(sqlQuery2);
+	String hqQuery = "select * from xx_divisions_map where division_id =70";
+	hq_stmt = con.createStatement();
+	hq_rs = hq_stmt.executeQuery(hqQuery);
+	
+    buffer="<table class='table table-hover table-bordered'><tr class ='success'><th class='ListOfTables'><font color='grey'>Sno</font></th><th><font color='grey'>Zone Name</font></th><th><font color='grey'>Division Name</font></th>"+
+           "<td class='ListOfTables'><a href='addToDb.jsp?type=division'  onClick='window.location.reload()' class='btn btn-primary'><b>Add Division</b></a></button></td><td></td></tr>";
+String divisionId = null;
+String divisionName = null;
+String zone =null;
+while(rs1.next()){
+	divisionId = rs1.getString(1);
+	zone = rs1.getString(2);
+	divisionName = rs1.getString(3);
+	//String zoneNamenew=zone.replace(" ","~");
+	//System.out.println("zoneNamenew = "+zoneNamenew+"--");
+	
+	
+	String divisionNamenew=divisionName.replace(" ","~");
+	//System.out.println("zoneNamenew = "+divisionNamenew+"--");
+	
+	String arg1="modifydisplay1('"+divisionNamenew+"','"+divisionId+"')";
+	
+	slno=slno+1;
+   buffer = buffer+ "<tr><td><font color='blue'>"+slno+"</font></td><td><font color='blue'>"+zone+"</font></td><td><font color='blue'>"+divisionName+"</font></td>"+
+		   "<td class='ListOfTables'><input class='btn btn-primary' value='modify'  onClick="+arg1+" type='button'/></td></tr>";
+}
+String hq_divisionId =null;
+String hq_divisionName = null;
+String hq_divisionName1 = null;
+int s1no=0;
+while(hq_rs.next()){
+	hq_divisionId = hq_rs.getString(1);	
+	hq_divisionName1 = hq_rs.getString(3);
+	hq_divisionName = URLEncoder.encode(hq_divisionName1, "UTF-8");
+	slno=slno+1;
+	 buffer = buffer+ "<tr><td><font color='blue'>"+slno+"</font></td><td></td><td><font color='blue'>"+hq_divisionName+"</font></td>"+
+			   "<td class='ListOfTables'><b><a href='modifytoDb.jsp?type=division&divisionName="+hq_divisionName+"&divisionId="+hq_divisionId+"'>Modify</a></b></td></tr>";
+}
+buffer=buffer+"</table>";
+response.getWriter().println(buffer);
+} 
+else if(type.equalsIgnoreCase("Others")) {
+	
+	Statement stmt2 = null;
+	ResultSet rs2 = null;
+
+	String sqlQuery3 = "select * from xx_org_master order by Org_Name";
+	stmt2 = con.createStatement();
+	rs2 = stmt2.executeQuery(sqlQuery3);
+			
+	buffer="<table class='table table-hover table-bordered'><tr class ='success'><th class='ListOfTables'><font color='grey'>Sno</font></th><th class='ListOfTables'><font color='grey'>Organization</font></th>"
++"<td  class='ListOfTables'><a href='addToDb.jsp?type=Others' class='btn btn-primary' ><b>Add Orgn.</b></a></button></td><td></td></tr>";
+String Org_ID = null;
+String Org_Name = null;
+int slno=0;
+while(rs2.next()){
+	Org_ID = rs2.getString(1);
+	Org_Name = rs2.getString(2);
+	String Org_Namenew=Org_Name.replace(" ","~");
+	//System.out.println("zoneNamenew = "+divisionNamenew+"--");
+	
+	String arg2="modifydisplay21('"+Org_Namenew+"','"+Org_ID+"')";
+	
+	slno=slno+1;
+buffer =buffer+"<tr><td><font color='blue'>"+slno+"</font></td><td><font color='blue'>"+Org_Name+"</font></td>"+
+"<td class='ListOfTables'><input class='btn btn-primary' value='modify'  onClick="+arg2+" type='button'/></td></tr>";
+
+} 
+buffer=buffer+"</table>"; 
+response.getWriter().println(buffer);
+}
+
+else if(type.equalsIgnoreCase("piu")) {
+	Statement stmt2 = null;
+	ResultSet rs2 = null;
+
+	String sqlQuery3 = "select * from xx_piu_master order by Piu_Name";
+	stmt2 = con.createStatement();
+	rs2 = stmt2.executeQuery(sqlQuery3);
+			
+	buffer="<table class='table table-hover table-bordered'><tr class ='success'><th class='ListOfTables'><font color='grey'>Sno</font></th><th class='ListOfTables'><font color='grey'>PIU Name</font></th>"
++"<td  class='ListOfTables'><a href='addToDb.jsp?type=piu' class='btn btn-primary' ><b>Add PIU</b></a></button></td><td></td></tr>";
+String PIU_ID = null;
+String PIU_Name = null;
+int slno=0;
+while(rs2.next()){
+	PIU_ID = rs2.getString(1);
+	PIU_Name = rs2.getString(2);
+	String PIU_Namenew=PIU_Name.replace(" ","~");
+	//System.out.println("zoneNamenew = "+divisionNamenew+"--");
+	
+	String arg2="modifydisplay2('"+PIU_Namenew+"','"+PIU_ID+"')";
+	
+	slno=slno+1;
+buffer =buffer+"<tr><td><font color='blue'>"+slno+"</font></td><td><font color='blue'>"+PIU_Name+"</font></td>"+
+"<td class='ListOfTables'><input class='btn btn-primary' value='modify'  onClick="+arg2+" type='button'/></td></tr>";
+
+} 
+buffer=buffer+"</table>"; 
+response.getWriter().println(buffer);
+}
+
+else if(type.equalsIgnoreCase("Departments")) {
+	Statement stmt3 = null;
+	ResultSet rs3 = null;
+	String sqlQuery4 = "select * from xx_departments_master order by Type='MOR',Department_Name";
+	stmt3 = con.createStatement();
+	rs3 = stmt3.executeQuery(sqlQuery4);
+			
+	buffer="<table class='table table-hover table-bordered'><tr class ='success'><th class='ListOfTables'><font color='grey'>Sno</font></th><th class='ListOfTables'><font color='grey'>Type</font></th>"+
+"<th class='ListOfTables'><font color='grey'>Department_Name</font></th><td><a href='addToDb.jsp?type=Departments' class='btn btn-primary'><b>Add Department</b></a></button></td><td></td></tr>";
+String Department_Id = null;
+String Department_Name = null;
+String Type = null;
+int slno=0;
+while(rs3.next()){
+	Department_Id = rs3.getString(1);
+	Department_Name = rs3.getString(2);
+	Type = rs3.getString(3);
+	String Department_Namenew=Department_Name.replace(" ","~");
+	//System.out.println("zoneNamenew = "+divisionNamenew+"--");
+	
+	String arg3="modifydisplay3('"+Type+"','"+Department_Namenew+"','"+Department_Id+"')";
+	
+	slno=slno+1;
+buffer=buffer+"<tr><td><font color='blue'>"+slno+"</font></td><td><font color='blue'>"+Type+"</font></td>"+
+"<td><font color='blue'>"+Department_Name+"</font></td>"+
+"<td><input class='btn btn-primary' value='modify'  onClick="+arg3+" type='button'/></td></tr>";
+} 
+buffer=buffer+"</table>"; 
+response.getWriter().println(buffer);
+   }
+else if(type.equalsIgnoreCase("Designations")) 
+	{
+		Statement stmt4 = null;
+		ResultSet rs4 = null;
+		
+		String sqlQuery5 = "select  dmap.type as Type, depm.Department_Name as Department_Name, dmap.Designation_name as Designation_name, dmap.designation_id as designation_id  from xx_designation_mapping as dmap, xx_departments_master as depm where dmap.Department_id=depm.Department_Id order by Type, Department_Name, Designation_name";
+		stmt4 = con.createStatement();
+		rs4 = stmt4.executeQuery(sqlQuery5);
+		buffer="<table class='table table-hover table-bordered'><tr class ='success'><th class='ListOfTables'><font color='grey'>Sno</font></th><th class='ListOfTables'><font color='grey'>Organization</font></th><th class='ListOfTables'><font color='grey'>Department_Name</font></th><th class='ListOfTables'><font color='grey'>Designation_Name</font></th>"+
+	"<td><a href='addToDb.jsp?type=Designations' class='btn btn-primary'><b>Add Designation</b></a></button></td><td></td></tr>";
+
+	String Designation_Id = null;
+	String Designation_Name = null;
+	String DesignationType = null;
+	String depid=null;
+	String depnew=null;
+	int slno=0;
+
+	while(rs4.next()){
+		DesignationType = rs4.getString("Type");
+		departmentnames=rs4.getString("Department_Name");
+		depnew=departmentnames.replace(" ","~");
+		Designation_Name = rs4.getString("Designation_name");
+		//depid = rs4.getString("Department_id");
+		//System.out.println("zoneNamenew = "+DesignationType+","+departmentnames+","+Designation_Name+"--");
+		Designation_Id = rs4.getString("designation_id");
+		String Designation_Namenew=Designation_Name.replace(" ","~");
+		 //String finaltest="select * from xx_departments_master where Department_Id='"+depid+"' order by Department_Name";
+		  //PreparedStatement ps411 = con.prepareStatement(finaltest);
+		   // ResultSet rsl11 = ps411.executeQuery(); 
+		 //  String depnew=null;
+		// while(rsl11.next()){
+		 // departmentnames=rsl11.getString("Department_Name");
+		  	//  depnew=departmentnames.replace(" ","~");
+		    //}	 
+			
+		String arg4="modifydisplay4('"+DesignationType+"','"+Designation_Namenew+"','"+Designation_Id+"','"+depnew+"')";
+		slno=slno+1;
+	buffer=buffer+"<tr><td><font color='blue'>"+slno+"</font></td><td><font color='blue'>"+DesignationType+"</font></td>"+
+	"<td><font color='blue'>"+departmentnames+"</font></td>"+"<td><font color='blue'>"+Designation_Name+"</font></td>"+
+	"<td><input class='btn btn-primary' value='modify'  onClick="+arg4+" type='button'/></td></tr>";
+	} 
+	buffer=buffer+"</table>";
+	response.getWriter().println(buffer);
+	 
+ }
+else if(type.equalsIgnoreCase("Documents")) {
+	
+	Statement stmt6 = null;
+	ResultSet rs6 = null;
+	int slno=0;
+	String sqlQuery6 = "select * from xx_documentattributes_master order by Document_Type";
+	stmt6 = con.createStatement();
+	rs6 = stmt6.executeQuery(sqlQuery6);
+			
+	buffer="<table class='table table-hover table-bordered'><tr class ='success'><th class='ListOfTables'><font color='grey'>Sno</font></th><th class='ListOfTables'><font color='grey'>Document Type</font></th><th class='ListOfTables'><font color='grey'>Location Type</font></th>"
++"<td  class='ListOfTables'><a href='addToDb.jsp?type=Documents' class='btn btn-primary'><b>Add Document Type</b></a></button></td><td></td></tr>";
+String Document_Id = null;
+String Document_Type = null, Location_Type=null;
+while(rs6.next()){
+	Document_Id = rs6.getString(1);
+	Document_Type = rs6.getString(2);
+	Location_Type = rs6.getString(3);
+	String Document_Typenew=Document_Type.replace(" ","~");
+	//System.out.println("zoneNamenew = "+divisionNamenew+"--");
+	
+	String arg5="modifydisplay5('"+Document_Typenew+"','"+Document_Id+"','"+Location_Type+"')";
+	
+	
+	slno=slno+1;
+buffer =buffer+"<tr><td><font color='blue'>"+slno+"</font></td><td><font color='blue'>"+Document_Type+"</font></td><td><font color='blue'>"+Location_Type+"</font></td>"+
+"<td class='ListOfTables'><input class='btn btn-primary' value='modify'  onClick="+arg5+" type='button'/></td></tr>";
+
+} 
+buffer=buffer+"</table>"; 
+response.getWriter().println(buffer);
+}else if(type.equalsIgnoreCase("Projects")) {
+	
+	Statement stmt7 = null;
+	ResultSet rs7 = null;
+
+	String sqlQuery7 = "select * from xx_projecttypes_master order by Project_type";
+	stmt7 = con.createStatement();
+	rs7 = stmt7.executeQuery(sqlQuery7);
+			
+	buffer="<table class='table table-hover table-bordered'><tr class ='success'><th class='ListOfTables'><font color='grey'>Sno</font></th><th class='ListOfTables'><font color='grey'>Project type</font></th>"
++"<td  class='ListOfTables'><a href='addToDb.jsp?type=Projects' class='btn btn-primary'><b>Add Project Type</b></a></button></td><td></td></tr>";
+String Project_type_id = null;
+String Project_type = null;
+int slno=0;
+while(rs7.next()){
+	Project_type_id = rs7.getString(1);
+	Project_type = rs7.getString(2);
+	String Project_typenew=Project_type.replace(" ","~");
+	//System.out.println("zoneNamenew = "+divisionNamenew+"--");
+	
+	String arg6="modifydisplay6('"+Project_typenew+"','"+Project_type_id+"')";
+	
+	
+	slno=slno+1;
+buffer =buffer+"<tr><td><font color='blue'>"+slno+"</font></td><td><font color='blue'>"+Project_type+"</font></td>"+
+"<td class='ListOfTables'><input class='btn btn-primary' value='modify'  onClick="+arg6+" type='button'/></td></tr>";
+
+} 
+buffer=buffer+"</table>"; 
+response.getWriter().println(buffer);
+}
+}catch(Exception e){
+	e.printStackTrace();
+} finally {
+    try { con.close(); } catch (Exception e) { /* ignored */ }
+}
+%>
+
+
+
+ </body>
+</html>

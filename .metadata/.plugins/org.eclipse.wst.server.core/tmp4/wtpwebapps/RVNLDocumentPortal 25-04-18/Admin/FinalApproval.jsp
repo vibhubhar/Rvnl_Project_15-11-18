@@ -18,8 +18,8 @@
 
 <link href="resources/css/main.css" rel="stylesheet" type="text/css">
 <!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
-<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet" />
+<link href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.css"/>
 <script src="resources/JS/UserIndex.js"></script>
 <script src="resources/JS/validateSysAdmin230.js"></script>
 <script type="text/javascript"
@@ -38,12 +38,168 @@
 	
 <script src="resources/JS/Approval_wf230.js"></script>
 <style>
+
+th.header {
+	background-image: url(scripts/bg.gif);;
+	cursor: pointer;
+	font-weight: bold;
+	background-repeat: no-repeat;
+	background-position: center left;
+	padding-left: 20px;
+	border-right: 1px solid #dad9c7;
+	margin-left: -1px;
+	background-position: center right;
+}
+
+th.headerSortUp {
+	background-image: url(scripts/asc.gif);
+	background-color: #3C8DBC;
+	color: #fff;
+	background-position: center right;
+}
+
+th.headerSortDown {
+	background-image: url(scripts/desc.gif);
+	background-color: #3C8DBC;
+	color: #fff;
+	background-position: center right;
+}
+
+body {
+	color: #6B6B6B;
+}
+
+.spinner {
+	width: 100px;
+}
+
+.spinner input {
+	text-align: right;
+}
+
+.input-group-btn-vertical {
+	position: relative;
+	white-space: nowrap;
+	width: 1%;
+	vertical-align: middle;
+	display: table-cell;
+}
+
+.input-group-btn-vertical>.btn {
+	display: block;
+	padding: 0.44em;
+	margin-left: -1px;
+	position: relative;
+	border-radius: 0;
+}
+
+.input-group-btn-vertical>.btn:first-child {
+	border-top-right-radius: 3px;
+}
+
+.input-group-btn-vertical>.btn:last-child {
+	margin-top: -4px;
+	border-bottom-right-radius: 3px;
+}
+
+.input-group-btn-vertical i {
+	position: absolute;
+	top: -2px;
+	left: 2px;
+}
+
+select[multiple], select[size] {
+	height: 1.7em !important;
+}
+
+.form-group {
+	margin-bottom: 15px !important;
+	padding-left: 6px !important;
+	padding-bottom: 6px !important;
+}
+
+.form-control {
+	padding: 2px 10px !important;
+}
+
+.multiselect {
+	height: 2.0em !important;
+	border-radius: 1px !important;
+	margin-left: 2px !important;
+}
+
+label {
+	float: left !important;
+	color: black !important;
+}
+
+.open {
+	z-index: 3 !important;
+}
+
+
+:hov
+
+.cls
+
+element.style {
+    width: 40%;
+}
+table.table-bordered.dataTable {
+    border-collapse: separate !important;
+}
+table.table-bordered.dataTable {
+    border-collapse: separate !important;
+}
+table.dataTable.no-footer {
+    border-bottom: 1px solid #111;
+}
+table.dataTable {
+    clear: both;
+    margin-top: 6px !important;
+    margin-bottom: 6px !important;
+    max-width: none !important;
+}
+
+table.dataTable {
+  margin: 0px !important; 
+ }
+
+.ui-datepicker-year {
+   background-color: #cc0000;
+ padding-left:20px;
+}
+/*
+.ui-datepicker-month {
+   background-color: #cc0000;
+// color: black;
+ //padding-left:20px;
+}
+*/
+
+div.absolute {
+   	position:absolute;
+   	margin-top: 5px;
+   	margin-left: 37px;
+   	margin-bottom: 20px;
+ 	padding: 15 px;
+    width: auto;
+    height: 30px;
+    border: 3px double #ff4d4d;
+    background-color:#ffe6e6;
+        }
+    table.center {
+    margin-left:auto; 
+    margin-right:auto;
+  }
+  
+
 .ui-datepicker-year {
    background-color: #cc0000;
  padding-left:20px;
 }
 #example_length {
-    display: none;
+    
 }
 #example {
     width: inherit;
@@ -202,6 +358,7 @@ div.absolute {
 		<c:if test="${param.stage == null}">
 		
 			<br>
+			<div class='scrollit' style='overflow-x: scroll;width: 100%;position:relative;'>
 			<table class="table table-hover table-bordered" width="100%"
 				style="background-color: #F0FFFF" id="example" class="display">
 				<thead>
@@ -390,6 +547,7 @@ if (rdstatus.equalsIgnoreCase("0")) {
 					%>
 				</tbody>
 			</table>
+			</div>
 			<div id="dapprovaldate" style="display: none" align="center">
 					 <br>
        Please Fill Approval Date.<br><br>
@@ -475,7 +633,7 @@ if (rdstatus.equalsIgnoreCase("0")) {
 	<br>
 	<br>
 	<br>
-	<%@include file="included/Newfooter.jsp"%>
+	<%@include file="included/footer.jsp"%>
 	
 </body>
 
