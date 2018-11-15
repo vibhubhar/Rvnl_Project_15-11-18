@@ -36,8 +36,8 @@
 <title>RVNL Document Portal </title>
 <link href="resources/css/main.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">    
-<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-<link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+<link href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.css"/>
 <script src="resources/JS/backButton.js"></script>
 <script src="resources/JS/validate230.js"></script>
 <script src="resources/JS/PIU_depend230.js"></script>
@@ -107,6 +107,6 @@ String div_id1=(String)session.getAttribute("Division_Id");
 </body>
  
  <br><br><br><br><br><br>
-										      <%@include file="included/Newfooter.jsp" %>
+										      <%@include file="included/footer.jsp" %>
 
 </html>

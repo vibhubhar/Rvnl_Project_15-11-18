@@ -40,7 +40,7 @@ public class SchedularLive implements Job {
 			assignedto = null, pendingmail = null, pendingphone = null,
 			supervisorname = null, documentid = null, divisionid = null,
 			zoneid = null, designationid = null, type = null,
-			Department_id = null, designame = null,supname1=null;
+			Department_id = null, designame = null, supname1 = null;
 
 	String pendingfrm1 = null, addedby = null, drmdetails = null,
 			mainuser = null;
@@ -82,8 +82,8 @@ public class SchedularLive implements Job {
 		try {
 			String desigid1 = null, contactno = null, designame = null, desigfinal = null, depfinal = null, divid1 = null, depid = null, desigidfinal = null, supemail = null, depm = null, divm = null;
 			Statement st = con.createStatement();
-			supemail="pksharma.rly@gmail.com";
-			contactno="9560697041";
+			supemail="vibhubhardwaj53@gmail.com";
+			contactno="+918077091456";
 			supname1="GGM/P-II";
 			
 									// here------------------------------------
@@ -117,11 +117,11 @@ public class SchedularLive implements Job {
 				" <br><br><br> <span style='color:brown; font-size:20px; font-style:italic;'<b> RVNL Document Portal</b></span><br><br><span style='color:gray;  font-size:10px; font-style:italic;'>Note: This is a system generated email. Don't reply to system email address i.e. indiarvnl@gmail.com.</span></div>";
 		
 		// Sender's email ID and password needs to be mentioned
-		final String from = "indiarvnl@gmail.com";
-		final String pass = "vsam3WSCJAIw4cj7";
+		final String from = "vibhardwaj55@gmail.com";
+		final String pass = "8899403746";
 
 		// Defining the gmail host
-		String host = "smtp-relay.sendinblue.com";
+		String host = "smtp.gmail.com";
 		String result=null;
 		 final String cc = "";
 		// System.out.println("CC mail id-----"+ccdata);

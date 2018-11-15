@@ -627,5 +627,5 @@ String user = (String)session.getAttribute("user_name");
 	
 </body>
 <br><br><br><br><br><br><br><br><br><br><br><br>
-		      <%@include file="included/Newfooter.jsp" %>
+		      <%@include file="included/footer.jsp" %>
 </html>

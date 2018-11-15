@@ -14,8 +14,8 @@
 
 
 <!-- <link href="resources/css/main.css" rel="stylesheet" type="text/css"> -->
-<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet" />
+<link href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.css"/>
 <script src="resources/JS/backButton.js"></script>
 <script src="resources/JS/validateSysAdmin230.js"></script>
 <script src="resources/jQuery/jquery-1.12.3.min.js"></script>
@@ -1209,7 +1209,7 @@ e.printStackTrace();
 	</c:if>
 	</form>
 
-											      <%@include file="included/Newfooter.jsp" %>
+											      <%@include file="included/footer.jsp" %>
 <div id="dialogid" style="display: none"
 		align="center">
 		<br> Please Fill All Data !<br>

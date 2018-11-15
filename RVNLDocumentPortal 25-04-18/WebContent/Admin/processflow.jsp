@@ -34,10 +34,11 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>RVNL Document Portal </title>
+
 <link href="resources/css/main.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">    
-<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-<link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.min.css"/>
+<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.css"/>
 <script src="resources/JS/backButton.js"></script>
 <script src="resources/JS/validate230.js"></script>
 <script src="resources/JS/PIU_depend230.js"></script>
@@ -83,11 +84,12 @@ background-color: white;
 <div id="main">
         <div id="somebackground">
             <br><br><br>
-            <b>RVNL DOCUMENT PORTAL</b>
+            <b>RVNL DOCUMENT PORTAL</b>	
             <br><br>
             <b><u>AN OVERVIEW</u></b>
         </div>
     </div>
+    <div style="text-align:right;margin-top: 0px;"><input type="reset" class="btn btn-primary" value="Close" onclick = "javascript:self.close();" /></div>
   
 </div>
 

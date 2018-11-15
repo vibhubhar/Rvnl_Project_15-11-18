@@ -190,8 +190,8 @@ String user = (String)session.getAttribute("user_name");
 							</div>
 	
 		<c:if test="${(param.MyProject_stage != null) and ((param.Project_stage ==  null) or (param.Project_stage == ''))}">
-		
-<table class="table table-hover table-bordered" style="background-color: rgb(240, 255, 255); margin: -16px 0px 0px 18px; width:90%;"><tr><td  width="15%"><strong>Item Description</strong>
+<div class='scrollit' style='overflow-x: scroll;width: 100%;position:relative;'>		
+<table class="table table-hover table-bordered" style="background-color: rgb(240, 255, 255); margin: 0px 0px 0px 18px; width:90%;"><tr><td  width="15%"><strong>Item Description</strong>
 </td><td width="55%" ><strong>Table Name / Query Definition</strong>
 </td><td width="25%" ><strong>Filter Criteria</strong>
 </td><td width="5%" ><strong>Action</strong>&nbsp;&nbsp;</td>	
@@ -251,6 +251,7 @@ String user = (String)session.getAttribute("user_name");
 				</tr>
 				
 								</table>
+								</div>
 									<br>
 		<input type="button" value="close" class="btn btn-primary" onclick="location.href='NewIndex.jsp';" style="margin-left: 50%;"> 
 	<br><br>

@@ -18,8 +18,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Approval WorkFlow</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
-<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet" />
+<link href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.css"/>
 <script type="text/javascript" src="resources/JS/backButton.js"></script>
 <script type="text/javascript" src="resources/JS/validate230.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -216,6 +216,7 @@ div.absolute {
 						rs = ps.executeQuery();
 										
 				%>
+				<div class='scrollit' style='overflow-x: scroll;width: 115%;position:relative;'>
 				<table class="table table-hover table-bordered"	id="my_table" style="background-color:#F0FFFF;" class="display" width="100%">
 					<thead><tr class="success">
 					<!--  
@@ -452,7 +453,7 @@ if (rdstatus.equalsIgnoreCase("0")) {
 										%>
 
 										<div style="color:RED;text-align:center;margin-bottom: 29px;
-							margin-top: -10px;"><b> There is no document pending for your approval..... </b></div>
+							margin-top: 0px;"><b> There is no document pending for your approval..... </b></div>
 
 										<%
 									}
@@ -480,6 +481,7 @@ if (rdstatus.equalsIgnoreCase("0")) {
 							//	conn.close();
 					%>
 				</tbody></table>
+				</div>
 				
 				 <div id="dapprovaldate" style="display: none" align="center">
 					 <br>
@@ -815,5 +817,5 @@ if (rdstatus.equalsIgnoreCase("0")) {
 	</div>
 </body>
 <br><br><br><br><br><br><br><br><br><br>	      
-<%@include file="included/Newfooter.jsp" %>
+<%@include file="included/footer.jsp" %>
 </html>

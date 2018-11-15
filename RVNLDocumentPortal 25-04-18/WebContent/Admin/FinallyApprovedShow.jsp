@@ -223,6 +223,7 @@ function frezedate(id, startDate) {
 		<c:if test="${param.stage == null}">
 		
 			<br>
+			<div class='scrollit' style='overflow-x: scroll;width: 100%;position:relative;'>
 			<table class="table table-hover table-bordered"
 				style="background-color: #F0FFFF" id="example" class="display" border="1">
 				<thead>
@@ -370,6 +371,7 @@ function frezedate(id, startDate) {
 					%>
 				</tbody>
 			</table>
+			</div>
 			
 				<%
 				conn.close();

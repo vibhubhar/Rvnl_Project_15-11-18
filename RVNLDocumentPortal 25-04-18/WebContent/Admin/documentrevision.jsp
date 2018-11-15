@@ -199,6 +199,7 @@ function frezedate(id, startDate) {
 		<c:if test="${param.stage == null}">
 		
 			<br>
+			<div class='scrollit' style='overflow-x: scroll;width: 100%;position:relative;'>
 			<table class="table table-hover table-bordered"
 				style="background-color: #F0FFFF" id="example" class="display" border="1">
 				<thead>
@@ -368,6 +369,7 @@ if (rdstatus.equalsIgnoreCase("0")) {
 					%>
 				</tbody>
 			</table>
+			</div>
 			<div id="dapprovaldate" style="display: none" align="center">
 					 <br>
        Please Fill Approval Date.<br><br>

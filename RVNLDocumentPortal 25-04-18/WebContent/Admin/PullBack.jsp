@@ -17,8 +17,8 @@
   
 <link href="resources/css/main.css" rel="stylesheet" type="text/css">
 <!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
-<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-<link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+<link href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.css"/>
 <script src="resources/JS/UserIndex.js"></script>
 <script src="resources/JS/Reports230.js"></script>
 <script src="resources/JS/validateSysAdmin230.js"></script>
@@ -422,7 +422,7 @@ response.sendRedirect("PullBack.jsp");
 <br><br><br><br><br><br>
 
 </form>
-<%@include file="included/Newfooter.jsp" %>
+<%@include file="included/footer.jsp" %>
 </body>
 
 </html>

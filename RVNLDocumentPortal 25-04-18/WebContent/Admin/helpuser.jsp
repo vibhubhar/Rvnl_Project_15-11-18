@@ -100,7 +100,7 @@ String div_id1=(String)session.getAttribute("Division_Id");
 <h8><font style="color:red; font-weight:normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Welcome&nbsp;</font><font style="color:#3333cc; font-weight:normal">:&nbsp;<%=(String)session.getAttribute("user_name") %>&nbsp;&nbsp;&nbsp;</font></h8>
 </div><br>
 <div style="float:right; margin-top:-15px; padding-right:30px; text-decoration:underline;"><button class="btn btn-primary" onclick="window.open('processflow.jsp')">More Information</button></div>
-<div style="float:right; margin-top:-15px; margin-right:30px;"> <button class="btn btn-primary" onclick="var mfile1='PDAMS-User Manual-ZDR.pdf'; window.open('download_user_manual.jsp?mfile='+ mfile1);">Download User Manual</button></div>
+<div style="float:right; margin-top:-15px; margin-right:30px;"> <button class="btn btn-primary" onclick="var mfile1='PDAMS-User Manual-ZDR2.pdf'; window.open('download_user_manual.jsp?mfile='+ mfile1);">Download User Manual</button></div>
 <br><br>
 <!-- <form action="upload_manual.jsp" method="post" enctype="multipart/form-data">  
 Select File:<input type="file" name="fname"/><br/>  

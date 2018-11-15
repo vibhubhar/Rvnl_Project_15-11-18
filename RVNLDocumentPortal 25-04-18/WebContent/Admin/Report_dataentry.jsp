@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"           
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="javax.naming.*,java.sql.*,javax.sql.*"%>
 <%@page import="java.io.FileOutputStream"%>
@@ -30,6 +30,7 @@
 <html>
 <head>
 <style>
+
 .dt-button.buttons-copy.buttons-html5 {
     display: none;
 }
@@ -39,12 +40,8 @@
 .dt-button.buttons-pdf.buttons-html5 {
     display: none;
 }
-#example_length {
-    display: none;
-}
-#example {
-    width: inherit;
-}
+
+
 
 table {
 	mso-displayed-decimal-separator: "\.";
@@ -131,110 +128,39 @@ function mywinClose() {
 
 	<script>
 	$(document).ready(function() {
-		/*
+		
+		$('#example1').DataTable( {
+					});
+$('#example2').DataTable( {
+			
+		});
+$('#example3').DataTable( {
+	
+});
+$('#example4').DataTable( {
+	
+});
+$('#example5').DataTable( {
+	
+});
+$('#example6').DataTable( {
+	
+});
+$('#example7').DataTable( {
+	
+});
+$('#example8').DataTable( {
+	
+});
+$('#example9').DataTable( {
+	
+});
+		
 	   		$('#example').DataTable( {
 	      			
-	   		  	"infoCallback": function( settings, start, end, max, total, pre ) {
-				if (max==total) { return "Showing " + (end-start+1) + "  of " +total+" records"}
-				else {return "Showing " + (end-start+1) + "  of " +total+" records (filtered from total " + max+" records)"}
-			   	},
-	   
-			 
-	        dom: 'Bfrtip',
-	        lengthMenu: [
-	                     [ 10, 25, 50, -1 ],
-	                     [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-	                 ],
-	        buttons: [
- 'pageLength',
-
-	                  
-{exportOptions: {
-	  
-	 columns: [0,1,2,3]
-},
-    extend: 'print',
-    message: "",
-    title: 'RVNL DATA ENTRY REPORT',
-    customize: function (win) {
-        $(win.document.body).find('table').addClass('display').css('font-size', '9px');
-        $(win.document.body).find('tr:nth-child(odd) td').each(function(index){
-            $(this).css('background-color','#D0D0D0');
-        });
-        $(win.document.body).find('h1').css('text-align','center');
-    }
-}]
-	   		/*,
-	                  
-{exportOptions: {
-   columns: [0,1,2,3]
-}, 
-	                  
-		                  
-		                  //'print',
-		                
-		                 title: 'RVNL DATA ENTRY REPORT',
-		                  extend: 'excel',
-		                  
-		                 
-		                  fixedHeader: {
-		                      header: true,
-		                      footer: true
-		                  },
-		                  
-		                  
-		                  customize: function (xlsx) {
-		                      var sheet = xlsx.xl.worksheets['sheet1.xml'];
-		                      var numrows = 1;
-		                      var clR = $('row', sheet);
-
-		                      //update Row
-		                      clR.each(function () {
-		                          var attr = $(this).attr('r');
-		                          var ind = parseInt(attr);
-		                          ind = ind + numrows;
-		                          $(this).attr("r",ind);
-		                      });
-		                     // var message33=document.getElementById("message1").value;
-		                      // Create row before data
-		                      $('row c ', sheet).each(function () {
-		                          var attr = $(this).attr('r');
-		                          var pre = attr.substring(0, 1);
-		                          var ind = parseInt(attr.substring(1, attr.length));
-		                          ind = ind + numrows;
-		                          $(this).attr("r", pre + ind);
-		                      });
-
-		                      function Addrow(index,data) {
-		                          msg='<row r="'+index+'">'
-		                          for(i=0;i<data.length;i++){
-		                              var key=data[i].key;
-		                              var value=data[i].value;
-		                              msg += '<c t="inlineStr" r="' + key + index + '">';
-		                              msg += '<is>';
-		                              msg +=  '<t>'+value+'</t>';
-		                              msg+=  '</is>';
-		                              msg+='</c>';
-		                          }
-		                          msg += '</row>';
-		                          return msg;
-		                      }
-
-
-		                      //insert
-		                      var r1 = Addrow(1, [{ key: 'B', value:  'RVNL DATA ENTRY REPORT' }]);
-		                      
-		                      sheet.childNodes[0].childNodes[1].innerHTML = r1+ sheet.childNodes[0].childNodes[1].innerHTML;		                  
-		                      }
-		                  	                  
-		                  
-		                  }
-	                  
-	                  ]
-			   */
-			   });	
+	   		  				   });	
 	    
-	
+	});
 	
 	</script>
 	
@@ -268,10 +194,11 @@ function mywinClose() {
 		
 	%>
 <br> 
-<span style="margin-left:20px; color:blue; font-weight:bold; font-size:18px;">Zone wise Users Creation Summary</span><br>
+
 <table > <tr> <td valign="top" width="30%">
+<span style="margin-left:20px; color:blue; font-weight:bold; font-size:18px;">Zone wise Users Creation Summary</span><br>
 	<table border=1 class="table table-hover table-bordered"
-		style="background-color: #F0FFFF; margin-left:20px;" id="example" class="display nowrap" cellspacing="10" width="100%">
+		style="background-color: #F0FFFF; margin-left:20px; table-layout: auto;width: -webkit-fill-available;" id="example" class="display nowrap" cellspacing="10" >
 		<thead>
 		<tr class="success">
 			<th style="padding: 0px 14px 24px 0px;">S.No.</th>
@@ -319,7 +246,7 @@ function mywinClose() {
 <span style="margin-left:20px; color:blue; font-weight:bold; font-size:18px;">Zone/Division wise Users Creation Summary</span><br>
 	
 	<table border=1 class="table table-hover table-bordered"
-		style="background-color: #F0FFFF; margin-left:20px;" id="example" class="display nowrap" cellspacing="0" width="100%">
+		style="background-color: #F0FFFF; margin-left:20px;table-layout: auto;width:-webkit-fill-available;" id="example1" class="display nowrap" cellspacing="0" width="100%">
 		<thead>
 		<tr class="success">
 			<th style="padding: 0px 14px 24px 0px;">S.No.</th>
@@ -372,7 +299,7 @@ rs = stmt.executeQuery(query);
 <tr><td valign="top" width="35%">
 <span style="margin-left:20px; color:blue; font-weight:bold; font-size:18px;">PIU wise Users Creation Summary</span><br>
 <table border=1 class="table table-hover table-bordered"
-style="background-color: #F0FFFF; margin-left:20px;" id="example" class="display nowrap" cellspacing="0" width="100%">
+style="background-color: #F0FFFF; margin-left:20px;width: -webkit-fill-available;" id="example9" class="display nowrap" cellspacing="0" >
 <thead>
 <tr class="success">
 	<th style="padding: 0px 14px 24px 0px;">S.No.</th>
@@ -414,9 +341,9 @@ stmt = conn.createStatement();
 rs = stmt.executeQuery(query);
 %>
 </td></tr><tr><td>
-<span style="margin-left:80px; color:blue; font-weight:bold; font-size:18px;">PIU wise Project-Package Creation Summary</span><br>
+<span style="margin-left:20px; color:blue; font-weight:bold; font-size:18px;">PIU wise Project-Package Creation Summary</span><br>
 <table border=1 class="table table-hover table-bordered"
-style="background-color: #F0FFFF; margin-left:20px;" id="example" class="display nowrap" cellspacing="0" width="100%">
+style="background-color: #F0FFFF; margin-left:20px;width: -webkit-fill-available;" id="example2" class="display nowrap" cellspacing="0">
 <thead>
 <tr class="success">
 	<th style="padding: 0px 14px 24px 0px;">S.No.</th>
@@ -464,7 +391,7 @@ rs = stmt.executeQuery(query);
 </td><td>
 <span style="margin-left:20px; color:blue; font-weight:bold; font-size:18px;">PIU wise Documents Creation & Forwarding Summary</span><br>
 <table border=1 class="table table-hover table-bordered"
-style="background-color: #F0FFFF; margin-left:20px;" id="example" class="display nowrap" cellspacing="0" width="100%">
+style="background-color: #F0FFFF; margin-left:20px;width: -webkit-fill-available;" id="example3" class="display nowrap" cellspacing="0">
 <thead>
 <tr class="success">
 	<th style="padding: 0px 14px 24px 0px;">S.No.</th>
@@ -508,7 +435,7 @@ stmt = conn.createStatement();
 rs = stmt.executeQuery(query);
 %>
 <table border=1 class="table table-hover table-bordered"
-style="background-color: #F0FFFF; margin-left:20px;" id="example" class="display nowrap" cellspacing="0" width="100%">
+style="background-color: #F0FFFF; margin-left:20px;width: -webkit-fill-available;" id="example4" class="display nowrap" cellspacing="0">
 <thead>
 <tr class="success">
 	<th width="100px" >Date</th>
@@ -564,7 +491,7 @@ stmt = conn.createStatement();
 rs = stmt.executeQuery(query);
 %>
 <table border=1 class="table table-hover table-bordered"
-style="background-color: #F0FFFF; margin-left:20px;" id="example" class="display nowrap" cellspacing="0" width="100%">
+style="background-color: #F0FFFF; margin-left:20px;width: -webkit-fill-available;" id="example5" class="display nowrap" cellspacing="0" >
 <thead>
 <tr class="success">
 	<th >Date</th>
@@ -617,7 +544,7 @@ stmt = conn.createStatement();
 rs = stmt.executeQuery(query);
 %>
 <table border=1 class="table table-hover table-bordered"
-style="background-color: #F0FFFF; margin-left:20px;" id="example" class="display nowrap" cellspacing="0" width="100%">
+style="background-color: #F0FFFF; margin-left:20px;width: -webkit-fill-available;" id="example6" class="display nowrap" cellspacing="0">
 <thead>
 <tr class="success">
 	<th >Date & Time of Login</th>
@@ -667,7 +594,7 @@ stmt = conn.createStatement();
 rs = stmt.executeQuery(query);
 %>
 <table border=1 class="table table-hover table-bordered"
-style="background-color: #F0FFFF; margin-left:20px;" id="example" class="display nowrap" cellspacing="0" width="100%">
+style="background-color: #F0FFFF; margin-left:20px;width: -webkit-fill-available;" id="example7" class="display nowrap" cellspacing="0" >
 <thead>
 <tr class="success">
 	<th style="padding: 0px 14px 24px 0px;">S.No.</th>
@@ -751,7 +678,7 @@ stmt = conn.createStatement();
 rs = stmt.executeQuery(query);
 %>
 <table border=1 class="table table-hover table-bordered"
-style="background-color: #F0FFFF; margin-left:20px;" id="example" class="display nowrap" cellspacing="0" width="100%">
+style="background-color: #F0FFFF; margin-left:20px;width: -webkit-fill-available;" id="example8" class="display nowrap" cellspacing="0" >
 <thead>
 <tr class="success">
 	<th style="padding: 0px 14px 24px 0px;">S.No.</th>

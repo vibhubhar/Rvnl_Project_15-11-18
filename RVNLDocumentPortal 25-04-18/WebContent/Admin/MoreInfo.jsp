@@ -20,8 +20,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Returned Task</title>
 <link href="resources/css/main.css" rel="stylesheet" type="text/css">
-<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet" />
+<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.min.css"/>
+<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.css"/>
 <script src="resources/JS/Approval_wf230.js"></script>
 
 <style>
@@ -54,7 +54,7 @@
 <script type="text/javascript"
 	src="resources/JS/datasort.js"></script>
 	<link
-	href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"
+	
 	rel="stylesheet" type="text/css" />
 
 <script type="text/javascript">
@@ -171,7 +171,8 @@ div.absolute {
 
 <h8><font style="color:red; font-weight:normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Welcome&nbsp;</font><font style="color:#3333cc; font-weight:normal">:&nbsp;<%=(String)session.getAttribute("user_name") %>&nbsp;&nbsp;&nbsp;</font></h8>
 </div>	<br><br> <center><h3><u><b> Documents returned from Railway Users or pending with other Organizations</b></u></h3></center><br><br>		
-	<div class="container">
+	<div class="container" style="margin-top: 44px;
+    margin-left: 24px;">
 		<form name="MoreInfo" id="MoreInfo">
 			<%
 				String use1r = (String) session.getAttribute("user_name");
@@ -205,8 +206,9 @@ div.absolute {
 								ps = conn.prepareStatement(sql1);
 								rs = ps.executeQuery();
 				%>
-				<table class="table table-hover table-bordered" id="example" class="display"
-					style="background-color: #F0FFFF;" width="100%">
+				<div class='scrollit' style='overflow-x: scroll;width: 115%;position:relative;'>
+				<table class="table-bordered" id="example" class="display"
+					style="background-color: #F0FFFF; width:100%"> 
 					<thead>
 						<tr class="success">
 						<th><b>SNo</b></th>
@@ -559,6 +561,7 @@ margin-top: -50px;"><b> There is no returned document for you. </b></div>
 						%>
 					</tbody>
 				</table>
+				</div>
 				<div id="dapprovaldate" style="display: none" align="center">
 					<br> Please Fill Date.....<br> <br>
 					<button id="appok" class="btn btn-primary"
@@ -598,6 +601,6 @@ margin-top: -50px;"><b> There is no returned document for you. </b></div>
 	<br>
 	<br>
 	<br>
-	<%@include file="included/Newfooter.jsp"%>
+	<%@include file="included/footer.jsp"%>
 </body>
 </html>

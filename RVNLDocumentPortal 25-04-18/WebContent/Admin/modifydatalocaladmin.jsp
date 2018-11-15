@@ -188,7 +188,7 @@ document.Form20.no_old.value=document.getElementById("contact_no").value;
         $("#chkShowPassword").bind("click", function () {
             var password = $("#password");
             if ($(this).is(":checked")) {
-                password.after('<input onchange = "passwordChanged(this);" id = "txt_' + password.attr("id") + '" type = "text" value = "' + password.val() + '" />');
+                password.after('<input onchange = "d(this);" id = "txt_' + password.attr("id") + '" type = "text" value = "' + password.val() + '" />');
                 password.hide();
             } else {
                 password.val(password.next().val());
@@ -197,7 +197,7 @@ document.Form20.no_old.value=document.getElementById("contact_no").value;
             }
         });
     });
-    function PasswordChanged(txt) {
+    function d(txt) {
         $(txt).prev().val($(txt).val());
     }
 </script>
@@ -206,21 +206,21 @@ document.Form20.no_old.value=document.getElementById("contact_no").value;
         $("#chkShowPassword1").bind("click", function () {
             var password1 = $("#Password");
             if ($(this).is(":checked")) {
-                Password.after('<input onchange = "passwordChanged1(this);" id = "txt_' + Password.attr("id") + '" type = "text" value = "' + Password.val() + '" />');
+                Password.after('<input onchange = "d1(this);" id = "txt_' + Password.attr("id") + '" type = "text" value = "' + Password.val() + '" />');
                 Password.hide();
             } else {
-                Password.val(Password.next().val());
+                Password.val(Password.next().val());	
                 Password.next().remove();
                 Password.show();
             }
         });
     });
-    function passwordChanged1(txt) {
+    function d1(txt) {
         $(txt).prev().val($(txt).val());
     }
 </script>
 <script type="text/javascript">
-function passwordChange1(passval) {
+function 1(passval) {
    //` $('input[type="password"]').prop('disabled', true);
 
         if(passval.length >= 5) {
@@ -238,7 +238,7 @@ function passwordChange1(passval) {
 }
 </script>
 <script type="text/javascript">
-function passwordChange(passval) {
+function (passval) {
    //` $('input[type="password"]').prop('disabled', true);
 
         if(passval.length >= 5) {

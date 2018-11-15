@@ -302,7 +302,7 @@ function mywinClose() {
 	    var pkl3=suser1+"               "+t31+"               "+majsec1+"               "+smajsec1;
 	    var pkl4=frmkm1+"               "+tokm1+"               "+frmstn1+"               "+tostn1+"               "+org1;
 	   
-	   		$('#example').DataTable( {
+	   		$('#example').dataTable( {
 	      			
 	   		  	"infoCallback": function( settings, start, end, max, total, pre ) {
 				if (max==total) { return "Showing " + (end-start+1) + "  of " +total+" records"}
@@ -813,7 +813,7 @@ int p2=0;
 	<table border=1 class="table table-hover table-bordered"
 		style="background-color: #F0FFFF" id="example" class="display nowrap" cellspacing="0" width="100%">
 		<thead>
-		<tr class="success">
+		<tr class="success" >
 			<th style="padding: 0px 14px 24px 0px;">S.No.</th>
 			<th width="40px">Doc Id</th>
 			<%

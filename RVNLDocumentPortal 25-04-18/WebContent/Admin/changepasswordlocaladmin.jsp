@@ -16,8 +16,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Change Password</title>
-<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet" />
+<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.min.css"/>
+<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.css"/>
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="resources/JS/Approval_wf230.js"></script>
 <script src="resources/JS/validateSysAdmin230.js"></script>
@@ -113,16 +113,16 @@ String div_id1=(String)session.getAttribute("Division_Id");
 		response.setDateHeader("Expires", -1);
 		%>	
 		Current Password:<input type="password" name="password" id="password"
-			style="margin: 0px 1px 0px 14px;width:270px;"  required /><br></br>
+			style="margin: 0px 1px 0px 14px;width:275px; border-style: solid;"  required /><br></br>
 		<div class="td">
 			New Password:<input type="password" name="password1" id="password1"
-				style="margin: 8px 0px 10px 30px;width:270px;" onkeyup="checkPasswordMatch();"  required/></br> </br>
+				style="margin: 8px 0px 10px 30px;width:275px; border-style: solid;" onkeyup="checkPasswordMatch();"  required/></br> </br>
 		</div>
 		
 		<div class="td">
 			Confirm Password:<input type="password" name="password2"
 				id="password2" onkeyup="checkPasswordMatch();"
-				style="margin: 0px 3px 0px 14px;width:270px;" required/></br> </br> </br>
+				style="margin: 0px 3px 0px 14px;width:275px; border-style: solid;" required/></br> </br> </br>
 		</div>
 		<div class="registrationFormAlert" id="divCheckPasswordMatch"
 			style="margin: -32px 25px 14px 106px; color: red;"></div>
@@ -130,7 +130,7 @@ String div_id1=(String)session.getAttribute("Division_Id");
 		
 		<button type="submit" name="submit2" id="submit2"
 			class="btn btn-primary" onclick="javascript:validateUser1();"
-			style="width: 13%; font-size: inherit; margin: 14px -29px 0px 112px;">Update Password</button>
+			style="width: 20%; font-size: inherit; margin: 14px -29px 0px 112px;">Update Password</button>
 
 <div id="dialogid" style="display: none"
 								align="center">
@@ -166,5 +166,5 @@ String div_id1=(String)session.getAttribute("Division_Id");
 <h4><span style="color:red; margin-left: 200px;">Note* :</span> Password should be of minimum five length Mandatory !</h4>
 </body>
 <br><br><br><br><br>
- <%@include file="included/Newfooter.jsp" %>
+ <%@include file="included/footer.jsp" %>
 </html>

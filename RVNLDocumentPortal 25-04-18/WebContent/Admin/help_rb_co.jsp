@@ -106,6 +106,7 @@ String div_id1=(String)session.getAttribute("Division_Id");
 
 <h8><font style="color:red; font-weight:normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Welcome&nbsp;</font><font style="color:#3333cc; font-weight:normal">:&nbsp;<%=(String)session.getAttribute("user_name") %>&nbsp;&nbsp;&nbsp;</font></h8>
 </div><br>
+<div style="float: right;margin-top: -15px;"><button id="addto" onclick="button1();" type="button" class="btn btn-primary">Back</button></div>
 <div style="float:right; margin-top:-15px; padding-right:30px; text-decoration:underline;"><button class="btn btn-primary" onclick="window.open('processflow.jsp')">More Information</button></div>
 <div style="float:right; margin-top:-15px; margin-right:30px;"> <button class="btn btn-primary" onclick="var mfile1='PDAMS-User Manual-RBCO.pdf'; window.open('download_user_manual.jsp?mfile='+ mfile1);">Download User Manual</button></div>
 <br><br>
@@ -116,6 +117,20 @@ String div_id1=(String)session.getAttribute("Division_Id");
 </body>
  
 <br><br><br><br>
-										      <%@include file="included/Newfooter.jsp" %>
+										      <%@include file="included/footer.jsp" %>
+										      
+										      <script type="text/javascript">
+
+function button1(){
+	
+	/*var bck1= window.open('NewIndex.jsp','_self');
+	if(window.focus){
+		bck1.focus();
+	}*/
+	window.history.back();
+	
+}
+</script>
+										      
 
 </html>

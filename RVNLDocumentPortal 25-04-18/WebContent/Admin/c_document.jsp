@@ -16,6 +16,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
 <style>
 
 .ui-datepicker-year {
@@ -47,8 +48,8 @@
 <title>Documents </title>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.11.4/themes/blitzer/jquery-ui.css">
-<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet" />
+<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.min.css"/>
+<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.css"/>
 <script src="resources/JS/backButton.js"></script>
 <script src="resources/JS/validate230.js"></script>
 <script type="text/javascript"
@@ -285,8 +286,9 @@ div.absolute {
 
 		<c:if test="${param.identification == null}">
 			<table >
-				<tr>
-					<td style="width: 30%;" valign="top"><br> <br>
+				<tr style="width:50%">
+					<td ><br> <br>
+					
 						<table class="table table-hover table-bordered" 
 				style="background-color: #F0FFFF;margin: -44px 0px 0px 0px;" style="position:absolute;" valign="top">
 							<tr>
@@ -421,7 +423,8 @@ if (rdstatus.equalsIgnoreCase("0")) {
 						
 					</div> 
 									</td></tr> 
-						</table> 
+						</table>
+						 
 									</td>
 												
 						
@@ -437,7 +440,7 @@ font-size: 14px; margin: 10px 0px 0px 0px;">
                             </sql:query> <%
  	
  %>
-						<div class="scrollit">
+						<div class='scrollit' style='overflow-x: scroll;width: 100%; position:relative;'>
 							<table class="table table-hover table-bordered" id="example"  class="display">
 							<thead>
 								<tr class="success" >
@@ -815,6 +818,7 @@ font-size: 14px; margin: 10px 0px 0px 0px;">
 
 							
 			%>
+			
 		       <table class="table table-hover table-bordered">
 				<tr class="success">
 					<td width="20%"><b>Zone</b></td>
@@ -854,6 +858,7 @@ font-size: 14px; margin: 10px 0px 0px 0px;">
 								
 				%>
 			</table>
+			
 			<%
 				} else if (hierType.equals("Division")) {
 			%>
@@ -918,7 +923,8 @@ font-size: 14px; margin: 10px 0px 0px 0px;">
 	<br>
 	<br>
 	<br>
-	<%@include file="included/Newfooter.jsp"%>
+	<%@include file="included/footer.jsp"%>
 
 </body>
 </html>
+

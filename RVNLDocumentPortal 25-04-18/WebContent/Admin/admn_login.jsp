@@ -20,6 +20,9 @@
 </SCRIPT>
 </head>
 <style type="text/css">
+#color{
+color: #FFD700;
+}
 div.gallery {
     margin: 2px;
     border: 1px solid #ccc;
@@ -106,7 +109,9 @@ h2{
      -o-hyphens: auto;
      hyphens: auto;
 }
-
+.bg_img1{
+	background: url('/Application/Admin/images/Rail_Rvnl_Home.jpg') no-repeat;position:absolute;top:80px;
+  left: 0;  background-size:100% 100%; min-width: 100%; min-height: 100%; }
 
 </style>
 
@@ -132,13 +137,13 @@ h2{
    </table></div> -->
    
    
-<div class="container-fluid bg_img">
+<div class="container-fluid bg_img1">
 <div class="row">
 <div class="col-md-4 col-sm-4 col-xs-12"></div>
 <div class="col-md-4 col-sm-4 col-xs-12">
 <div class="col-3 col-s-12"></div>
 <form id="loginPage" class="bg_login" name="loginPage" method="post" action="login_success.jsp" >
-<img class="logo" src="/Application/Admin/images/Rail_logo.png" alt="" class="img-responsive"/>
+<img class="logo" src="images/Rail_logo.png" alt="" class="img-responsive"/>
 <h1 class="welcome">Welcome</h1>
     <%
     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
@@ -219,12 +224,12 @@ h2{
      
       
   <div class="form-group">
-    <label for="exampleInputEmail1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Username</label>
+    <label id="color" for="exampleInputEmail1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Username</label>
     <input type="user_name" name="user_name" class="form-control" id="user_name" aria-describedby="emailHelp" placeholder="Enter UserName">
     <small id="emailHelp" class="form-text text-muted" style=color:#FFA500;>We'll never share your email with anyone else.</small>
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password</label>
+    <label id="color" for="exampleInputPassword1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password</label>
     <input type="password" name="password" class="form-control" id="password" placeholder="Password">
   </div>
   <%
@@ -269,4 +274,4 @@ session.setAttribute("error", null);
    <script type="text/javascript" src="resources/bootstrap-3.3.7-dist/js/bootstrap.js"></script>   		     
 </body>
 
-</html>
+</html>    

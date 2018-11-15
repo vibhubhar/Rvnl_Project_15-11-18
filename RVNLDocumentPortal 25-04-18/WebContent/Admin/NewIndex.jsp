@@ -2,7 +2,8 @@
 <html>
 <head>
 		<link href="http://adobe.github.io/Spry/widgets/accordion/SpryAccordion.css" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" type="text/css" href="resources/css/form-style.css">
+		<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.css"/>
+<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap-theme.css"/> 
 		<%@ page import ="java.text.SimpleDateFormat"%>
  <%@ page import ="java.util.Date"%>
  <%@ page import="javax.servlet.*"%>
@@ -93,7 +94,9 @@ $(document).ready(function() {
 	$( "#menu ul" ).append( "<li><a href='admn_logout.jsp'>Logout</a></li>");
 
 	var usr1=document.getElementById("menu1").value;
-$("#menu11").append('<h8><span style="text-align:center;margin-top:4px; margin-left:30%;font-size: x-large; color:white; padding:5px; "><b>D A S H B O A R D</u></b></span><font style="color:hotpink; margin-left: 24%; font-weight:normal; font-size: medium;">&nbsp;&nbsp;Welcome&nbsp;</font><font style="color:#fff; font-weight:normal">:&nbsp;'+usr1+'&nbsp;&nbsp;</h8>');
+	
+	
+$("#menu11").append('<h8><span style="text-align:center;margin-top:4px;float:left; margin-left:30%;font-size: x-large; color:white; padding:5px; "><b>D A S H B O A R D</u></b></span><span style="color:#fff;float:right;margin-top: 10px;font-weight:normal">:&nbsp;'+usr1+'&nbsp;&nbsp;</span></h8>');
 });
 
 function changeTheme(n, thm) {
@@ -604,7 +607,13 @@ if (i!=4) {%>
 <br><br><br>
 <!-- <input type="image" src="http://example.com/path/to/image.png" />  
 <input type="image" id="btnclick" src="images/mygraph.png" class="btn btn-primary"  onclick="window.open('Mygraph.jsp?code=<%=code %>' ,'MyTargetWindowName');">View Graphs</input> -->
-<button type="button" id="btnclick" style="background-image:url(images/mygraph.png); box-shadow: 6px 6px 3px #777777; width:95px; height:80px; margin-left:600px; padding-left:10px; border: 1px solid gray; padding-top:50px; color:black; font-size:12px;" class="btn btn-primary" onclick="mygraph('<%=code %>');">Model Graphs</button> 
+<div class="container btn_bar">
+           <div class="row">
+           <div class="col-md-6 col-sm-8 col-xs-10" >
+<button type="button" id="btnclick" style="background-image:url(images/mygraph.png); box-shadow: 6px 6px 3px #777777; width:95px; height:100px; margin-left:350px; padding-left:10px; border: 1px solid gray; padding-top:50px; color:black; font-size:12px;" class="img-responsive" onclick="mygraph('<%=code %>');">Model Graphs</button> 
+</div>
+</div>
+</div>
 
 
 <script language="JavaScript" type="text/javascript">
@@ -621,9 +630,10 @@ function mygraph(code) {
         window.location="Mygraph.jsp?code="+code;
 }
 </script>	   			
- <%@include file="included/Newfooter.jsp" %>
-
+ <%@include file="included/footer.jsp" %>
+	<script type="text/javascript" src="/Application/Admin/resources/bootstrap-3.3.7-dist/js/jquery-3.3.1.js"></script> 
+   <script type="text/javascript" src="/Application/Admin/resources/bootstrap-3.3.7-dist/js/bootstrap.js"></script>  
 </body>
 
 
-</html>
+</html>  

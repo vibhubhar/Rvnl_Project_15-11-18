@@ -9,14 +9,25 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+
+<link
+	href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"
+	rel="stylesheet" type="text/css" />
+	<script>
+
 <script src="resources/JS/Update230.js"></script>
 <script src="resources/JS/backButton.js"></script>
 <%@ taglib uri='http://java.sun.com/jsp/jstl/sql' prefix='sql' %>
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
+
+
 </head>
 <body>
- 
 <%
+
 String type=request.getParameter("type");  
 String Department_id=null,departmentnames=null;
 String buffer="";
@@ -30,6 +41,7 @@ con = ds.getConnection();
 try{
 
 if(type.equalsIgnoreCase("zone")) {
+	
 	int slno=0;
 	String sqlQuery = "select * from xx_zones_master order by Zone_Name";
 	stmt = con.createStatement();
@@ -51,6 +63,7 @@ if(type.equalsIgnoreCase("zone")) {
 		String arg="modifydisplay('"+zoneNamenew+"','"+zoneId+"')";
 		
 		slno=slno+1;
+		
 buffer = buffer+"<tr><td><font color='blue'>"+slno+"</font></td><td><font color='blue'>"+zoneName+"</font></td>"+
 "<td width='100px' class='ListOfTables'><input class='btn btn-primary' value='modify'  onClick="+arg+" type='button'/></td></tr>";
 								} 
@@ -100,7 +113,7 @@ while(hq_rs.next()){
 	hq_divisionName1 = hq_rs.getString(3);
 	hq_divisionName = URLEncoder.encode(hq_divisionName1, "UTF-8");
 	slno=slno+1;
-	 buffer = buffer+ "<tr><td><font color='blue'>"+slno+"</font></td><td></td><td><font color='blue'>"+hq_divisionName+"</font></td>"+
+	 buffer = buffer+ "<tr><td><font color='black'>"+slno+"</font></td><td></td><td><font color='black'>"+hq_divisionName+"</font></td>"+
 			   "<td class='ListOfTables'><b><a href='modifytoDb.jsp?type=division&divisionName="+hq_divisionName+"&divisionId="+hq_divisionId+"'>Modify</a></b></td></tr>";
 }
 buffer=buffer+"</table>";
@@ -310,5 +323,7 @@ response.getWriter().println(buffer);
     try { con.close(); } catch (Exception e) { /* ignored */ }
 }
 %>
+
+
  </body>
 </html>

@@ -18,8 +18,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Create User</title>
 <link href="resources/css/main.css" rel="stylesheet" type="text/css">
-<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-<link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+<link href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/Application/Admin/resources/bootstrap-3.3.7-dist/css1/bootstrap.css"/>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script src="resources/JS/Approval_wf230.js"></script>
@@ -110,7 +110,9 @@ String user = (String)session.getAttribute("user_name");
 					
 							
 							%>
-				<table style="margin: -16px 0px 0px 18px;"><tr><td>
+				<table style="margin: -16px 87px 0px 18px;">
+				<tr>
+				<td>
 						&nbsp;&nbsp;&nbsp;<strong>Zone:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<select name='Zone' id ="Zoneunderlist" style="width: 205px"
 					onchange="showZoneUnderlist(this.value)">
@@ -179,7 +181,8 @@ String user = (String)session.getAttribute("user_name");
 						
 						%>
 				</select> 
-					
+					</td>
+					<td>
 				
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>PIU Of RVNL:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<select name=PIU_name id="PIUunderList" onchange="showPiuUnderList(this.value)"
@@ -250,6 +253,8 @@ String user = (String)session.getAttribute("user_name");
 						
 						%>
 				  </select>
+				  </td>
+				  <td>
 						  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Others:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<select name=OrgUnderlist id="OrgUnderlist" onchange="showOrgUserList(this.value)"
 					style="width: 205px">
@@ -268,11 +273,11 @@ String user = (String)session.getAttribute("user_name");
 							}
 								
 						%>
-				  </select> <br /> <br />
+				  </select> </td></tr></table>
 						
 					<div id = 'PIU_Table' style="text-align: center;"></div>	
 						
-			</td></tr></table>
+			
 										
 			<%
 			//conn.close();
@@ -307,5 +312,5 @@ String user = (String)session.getAttribute("user_name");
 	  </script>
 </body>
 <br><br><br><br><br>
-		      <%@include file="included/Newfooter.jsp" %>
+		      <%@include file="included/footer.jsp" %>
 </html>
